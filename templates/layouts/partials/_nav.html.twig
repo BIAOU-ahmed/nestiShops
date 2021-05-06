@@ -1,76 +1,85 @@
-<nav
-	class="navbar navbar-expand-lg navbar-light text-white background">
-	<!-- Container wrapper -->
-	<div
-		class="container-fluid">
-		<!-- Toggle button -->
-		<button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLeftAlignExample" aria-controls="navbarLeftAlignExample" aria-expanded="false" aria-label="Toggle navigation">
-			<i class="fas fa-bars"></i>
-		</button>
-		<a class="nav-link active fs-1" aria-current="page" href="#">Nesti</a>
-		<div class="btn-group d-lg-none">
-			<a class="nav-link  hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button">
-				<i class="fas fa-shopping-cart fa-lg"></i>
+<nav class="navbar navbar-expand-lg navbar-light text-white background">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarLeftAlignExample" aria-controls="navbarLeftAlignExample" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a class="nav-link active fs-1" aria-current="page" href="{{ path('index') }}">Nesti</a>
+        <div class="btn-group d-lg-none">
+            <a class="nav-link  hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button">
+                <i class="fas fa-shopping-cart fa-lg"></i>
 
-				<span class=" shop badge rounded-pill badge-notification bg-danger">6</span>
-			</a>
-			<span type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-				<img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22" alt="" loading="lazy"/>
-			</span>
-			<ul class="dropdown-menu dropdown-menu-end">
-				<li>
-					<a class="dropdown-item" href="#">Menu item</a>
-				</li>
-				<li>
-					<a class="dropdown-item" href="#">Menu item</a>
-				</li>
-				<li>
-					<a class="dropdown-item" href="#">Menu item</a>
-				</li>
-			</ul>
-		</div>
+                <span class=" shop badge rounded-pill badge-notification bg-danger">6</span>
+            </a>
+            <button type="button" class=" bg-white btn rounded-circle btn-xl" data-bs-toggle="dropdown"
+            >{{ app.user.firstname |first |upper }}{{ app.user.lastname |first |upper }}</button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" href="#">Menu item</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Menu item</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#">Menu item</a>
+                </li>
+            </ul>
+        </div>
 
-		<!-- Collapsible wrapper -->
-		<div
-			class="collapse navbar-collapse" id="navbarLeftAlignExample">
-			<!-- Left links -->
-			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-				<li class="nav-item ">
-					<a class="nav-link active text-white" aria-current="page" href="{{path('recipes')}}">Recettes</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link text-white" href="#">Marché</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link disabled text-white" href="#" tabindex="-1" aria-disabled="true">Nos Suggestion</a>
-				</li>
-			</ul>
-			<!-- Left links -->
-		</div>
-		<div class="btn-group d-none d-lg-block">
-			<a class="d-inline nav-link  hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button">
-				<i class="fas fa-shopping-cart fa-lg"></i>
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+            <!-- Left links -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item ">
+                    <a class="nav-link active text-white" aria-current="page" href="{{ path('recipes') }}">Recettes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="{{ path('articles') }}">Marché</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled text-white" href="#" tabindex="-1" aria-disabled="true">Nos
+                        Suggestion</a>
+                </li>
+            </ul>
+            <!-- Left links -->
+        </div>
+        <div class="btn-group d-none d-lg-block">
+            <a class="d-inline nav-link  hidden-arrow" href="#" id="navbarDropdownMenuLink" role="button">
+                <i class="fas fa-shopping-cart fa-lg"></i>
 
-				<span class=" shop badge rounded-pill badge-notification bg-danger">6</span>
-			</a>
-			<span type="button" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-				<img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22" alt="" loading="lazy"/>
-			</span>
-			<ul class="dropdown-menu dropdown-menu-end">
-				<li>
-					<a class="dropdown-item" href="#">Menu item</a>
-				</li>
-				<li>
-					<a class="dropdown-item" href="#">Menu item</a>
-				</li>
-				<li>
-					<a class="dropdown-item" href="#">Menu item</a>
-				</li>
-			</ul>
-		</div>
+                <span class=" shop badge rounded-pill badge-notification bg-danger">6</span>
+            </a>
+            <button type="button" class="dropdown-toggle bg-white btn rounded-circle btn-xl" data-bs-toggle="dropdown"
+            >{{ app.user.firstname |first |upper }}{{ app.user.lastname |first |upper }}</button>
+            {# <button role="button" type="button" class="btn" data-bs-toggle="dropdown"> #}
+            {# Dr #}
+            {# </button> #}
+
+            {# <span type="button" class="  dropdown-toggle" data-bs-toggle="dropdown" #}
+            {# aria-expanded="false"> #}
+            {# <span class=" rounded-circle border"  style="height: 50px; width: 50px"> #}
+            {# {{ app.user.firstname |first |upper }} {{ app.user.lastname |first |upper }} #}
+
+            {# </span> #}
+            {# </span> #}
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" href="#">Menu item</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ path('profil') }}"><i class="me-2 far fa-user-circle"></i>Profil</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="me-2 fas fa-sign-out-alt"></i> Déconnexion</a>
+                </li>
+            </ul>
+        </div>
 
 
-		<!-- Collapsible wrapper -->
-	</div>
-	<!-- Container wrapper -->
+        <!-- Collapsible wrapper -->
+    </div>
+    <!-- Container wrapper -->
 </nav>

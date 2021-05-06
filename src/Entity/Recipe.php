@@ -19,49 +19,42 @@ class Recipe
      * @ORM\GeneratedValue
      * @ORM\Column(name="idRecipe",type="integer")
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $idRecipe;
 
     /**
      * @ORM\Column(name="dateCreation",type="datetime")
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $dateCreation;
 
     /**
      * @ORM\Column(type="string", length=255)
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="smallint")
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $difficulty;
 
     /**
      * @ORM\Column(type="integer")
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $portions;
 
     /**
      * @ORM\Column(type="string", length=1)
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $flag;
 
     /**
      * @ORM\Column(name="preparationTime",type="integer")
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $preparationTime;
 
@@ -69,7 +62,6 @@ class Recipe
      * @ORM\ManyToOne(targetEntity=Chef::class, inversedBy="recipes")
      * @ORM\JoinColumn(name="idChef",nullable=false, referencedColumnName="idChef")
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $idChef;
 
@@ -77,41 +69,35 @@ class Recipe
      * @ORM\OneToOne(targetEntity=Image::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="idImage", referencedColumnName="idImage")
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $idImage;
 
     /**
      * @ORM\OneToMany(targetEntity=Paragraph::class, mappedBy="idRecipe", orphanRemoval=true)
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $paragraphs;
 
     /**
      * @ORM\OneToMany(targetEntity=IngredientRecipe::class, mappedBy="idRecipe", orphanRemoval=true)
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $ingredientRecipes;
 
     /**
      * @ORM\OneToMany(targetEntity=Grades::class, mappedBy="idRecipe", orphanRemoval=true)
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $grades;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="idRecipe", orphanRemoval=true)
      * 
-     * @Groups({"show_Recipe", "list_product"})
      */
     private $comments;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="recipes")
-     * @Groups({"show_Recipe", "list_product"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idCategory", referencedColumnName="id")
      * 
@@ -211,10 +197,10 @@ class Recipe
         return $this;
     }
 
-    // public function getIdChef(): ?Chef
-    // {
-    //     return $this->idChef;
-    // }
+    public function getIdChef(): ?Chef
+    {
+        return $this->idChef;
+    }
 
     public function setIdChef(?Chef $idChef): self
     {
@@ -235,13 +221,13 @@ class Recipe
         return $this;
     }
 
-    // /**
-    //  * @return Collection|Paragraph[]
-    //  */
-    // public function getParagraphs(): Collection
-    // {
-    //     return $this->paragraphs;
-    // }
+    /**
+     * @return Collection|Paragraph[]
+     */
+    public function getParagraphs(): Collection
+    {
+        return $this->paragraphs;
+    }
 
     public function addParagraph(Paragraph $paragraph): self
     {

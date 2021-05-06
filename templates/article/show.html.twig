@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %} {% block title %} Hello RecipesController! {% endblock %} {% block body %}
+
+<div class="container mt-5 mb-5 text-white">
+    <h1 class=" text-center  ">
+        {{ article.name }}
+
+    </h1>
+    <div class="mx-auto d-flex justify-content-center ">
+        <div class="mb-3">
+            <img src="{{ asset('build/illeflottantananas1617911494.jpg') }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image' ) }} data-hd-src="{{ asset('build/illeflottantananas1617911494.jpg') }}" class="rounded " {# Optional but avoids having a page
+                jump when the image is loaded #} width="400" height="400" />
+            <span class="border d-block w-50 mt-2 mb-2 ">prix: {{ article.getPrice | number_format(2, ',', ' ') }} € </span>
+            <label for="qte">Quantité:</label>
+            <input type="number" name="qte" min="0" id="qte_article">
+            <button type="submit">Ajouter au panier</button>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

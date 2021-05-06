@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
+use App\Repository\GradesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,12 +26,12 @@ class Comment
     private $idUsers;
 
     /**
-     * @ORM\Column(name="commentTitle",type="string", length=255)
+     * @ORM\Column(name="commentTitle", nullable=true, type="string", length=255)
      */
     private $commentTitle;
 
     /**
-     * @ORM\Column(name="commentContent",type="string", length=255)
+     * @ORM\Column(name="commentContent", nullable=true, type="string", length=255)
      */
     private $commentContent;
 
@@ -134,5 +135,18 @@ class Comment
         $this->idModerator = $idModerator;
 
         return $this;
+    }
+    public function getGrade(){
+        // dump($this->getIdUsers()->getGrades());
+        $grade = false;
+        foreach ($this->getIdUsers()->getGrades() as $key => $value) {
+            // dump($value);
+            if($value->getIdRecipe() == $this->getIdRecipe() && $value->getIdUsers() == $this->getIdUsers()){
+                dump('in the if');
+                dump($value);
+                $grade = $value->getRating();
+            }
+        }
+        return $grade;
     }
 }

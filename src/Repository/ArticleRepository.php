@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Data\SearchArticleData;
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @method Article|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +16,15 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ArticleRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    /**
+     * @var PaginatorInterface
+     */
+    private $paginator;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Article::class);
+        $this->paginator = $paginator;
     }
 
     // /**
@@ -47,4 +55,27 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @param SearchArticleData $search
+     * @return PaginationInterface
+     */
+    public function findSearch(SearchArticleData $search){
+
+        $query = $this
+            ->createQueryBuilder('a');
+
+        if(!empty($search->q)){
+            $query = $query
+                ->andWhere('a.name LiKe :q')
+                ->setParameter('q', "%{$search->q}%");
+        }
+        $query =  $query->getQuery();
+        return $this->paginator->paginate(
+            $query,
+            $search->page,
+            1
+        );
+
+    }
 }

@@ -1,0 +1,12 @@
+{{ form_start(form, {attr: {class: 'js-filter-form d-block fexed_top position-sticky'}} ) }}
+<div class="spinner-border js-loading" role="status" aria-hidden="true" style="display:none">
+    <span class="sr-only">Loading...</span>
+</div>
+{{ form_row(form.q) }}
+
+
+<h4>
+    Catégories
+</h4>
+{{ form_row(form.categories) }}
+<button type="submit" class="btn btn-primary w-100  ">Filtrer</button> {{ form_end(form) }}

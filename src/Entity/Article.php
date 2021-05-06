@@ -15,7 +15,6 @@ class Article
 
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue
      * @ORM\Column(name="idArticle",type="integer")
      */
     private $idArticle;
@@ -77,6 +76,7 @@ class Article
 
     /**
      * @ORM\OneToMany(targetEntity=ArticlePrice::class, mappedBy="idArticle", orphanRemoval=true)
+     * @ORM\OrderBy({"dateStart" = "DESC"})
      */
     private $articlePrices;
 
@@ -285,5 +285,21 @@ class Article
         }
 
         return $this;
+    }
+
+    public function getPrice()
+    {
+        $maxDate = 0;
+        $arrayArticlePrice = $this->getArticlePrices();
+
+        foreach ($arrayArticlePrice as $value) {
+            dump($value);
+            // $date =   strtotime($value->getDateStart());
+            // if ($maxDate <  $date) {
+            //     $maxDate =  $date;
+            //     $price = $value->getPrice();
+            // }
+        }
+        return $arrayArticlePrice[0]->getPrice();
     }
 }

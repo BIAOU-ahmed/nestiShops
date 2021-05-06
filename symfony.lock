@@ -88,6 +88,15 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
+    "knplabs/knp-components": {
+        "version": "v3.0.2"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v5.4.2"
+    },
+    "kornrunner/blurhash": {
+        "version": "v1.2.1"
+    },
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
@@ -469,6 +478,12 @@
     },
     "symfony/twig-pack": {
         "version": "v1.0.1"
+    },
+    "symfony/ux-lazy-image": {
+        "version": "v1.2.0"
+    },
+    "symfony/ux-swup": {
+        "version": "v1.2.0"
     },
     "symfony/validator": {
         "version": "4.3",

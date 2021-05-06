@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %} {% block title %} Hello RecipesController! {% endblock %} {% block body %}
+
+<div class="container mt-5 mb-5 text-white">
+    {{ dump(recipe) }}
+    <h1 class=" text-center  ">
+        {{ recipe.name }}
+
+    </h1>
+    <img src="{{ asset('build/illeflottantananas1617911494.jpg') }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }} data-hd-src="{{ asset('build/illeflottantananas1617911494.jpg') }}" class="rounded mx-auto d-block" {# Optional but avoids
+        having a page jump when the image is loaded #} width="400" height="400" />
+    <div class="mx-auto w-25 d-flex justify-content-between">
+        <span class="w-50 ">
+				Temps de préparation
+			</span>
+        <span class="w-50 ">
+				Difficulté
+			</span>
+    </div>
+    <div class="text-dark mx-auto w-25 border bg-white d-flex justify-content-between">
+        <span class="w-50 border">
+				{{recipe.preparationTime}}
+			</span>
+        <span class="w-50 border ">
+				{{recipe.difficulty}}
+			</span>
+    </div>
+    <div class="text-dark mx-auto w-25 mt-5 border bg-white d-flex justify-content-center">
+        Liste d'ingredient pour {{recipe.portions}} personne
+    </div>
+    {% for ingredient in recipe.ingredientRecipes %} {# {{ dump(ingredient) }} {{ dump(ingredient.idProduct.IdIngredient) }}#} {{ingredient.quantity}} {{ ingredient.idUnit.name }} {{ ingredient.idProduct.IdIngredient.name }} {% endfor %} {% for comment in
+    recipe.comments %} aaaa {{ dump(comment) }} dqgqsr {% endfor %}
+    <div class="text-dark mx-auto w-25 mt-5 border bg-white d-flex justify-content-center">
+        Preparations
+    </div>
+    {% for paragraph in recipe.paragraphs |sort((a, b) => a.paragraphPosition
+    <=> b.paragraphPosition) %} {{ dump(paragraph) }}
+        <div>
+            Etape {{paragraph.paragraphPosition}}
+        </div>
+        <div class="ms-5">
+            {{paragraph.content}}
+        </div>
+        {% endfor %} {{ dump(recipe.paragraphs) }} Note
+        <div id="rateYo"></div>
+
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %} {% for message in app.flashes('error') %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %} {% include "comment/_form.html.twig" %} {% include "comment/comments.html.twig" %} {% endblock %}

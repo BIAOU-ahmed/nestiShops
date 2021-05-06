@@ -1,4 +1,17 @@
 {
-    "controllers": [],
+    "controllers": {
+        "@symfony/ux-lazy-image": {
+            "lazy-image": {
+                "enabled": true,
+                "fetch": "eager"
+            }
+        },
+        "@symfony/ux-swup": {
+            "swup": {
+                "enabled": true,
+                "fetch": "eager"
+            }
+        }
+    },
     "entrypoints": []
 }

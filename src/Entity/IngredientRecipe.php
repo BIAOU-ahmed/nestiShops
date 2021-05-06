@@ -14,7 +14,7 @@ class IngredientRecipe
   
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity=Ingredient::class, inversedBy="ingredientRecipes")
+     * @ORM\ManyToOne(targetEntity=Ingredient::class, inversedBy="ingredientRecipes", fetch="EAGER")
      * @ORM\JoinColumn(name="idProduct",nullable=false, referencedColumnName="idIngredient")
      */
     private $idProduct;
@@ -37,7 +37,7 @@ class IngredientRecipe
     private $recipePosition;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Unit::class, inversedBy="ingredientRecipes")
+     * @ORM\ManyToOne(targetEntity=Unit::class, inversedBy="ingredientRecipes", fetch="EAGER")
      * @ORM\JoinColumn(name="idUnit",nullable=false, referencedColumnName="idUnit")
      */
     private $idUnit;

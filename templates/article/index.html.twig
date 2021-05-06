@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %} {% block title %} Hello RecipesController! {% endblock %} {% block body %}
+
+<div class="container mt-5 js-filter">
+
+    <div class="row ">
+        <div class="col-md-3 text-white ">
+            {% include 'article/_filter.html.twig' with {form: form} only %}
+        </div>
+        <div class="col-md-9">
+
+            <h1 class="text-center text-white ">
+                Liste des Articles
+            </h1>
+            <div class="row js-filter-content">
+                {% include "article/_article.html.twig" %}
+            </div>
+
+            <div class="js-filter-pagination">
+                {{ knp_pagination_render(articles, 'pagination/_paginate.html.twig')}}
+            </div>
+        </div>
+
+    </div>
+    </div {% endblock %}

@@ -16,7 +16,7 @@ class Ingredient
 
     /**
      * @ORM\Id
-     * @ORM\OneToOne(targetEntity=Product::class, inversedBy="ingredient", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Product::class, inversedBy="ingredient", cascade={"persist", "remove"}, fetch="EAGER")
      * @ORM\JoinColumn(name="idIngredient", nullable=false, referencedColumnName="idProduct")
      */
     private $idIngredient;

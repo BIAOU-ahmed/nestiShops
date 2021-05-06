@@ -243,49 +243,49 @@ class Users implements UserInterface
         return $this;
     }
 
-    // public function getModerator(): ?Moderator
-    // {
-    //     return $this->moderator;
-    // }
+    public function getModerator(): ?Moderator
+    {
+        return $this->moderator;
+    }
 
-    // public function setModerator(?Moderator $moderator): self
-    // {
-    //     // unset the owning side of the relation if necessary
-    //     if ($moderator === null && $this->moderator !== null) {
-    //         $this->moderator->setIdModerator(null);
-    //     }
+    public function setModerator(?Moderator $moderator): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($moderator === null && $this->moderator !== null) {
+            $this->moderator->setIdModerator(null);
+        }
 
-    //     // set the owning side of the relation if necessary
-    //     if ($moderator !== null && $moderator->getIdModerator() !== $this) {
-    //         $moderator->setIdModerator($this);
-    //     }
+        // set the owning side of the relation if necessary
+        if ($moderator !== null && $moderator->getIdModerator() !== $this) {
+            $moderator->setIdModerator($this);
+        }
 
-    //     $this->moderator = $moderator;
+        $this->moderator = $moderator;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function getChef(): ?Chef
-    // {
-    //     return $this->chef;
-    // }
+    public function getChef(): ?Chef
+    {
+        return $this->chef;
+    }
 
-    // public function setChef(?Chef $chef): self
-    // {
-    //     // unset the owning side of the relation if necessary
-    //     if ($chef === null && $this->chef !== null) {
-    //         $this->chef->setIdChef(null);
-    //     }
+    public function setChef(?Chef $chef): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($chef === null && $this->chef !== null) {
+            $this->chef->setIdChef(null);
+        }
 
-    //     // set the owning side of the relation if necessary
-    //     if ($chef !== null && $chef->getIdChef() !== $this) {
-    //         $chef->setIdChef($this);
-    //     }
+        // set the owning side of the relation if necessary
+        if ($chef !== null && $chef->getIdChef() !== $this) {
+            $chef->setIdChef($this);
+        }
 
-    //     $this->chef = $chef;
+        $this->chef = $chef;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     public function getIdCity(): ?City
     {
@@ -302,20 +302,20 @@ class Users implements UserInterface
     /**
      * @return Collection|Orders[]
      */
-    // public function getOrders(): Collection
-    // {
-    //     return $this->orders;
-    // }
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
 
-    // public function addOrder(Orders $order): self
-    // {
-    //     if (!$this->orders->contains($order)) {
-    //         $this->orders[] = $order;
-    //         $order->setIdUsers($this);
-    //     }
+    public function addOrder(Orders $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setIdUsers($this);
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     public function removeOrder(Orders $order): self
     {
@@ -329,60 +329,60 @@ class Users implements UserInterface
         return $this;
     }
 
-    // public function getAdministrator(): ?Administrator
-    // {
-    //     return $this->administrator;
-    // }
+    public function getAdministrator(): ?Administrator
+    {
+        return $this->administrator;
+    }
 
-    // public function setAdministrator(Administrator $administrator): self
-    // {
-    //     // set the owning side of the relation if necessary
-    //     if ($administrator->getIdAdministrator() !== $this) {
-    //         $administrator->setIdAdministrator($this);
-    //     }
+    public function setAdministrator(Administrator $administrator): self
+    {
+        // set the owning side of the relation if necessary
+        if ($administrator->getIdAdministrator() !== $this) {
+            $administrator->setIdAdministrator($this);
+        }
 
-    //     $this->administrator = $administrator;
+        $this->administrator = $administrator;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // /**
-    //  * @return Collection|Grades[]
-    //  */
-    // public function getGrades(): Collection
-    // {
-    //     return $this->grades;
-    // }
+    /**
+     * @return Collection|Grades[]
+     */
+    public function getGrades(): Collection
+    {
+        return $this->grades;
+    }
 
-    // public function addGrade(Grades $grade): self
-    // {
-    //     if (!$this->grades->contains($grade)) {
-    //         $this->grades[] = $grade;
-    //         $grade->setIdUsers($this);
-    //     }
+    public function addGrade(Grades $grade): self
+    {
+        if (!$this->grades->contains($grade)) {
+            $this->grades[] = $grade;
+            $grade->setIdUsers($this);
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function removeGrade(Grades $grade): self
-    // {
-    //     if ($this->grades->removeElement($grade)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($grade->getIdUsers() === $this) {
-    //             $grade->setIdUsers(null);
-    //         }
-    //     }
+    public function removeGrade(Grades $grade): self
+    {
+        if ($this->grades->removeElement($grade)) {
+            // set the owning side to null (unless already changed)
+            if ($grade->getIdUsers() === $this) {
+                $grade->setIdUsers(null);
+            }
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     /**
      * @return Collection|ConnectionLog[]
      */
-    // public function getConnectionLogs(): Collection
-    // {
-    //     return $this->connectionLogs;
-    // }
+    public function getConnectionLogs(): Collection
+    {
+        return $this->connectionLogs;
+    }
 
     public function addConnectionLog(ConnectionLog $connectionLog): self
     {
@@ -409,32 +409,32 @@ class Users implements UserInterface
     /**
      * @return Collection|Comment[]
       */
-    // public function getComments(): Collection
-    // {
-    //     return $this->comments;
-    // }
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
 
-    // public function addComment(Comment $comment): self
-    // {
-    //     if (!$this->comments->contains($comment)) {
-    //         $this->comments[] = $comment;
-    //         $comment->setIdUsers($this);
-    //     }
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setIdUsers($this);
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
-    // public function removeComment(Comment $comment): self
-    // {
-    //     if ($this->comments->removeElement($comment)) {
-    //         // set the owning side to null (unless already changed)
-    //         if ($comment->getIdUsers() === $this) {
-    //             $comment->setIdUsers(null);
-    //         }
-    //     }
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getIdUsers() === $this) {
+                $comment->setIdUsers(null);
+            }
+        }
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
     /**
      * @see UserInterface
