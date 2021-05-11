@@ -1,0 +1,29 @@
+{{ form_start(form) }}
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <span>
+                Note
+            </span>
+            <div id="updateRateYo" data-rateyo-rating="{{ grade.rating ?? '0' }}" data-rateyo-num-stars="5"></div>
+            {{ form_row(form.commentContent) }}
+            {{ form_row(form.commentTitle) }}
+            <input id="updateRating" type="hidden" name="rate" value="null">
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close
+            </button>
+            <button type="submit" class="mt-2 btn btn-primary ">
+                Valider
+            </button>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}

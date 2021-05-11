@@ -7,7 +7,10 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
+import './styles/swipe.css';
 import Filter from './modules/Filter'
+import './modules/cart.js'
+import './modules/suggestion.js'
 // start the Stimulus application
 import './bootstrap';
 const $ = require('jquery');
@@ -18,10 +21,18 @@ $(function() {
 
     $("#rateYo").rateYo({
 
-        onSet: function(rating, rateYoInstance) {
+        onSet: function(rating) {
             $("#rating").val(rating);
             console.log('toto', $("#rating"));
             alert("Rating is set to: " + rating);
+        }
+    });
+    $("#updateRateYo").rateYo({
+
+        onSet: function(rating) {
+            $("#updateRating").val(rating);
+            console.log('toto', $("#updateRating"));
+            alert("Rating is set : " + rating);
         }
     });
 });

@@ -9,7 +9,9 @@ use App\Entity\Recipe;
 use App\Form\CommentType;
 use App\Form\SearchForm;
 use App\Repository\CommentRepository;
+use App\Repository\GradesRepository;
 use App\Repository\RecipeRepository;
+use App\Repository\UsersRepository;
 use App\Service\CommentService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +19,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class RecipesController extends AbstractController
@@ -58,25 +59,67 @@ class RecipesController extends AbstractController
         Request $request,
         CommentRepository $commentRepository,
         CommentService $commentService,
-        UserInterface $user
-    ): Response {
-        $comment = new Comment();
+        UserInterface $user,
+        UsersRepository $repoUser,
+        GradesRepository $repoGrade
+    ): Response
+    {
+        $comment = $commentRepository->findOneBy(['idRecipe' => $recipe->getIdRecipe(), 'idUsers' => $user]);
+        $rate = $repoGrade->findOneBy(['idRecipe' => $recipe->getIdRecipe(), 'idUsers' => $user]);
+        $displayForm = true;
+        if ($rate || $comment) {
+            $displayForm = false;
+        }
+        if (!$comment) {
+            $comment = new Comment();
+
+        }
+        $allUser = $repoUser->findAll();
         $comments = $commentRepository->findBy(['idRecipe' => $recipe->getIdRecipe()]);
+        $appreciations = [];
+        foreach ($allUser as $oneUser) {
+            $userComment = $commentRepository->findOneBy(['idRecipe' => $recipe->getIdRecipe(), 'idUsers' => $oneUser->getIdUsers(), 'flag' => ['a', 'w']]);
+            $userGrade = $repoGrade->findOneBy(['idRecipe' => $recipe->getIdRecipe(), 'idUsers' => $oneUser->getIdUsers()]);
+            if ($userComment || $userGrade) {
+                $localForm = $this->createForm(CommentType::class, $userComment);
+                $localForm->handleRequest($request);
+
+                $appreciations[] = ['user' => $oneUser, 'comment' => $userComment, 'grade' => $userGrade, 'form' => $localForm->createView()];
+            }
+        }
+        dump($appreciations);
         dump($comments);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && ($_POST['rate'] != "null" || $form->get('commentTitle')->getData() || $form->get('commentContent')->getData())) {
             $comment = $form->getData();
-            $rate = new Grades();
-            $rate->setIdRecipe($recipe);
-            $rate->setIdUsers($user);
-            $rate->setRating($_POST['rate']);
-            // dump($form);
-            // dd($rate);
-            $em->persist($rate);
-            $em->flush();
-            $commentService->persistComment($comment, $recipe, $user);
+            if ($_POST['rate'] != "null") {
+//                dd($rate);
+                $mainRate =$rate;
+                dump('befor', $mainRate);
+                if (!$rate) {
+                    $rate = new Grades();
+                    $rate->setIdRecipe($recipe);
+                    $rate->setIdUsers($user);
+                }
+                dump('after', $mainRate);
+
+                $rate->setRating($_POST['rate']);
+                // dump($form);
+//                 dd($rate);
+                if (!$mainRate) {
+                    $em->persist($rate);
+                }
+                $em->flush();
+            }
+            dump('comment', $comment);
+            if ($form->get('commentTitle')->getData() || $form->get('commentContent')->getData()) {
+                dump('in the if');
+                $commentService->persistComment($comment, $recipe, $user);
+            }
+//            die();
+            $this->addFlash('success', 'Votre commentaire est bien envoyé, merci.');
             return $this->redirectToRoute('recipe_show', ['id' => $recipe->getIdRecipe()]);
         } else if ($form->isSubmitted()) {
 
@@ -85,7 +128,9 @@ class RecipesController extends AbstractController
         return $this->render('recipes/show.html.twig', [
             'form' => $form->createView(),
             'recipe' => $recipe,
-            'comments' => $comments
+            'comments' => $comments,
+            'appreciations' => $appreciations,
+            'displayForm' => $displayForm
         ]);
     }
 }
