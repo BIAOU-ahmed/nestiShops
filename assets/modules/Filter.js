@@ -61,7 +61,9 @@ export default class Filter {
         if (response.status >= 200 && response.status < 300) {
             const data = await response.json()
             this.pagination.innerHTML = data.pagination
+
             this.flipContent(data.content)
+
             params.delete('ajax')
             history.replaceState({}, '', url.split('?')[0] + '?' + params.toString())
 
@@ -121,6 +123,12 @@ export default class Filter {
         })
         flipper.recordBeforeUpdate()
         this.content.innerHTML = content
+
+        $(".rateyo").rateYo({
+            readOnly: true,
+            starWidth: "20px"
+
+        });
 
         this.content.children.forEach(element => {
             flipper.addFlipped({

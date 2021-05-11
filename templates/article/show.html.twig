@@ -11,8 +11,8 @@
                 jump when the image is loaded #} width="400" height="400" />
             <span class="border d-block w-50 mt-2 mb-2 ">prix: {{ article.getPrice | number_format(2, ',', ' ') }} € </span>
             <label for="qte">Quantité:</label>
-            <input type="number" name="qte" min="0" id="qte_article">
-            <button type="submit">Ajouter au panier</button>
+            <input type="number" data-id="{{ article.idArticle }}" name="qte" min="1" id="qte_article">
+            <button type="submit" class="add_to_cart">Ajouter au panier</button>
         </div>
 
     </div>
