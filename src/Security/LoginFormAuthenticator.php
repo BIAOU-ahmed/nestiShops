@@ -2,6 +2,7 @@
 
 namespace App\Security;
 
+use App\Entity\ConnectionLog;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -55,7 +56,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             Security::LAST_USERNAME,
             $credentials['username']
         );
-
         return $credentials;
     }
 
@@ -66,7 +66,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(Users::class)->findOneBy(['username' => $credentials['username']]);
+        $user = $this->entityManager->getRepository(Users::class)->findOneBy(['username' => $credentials['username'], 'flag' => 'a']);
 
         if (!$user) {
             // fail authentication with a custom error
@@ -79,13 +79,25 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
         // Check the user's password or other credentials and return true or false
         // If there are no credentials to check, you can just return true
-        
         // throw new \Exception('TODO: check the credentials inside '.__FILE__);
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
+
+//        $user = $this->entityManager->getRepository(Users::class)->findOneBy(['username' => $credentials['username'], 'flag' => 'a']);
+        dump('valide connected');
+        $loggingUser = $request->getSession()->get('_security.last_username');
+        dump($request->getSession()->get('_security.last_username'));
+        $user = $this->entityManager->getRepository(Users::class)->findOneBy(['username' => $loggingUser]);
+        dump(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
+        dump($user);
+        $connection = new ConnectionLog();
+        $connection->setIdUsers($user)
+            ->setDateConnection(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
+        $this->entityManager->persist($connection);
+        $this->entityManager->flush();
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
