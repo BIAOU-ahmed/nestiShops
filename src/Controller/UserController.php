@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Twig\Environment;
+use Twig\Extra\Intl\IntlExtension;
 
 class UserController extends AbstractController
 {
@@ -61,7 +63,7 @@ class UserController extends AbstractController
             $email = $request->request->get('email', null);
 
             $value = 0;
-            $data =false;
+            $data = false;
             $total = 0;
             if (isset($_POST['localStorage'])) {
                 $data = [];
@@ -82,8 +84,9 @@ class UserController extends AbstractController
 //            dump('totototototoo');
 //            dump($email);
             return new JsonResponse([
-                'content' => $this->renderView('user/_cart_element.html.twig', ['values' => $data, 'total' => $total]),
+                'content' => $this->renderView('user/_cart_element.html.twig', ['values' => $data, 'total' => $total, 'starDate' => date('y-m-d')]),
                 'value' => $value
+
 
             ]);
         }
@@ -103,7 +106,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         $orderLines = $this->get('session')->get('orderlines');
 
-        if(!$orderLines){
+        if (!$orderLines) {
             return $this->redirectToRoute('index');
         }
 
@@ -112,23 +115,23 @@ class UserController extends AbstractController
             $order = new Orders();
             $order->setDateCreation(new \DateTime('now', new \DateTimeZone('Europe/Paris')))
                 ->setFlag('w')
+                ->setAdress($form->get('address')->getData())
                 ->setIdUsers($user);
-
             $em->persist($order);
             $em->flush();
             foreach ($orderLines as $line) {
                 $article = $repoArticle->find($line['article']->getIdArticle());
                 $orderLine = new OrderLine();
-                dump($line['article']);
+//                dump($line['article']);
                 $orderLine->setIdOrders($order)
                     ->setIdArticle($article)
                     ->setQuantity($line['nb']);
-                dump($orderLine);
+//                dump($orderLine);
 //                $order->addOrderLine($orderLine);
                 $em->persist($orderLine);
                 $em->flush();
             }
-            dump($order);
+//            dump($order);
             $this->get('session')->set('clear', 'true');
             $this->get('session')->remove('orderlines');
             $this->addFlash('success', 'Votre Commande à bien été validé.');

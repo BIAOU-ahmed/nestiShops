@@ -302,4 +302,32 @@ class Article
         }
         return $arrayArticlePrice[0]->getPrice();
     }
+
+    public function getNbBought()
+    {
+        $totalQuantity = 0;
+        foreach ($this->getLots() as $lot) {
+            $totalQuantity += $lot->getQuantity();
+        }
+//        dump('acheter', $totalQuantity);
+        return $totalQuantity;
+    }
+
+    public function getNbOrdered()
+    {
+        $totalQuantity = 0;
+        foreach ($this->getOrderLines() as $orderLine) {
+            if ($orderLine->getIdOrders()->getFlag() != "b") {
+                $totalQuantity += $orderLine->getQuantity();
+            }
+        }
+//        dump('vendu', $totalQuantity);
+
+        return $totalQuantity;
+    }
+    
+    public function getInventory()
+    {
+        return $this->getNbBought() - $this->getNbOrdered();
+    }
 }

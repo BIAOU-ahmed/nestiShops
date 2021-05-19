@@ -40,6 +40,11 @@ class Orders
      */
     private $orderLines;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $adress;
+
     public function __construct()
     {
         $this->orderLines = new ArrayCollection();
@@ -119,6 +124,18 @@ class Orders
                 $orderLine->setIdOrders(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAdress(): ?string
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(string $adress): self
+    {
+        $this->adress = $adress;
 
         return $this;
     }

@@ -10,11 +10,18 @@ document.addEventListener("DOMContentLoaded", function () {
     function add() {
         let qtyInput = document.querySelector('#qte_article');
         const article = qtyInput.dataset.id;
+        const inventory = qtyInput.dataset.inventory;
         const quantity = qtyInput.value
-        console.log('quantity', qtyInput.value)
-        console.log('id', qtyInput.dataset.id)
-        console.log('add to cart')
-        window.localStorage.setItem(article, quantity);
+        console.log('quantity', quantity)
+        console.log('inventory', inventory)
+        console.log('add to cart', Number(quantity))
+        if(Number(quantity) >0 && Number(quantity) <= Number(inventory)){
+            console.log('in if')
+            window.localStorage.setItem(article, quantity);
+            
+        }else{
+            alert('La quantité est incorect')
+        }
 
         displayTotal()
 
@@ -109,29 +116,44 @@ document.addEventListener("DOMContentLoaded", function () {
             buttonMinus.forEach(elm => {
                 elm.addEventListener('click', decreaseNumber)
             })
+            let buttonDelete = document.querySelectorAll('.deleteArticle');
+            buttonDelete.forEach(elm => {
+                elm.addEventListener('click', deleteArticle)
+            })
             displayTotal()
             // window.location.href = './profil';
         });
     }
 
+    function deleteArticle(e) {
+        window.localStorage.removeItem(e.target.dataset.id);
+        load();
+    }
 
     function increaseNumber(e) {
         console.log('click')
         console.log(e.target)
 
         var localValue = Number(localStorage.getItem(e.target.dataset.id));
-        window.localStorage.setItem(e.target.dataset.id, String(localValue + 1))
-        console.log('nb', localValue)
-        load();
+        const inventory = e.currentTarget.dataset.inventory
+        console.log('inventory', inventory)
+        console.log('number local value', Number(localValue))
+        console.log('number local ', Number(inventory))
+        if(Number(localValue) < Number(inventory)){
+            window.localStorage.setItem(e.currentTarget.dataset.id, String(localValue + 1))
+            console.log('nb', localValue)
+            load();
+        }
+
     }
 
     function decreaseNumber(e) {
         console.log('click')
         console.log(e.target)
 
-        var localValue = Number(localStorage.getItem(e.target.dataset.id));
+        var localValue = Number(localStorage.getItem(e.currentTarget.dataset.id));
         if (localValue > 1) {
-            window.localStorage.setItem(e.target.dataset.id, String(localValue - 1))
+            window.localStorage.setItem(e.currentTarget.dataset.id, String(localValue - 1))
 
         }
         console.log('nb', localValue)

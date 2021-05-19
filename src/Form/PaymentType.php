@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Luhn;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -19,7 +20,7 @@ class PaymentType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => false,
-                'required'=> false,
+                'required'=> true,
                 'attr' => [
                     'placeholder' => 'Rechercher'
                 ],
@@ -29,20 +30,33 @@ class PaymentType extends AbstractType
             ])
             ->add('creditCard', TextType::class, [
                 'label' => false,
-                'required'=> false,
+                'required'=> true,
                 'attr' => [
                     'placeholder' => '1112'
                 ],
                 'constraints' => [
-                    new Luhn(['message'=>'Le numero de cart est invalid']),
+                    new NotBlank(),
+                    new Luhn(['message'=>'Le numéro de cart est invalid']),
                 ],
             ])
             ->add('secretCode', TextType::class, [
                 'label' => false,
-                'required'=> false,
+                'required'=> true,
                 'attr' => [
-                    'placeholder' => '1112'
-                ]
+                    'placeholder' => '854'
+                ],'constraints' => [
+                    new NotBlank(),
+                    new Length(['min'=>3,'max'=>3,'minMessage'=>'Le code secret doit avoir trois chiffre', 'maxMessage' =>'Le code secret doit avoir trois chiffre'])
+                ],
+            ])
+            ->add('address', TextType::class, [
+                'label' => false,
+                'required'=> true,
+                'attr' => [
+                    'placeholder' => '14 avenue du grand Alec'
+                ],'constraints' => [
+                    new NotBlank(),
+                ],
             ])
             ->add('month', ChoiceType::class, [
                 'choices' => [

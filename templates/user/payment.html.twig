@@ -10,8 +10,8 @@
                     <div class="card-body p-5">
                         {{ form_start(form) }}
 
-{#                        {{ form_row(form.commentContent) }}#}
-{#                        {{ form_row(form.commentTitle) }}#}
+                        {# {{ form_row(form.commentContent) }} #}
+                        {# {{ form_row(form.commentTitle) }} #}
 
 
                         <div class="form-group">
@@ -20,7 +20,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user fa-2x"></i></span>
                                 </div>
-{#                                <input type="text" class="form-control" name="username" placeholder="" required="">#}
+                                {# <input type="text" class="form-control" name="username" placeholder="" required=""> #}
                                 {{ form_widget(form.name) }}
                                 {{ form_errors(form.name) }}
                             </div> <!-- input-group.// -->
@@ -32,7 +32,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-credit-card fa-2x"></i></span>
                                 </div>
-{#                                <input type="text" class="form-control" name="cardNumber" placeholder="">#}
+                                {# <input type="text" class="form-control" name="cardNumber" placeholder=""> #}
                                 {{ form_widget(form.creditCard) }}
                                 {{ form_errors(form.creditCard) }}
                             </div> <!-- input-group.// -->
@@ -59,12 +59,23 @@
                                     <label data-toggle="tooltip" title=""
                                            data-original-title="3 digits code on back side of the card">CVV <i
                                                 class="fa fa-question-circle"></i></label>
-{#                                    <input class="form-control" required="" type="text">#}
+                                    {# <input class="form-control" required="" type="text"> #}
                                     {{ form_widget(form.secretCode) }}
+                                    {{ form_errors(form.secretCode) }}
                                 </div> <!-- form-group.// -->
                             </div>
                         </div> <!-- row.// -->
-
+                        <div class="form-group mb-2">
+                            <label for="username">Adresse de livraison</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt fa-2x"></i></span>
+                                </div>
+                                {# <input type="text" class="form-control" name="username" placeholder="" required=""> #}
+                                {{ form_widget(form.address) }}
+                                {{ form_errors(form.address) }}
+                            </div> <!-- input-group.// -->
+                        </div> <!-- form-group.// -->
                         <button class="subscribe btn btn-primary btn-block" type="submit"> Confirm</button>
                         {{ form_end(form) }}
                     </div> <!-- card-body.// -->
