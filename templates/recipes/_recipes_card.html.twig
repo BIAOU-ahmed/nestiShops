@@ -1,30 +1,34 @@
 <div class="col-sm-6 col-md-6 col-lg-4 mb-3" id="recipe-{{ recipe.idRecipe }}">
-	<div class="card">
-		<a href="{{ path('recipe_show', {'id':recipe.idRecipe}) }}" class="text-muted text-secondary text-decoration-none">
+    <div class="card">
+        <a href="{{ path('recipe_show', {'id':recipe.idRecipe}) }}"
+           class="text-muted text-secondary text-decoration-none">
 
-			<img src="{{ asset('build/illeflottantananas1617911494.jpg') }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }} data-hd-src="{{ asset('build/illeflottantananas1617911494.jpg') }}" {# Optional but avoids having a page jump when the image is loaded #} width="100%" height="200"/>
-		</a>
-		{# <img src="{{asset('build/illeflottantananas1617911494.jpg')}}" class="img-fluid h-50 img-thumbnail rounded-top card-img-top" alt="..."> #}
-		<div class="card-body h-auto">
-			<h5 class="card-title">
-				{{ recipe.name }}
-			</h5>
-		</div>
-		<div class="card-footer bg-transparent d-flex justify-content-between">
+            <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/recipes/{{ recipe.getImageName }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }}
+                 data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/recipes/{{ recipe.getImageName }}" {# Optional but avoids having a page jump when the image is loaded #}
+                 width="100%" height="200"/>
+        </a>
+        {# <img src="{{asset('build/illeflottantananas1617911494.jpg')}}" class="img-fluid h-50 img-thumbnail rounded-top card-img-top" alt="..."> #}
+        <div class="card-body h-auto">
+            <h5 class="card-title">
+                {{ recipe.name }}
+            </h5>
+        </div>
+        <div class="card-footer bg-transparent d-flex justify-content-between">
 			<span>
-				<div class="rateyo fs-md-6 d-inline-block" data-rateyo-rating="{{ recipe.getTotalGrades }}" data-rateyo-num-stars="5"></div>
+				<div class="rateyo fs-md-6 d-inline-block" data-rateyo-rating="{{ recipe.getTotalGrades }}"
+                     data-rateyo-num-stars="5"></div>
 			
 				{{ recipe.grades | length > 0 ? recipe.getTotalGrades ~'/5' }}
 				<br>
 
 				<span>
-					{{pluralize(recipe.grades | length, 'évaluation')}}
+					{{ pluralize(recipe.grades | length, 'évaluation') }}
 				</span>
 			</span>
-			<span>
-				{{pluralize(recipe.comments | length, 'commentaire')}}
+            <span>
+				{{ pluralize(recipe.comments | length, 'commentaire') }}
 
 			</span>
-		</div>
-	</div>
+        </div>
+    </div>
 </div>

@@ -43,11 +43,6 @@ $(function() {
         normalFill: "#A0A0A0"
     });
 
-    // alert($(".rateyo").data('value'))
-    // $(".rateyo").rateYo({
-    //     rating: $(this).data('value'),
-    //     readOnly: true
-    // });
 
     $(".rateyo").rateYo({
         readOnly: true,

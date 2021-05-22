@@ -70,17 +70,34 @@ class RecipeRepository extends ServiceEntityRepository
         return $stmt->fetchAllAssociative();
     }
 
-    public function findAllGlutenForApi(): array
+    public function findAllByCategoryForApi($value): array
     {
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
             SELECT * FROM view_api_recipes
-            WHERE cat="gluten"
+            WHERE cat=:cat
 
             ';
         $stmt = $conn->prepare($sql);
-        $stmt->execute();
+        $stmt->execute(['cat' => $value]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAllAssociative();
+    }
+    public function findByLike($value): array
+    {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT r.idRecipe, r.name FROM recipe r
+            WHERE r.name LIKE :value
+
+            ';
+        $stmt = $conn->prepare($sql);
+
+        $stmt->execute(['value' => '%'.$value.'%']);
+//        dd($stmt->fetchAllAssociative());
 
         // returns an array of arrays (i.e. a raw data set)
         return $stmt->fetchAllAssociative();

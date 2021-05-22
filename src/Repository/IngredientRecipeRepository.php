@@ -25,7 +25,7 @@ class IngredientRecipeRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
 
         $sql = '
-        SELECT p.name as product, i.quantity as quantity, i.recipePosition as recipePosition, u.name as unit FROM ingredientrecipe i INNER JOIN product p ON i.idProduct = p.idProduct INNER JOIN unit u ON i.idUnit = u.idUnit
+        SELECT p.idProduct as id, p.name as product, i.quantity as quantity, i.recipePosition as recipePosition, u.name as unit FROM ingredientrecipe i INNER JOIN product p ON i.idProduct = p.idProduct INNER JOIN unit u ON i.idUnit = u.idUnit
         WHERE  	idRecipe= ?
 
             ';

@@ -33,12 +33,13 @@ class ApiController extends AbstractController
         //     'rec' => $recipes
         // ]);
     }
+
     /**
-     * @Route("/api/category/gluten", name="api_gluten")
+     * @Route("/api/category/{slug}", name="api_gluten")
      */
-    public function gluten(RecipeRepository $recipe): Response
+    public function findByCategory(String $slug,RecipeRepository $recipe): Response
     {
-        $recipes = $recipe->findAllGlutenForApi();
+        $recipes = $recipe->findAllByCategoryForApi($slug);
 
         return $this->json($recipes);
 
@@ -72,8 +73,8 @@ class ApiController extends AbstractController
         // $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
 
         // $serializer = new Serializer([$normalizer], [$encoder]);
-        $s = $serializer->serialize($recipeRepo, 'json', ['attributes' => ['idParagraph','content', 'paragraphPosition', 'dateCreation', '']]);
-        $productDeserialized = $serializer->deserialize($s, Paragraph::class, 'json', ['attributes' => ['idParagraph','content', 'paragraphPosition', 'dateCreation', '']]);
+        $s = $serializer->serialize($recipeRepo, 'json', ['attributes' => ['idParagraph', 'content', 'paragraphPosition', 'dateCreation', '']]);
+        $productDeserialized = $serializer->deserialize($s, Paragraph::class, 'json', ['attributes' => ['idParagraph', 'content', 'paragraphPosition', 'dateCreation', '']]);
         // dd(json_decode($s));
         // dd($productDeserialized);
         // return $serializer->serialize($recipeRepo, 'json');
@@ -100,12 +101,21 @@ class ApiController extends AbstractController
         // );
         // dd($recipeRepo);
         // $s = $serializer->serialize($recipeIngredients, 'json', ['attributes' => ['idProduct','quantity', 'recipePosition', 'idUnit']]);
-       
+
         return $this->json($recipeIngredients);
 
         // return $this->render('api/index.html.twig', [
         //     'controller_name' => 'ApiController',
         //     'rec' => $recipes
         // ]);
+    }
+
+    /**
+     * @Route("/api/search/{slug}", name="api_search")
+     */
+    public function searchRecipe(string $slug,RecipeRepository $recipeRepository)
+    {
+        $data = $recipeRepository->findByLike($slug);
+        return $this->json($data);
     }
 }

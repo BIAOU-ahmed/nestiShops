@@ -67,14 +67,16 @@ class ArticleRepository extends ServiceEntityRepository
 
         if(!empty($search->q)){
             $query = $query
-                ->andWhere('a.name LiKe :q')
+                ->join('a.idUnit', 'u')
+                ->join('a.idProduct', 'p')
+                ->andWhere('a.name LiKe :q or CONCAT(a.unitQuantity,\' \',u.name,\' de \',p.name) LIKE :q')
                 ->setParameter('q', "%{$search->q}%");
         }
         $query =  $query->getQuery();
         return $this->paginator->paginate(
             $query,
             $search->page,
-            1
+            6
         );
 
     }

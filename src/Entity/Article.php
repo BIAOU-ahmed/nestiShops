@@ -289,17 +289,9 @@ class Article
 
     public function getPrice()
     {
-        $maxDate = 0;
+        
         $arrayArticlePrice = $this->getArticlePrices();
 
-        foreach ($arrayArticlePrice as $value) {
-            dump($value);
-            // $date =   strtotime($value->getDateStart());
-            // if ($maxDate <  $date) {
-            //     $maxDate =  $date;
-            //     $price = $value->getPrice();
-            // }
-        }
         return $arrayArticlePrice[0]->getPrice();
     }
 
@@ -329,5 +321,18 @@ class Article
     public function getInventory()
     {
         return $this->getNbBought() - $this->getNbOrdered();
+    }
+    public function getImageName(): ?String
+    {
+        $imageName = "default.jpg";
+        if($this->getIdImage()){
+            $imageName = $this->getIdImage()->getName().'.'.$this->getIdImage()->getFileExtension();
+        }
+        return $imageName;
+    }
+
+    public function getDisplayName(): ?String{
+        $name = $this->unitQuantity . ' ' . $this->getIdUnit()->getName() . ' de ' . $this->getIdProduct()->getName();
+        return $this->getName() != '' ? $this->getName() :$name;
     }
 }

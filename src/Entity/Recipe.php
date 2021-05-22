@@ -364,4 +364,13 @@ class Recipe
 
         return $this;
     }
+
+    public function getImageName(): ?String
+    {
+        $imageName = "default.jpg";
+        if($this->getIdImage()){
+            $imageName = $this->getIdImage()->getName().'.'.$this->getIdImage()->getFileExtension();
+        }
+        return $imageName;
+    }
 }

@@ -44,9 +44,20 @@ class ArticleController extends AbstractController
      * @Route("/article/{id<[0-9]+>}", name="article_show")
      */
     public function show(Article $article): Response {
-      
+        $array = [];
+        if($article->getIdProduct()->getIngredient()){
+
+            $array = $article->getIdProduct()->getIngredient()->getIngredientRecipes();
+        }
+        $recipes = [];
+      foreach ($array as $ingredientRecipe){
+//          dump($ingredientRecipe->getIdRecipe());
+          $recipes[] = $ingredientRecipe->getIdRecipe();
+      }
+//      dump($array);
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'recipes' =>$recipes
         ]);
     }
 }

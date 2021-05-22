@@ -2,7 +2,7 @@
 
     <div class="container mt-5 mb-5 text-white">
         <h1 class=" text-center  ">
-            {{ article.name }}
+            {{ article.getDisplayName }}
 
         </h1>
         <div class="mx-auto d-flex justify-content-center ">
@@ -10,20 +10,42 @@
                 <img src="{{ asset('build/illeflottantananas1617911494.jpg') }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image' ) }}
                      data-hd-src="{{ asset('build/illeflottantananas1617911494.jpg') }}" class="rounded " {# Optional but avoids having a page
                 jump when the image is loaded #} width="400" height="400"/>
+                {% if article.getInventory >0 %}
                 <span class="border d-block w-50 mt-2 mb-2 ">prix: {{ article.getPrice | number_format(2, ',', ' ') }} € </span>
 
-                <div class="d-inline">
-                    <label for="qte">Quantité:</label>
-                    <input type="number" data-id="{{ article.idArticle }}" data-inventory="{{ article.getInventory }}"
-                           name="qte" min="1" max="{{ article.getInventory }}" id="qte_article">
+                    <div class="d-inline">
+                        <label for="qte">Quantité:</label>
+                        <input type="number" data-id="{{ article.idArticle }}"
+                               data-inventory="{{ article.getInventory }}"
+                               name="qte" min="1" max="{{ article.getInventory }}" id="qte_article">
 
-                    <button type="submit" class="add_to_cart">Ajouter au panier</button>
-                </div>
-{{ article.getInventory }}
+                        <button type="submit" class="add_to_cart">Ajouter au panier</button>
+                    </div>
+                {% else %}
+                    <span class="bg-white text-center d-block mt-2 text-danger">momentanément indisponible</span>
+                {% endif %}
+
+                {{ article.getInventory }}
             </div>
 
 
         </div>
+        {% if recipes %}
+            <div class="row text-dark ">
+                <div class="col-md-12">
+
+                    <h1 class="text-center text-white ">
+                        Vos recettes
+                    </h1>
+                    <div class="row js-filter-content">
+                        {% include "recipes/_recipes.html.twig" with {recipes: recipes} only %}
+                    </div>
+
+
+                </div>
+
+            </div>
+        {% endif %}
     </div>
 
 {% endblock %}
