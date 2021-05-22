@@ -82,7 +82,7 @@ class Comment
         return $this->commentTitle;
     }
 
-    public function setCommentTitle(string $commentTitle): self
+    public function setCommentTitle( $commentTitle): self
     {
         $this->commentTitle = $commentTitle;
 
@@ -94,7 +94,7 @@ class Comment
         return $this->commentContent;
     }
 
-    public function setCommentContent(string $commentContent): self
+    public function setCommentContent($commentContent): self
     {
         $this->commentContent = $commentContent;
 

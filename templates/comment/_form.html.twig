@@ -2,14 +2,14 @@
     <span>
         Note
     </span>
-    <div id="rateYo"></div>
+    <div id="rateYo" ></div>
     {{ form_start(form) }}
 
     {{ form_row(form.commentContent) }}
     {{ form_row(form.commentTitle) }}
     <input id="rating" type="hidden" name="rate" value="null">
     <button type="submit" class="mt-2 btn btn-primary w-100  ">
-        Filtrer
+        Soumettre
     </button>
     {{ form_end(form) }}
 {% endif %}

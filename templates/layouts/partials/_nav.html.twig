@@ -47,12 +47,14 @@
             <!-- Left links -->
         </div>
         <div class="btn-group d-none d-lg-block">
-            <a class="d-inline nav-link  hidden-arrow" href="{{ path('cart') }}" id="navbarDropdownMenuLink" role="button">
+            <a class="d-inline nav-link  hidden-arrow" href="{{ path('cart') }}" data-turbo="false" id="navbarDropdownMenuLink" role="button">
                 <i class="fas fa-shopping-cart fa-lg"></i>
-                <span class=" shop badge rounded-pill badge-notification bg-danger">6</span>
+
+                <span class=" shop badge rounded-pill badge-notification bg-danger " >6</span>
             </a>
             <button type="button" class="dropdown-toggle bg-white btn rounded-circle btn-xl" data-bs-toggle="dropdown"
             >{{ app.user.firstname |first |upper }}{{ app.user.lastname |first |upper }}</button>
+
             {# <button role="button" type="button" class="btn" data-bs-toggle="dropdown"> #}
             {# Dr #}
             {# </button> #}

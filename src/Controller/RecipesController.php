@@ -88,12 +88,15 @@ class RecipesController extends AbstractController
                 $appreciations[] = ['user' => $oneUser, 'comment' => $userComment, 'grade' => $userGrade, 'form' => $localForm->createView()];
             }
         }
+
+        $response = new Response(null, 200);
         dump($appreciations);
         dump($comments);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && ($_POST['rate'] != "null" || $form->get('commentTitle')->getData() || $form->get('commentContent')->getData())) {
+
             $comment = $form->getData();
             if ($_POST['rate'] != "null") {
 //                dd($rate);
@@ -121,10 +124,12 @@ class RecipesController extends AbstractController
             }
 //            die();
             $this->addFlash('success', 'Votre commentaire est bien envoyé, merci.');
-            return $this->redirectToRoute('recipe_show', ['id' => $recipe->getIdRecipe()]);
+            return $this->redirectToRoute('recipe_show', ['id' => $recipe->getIdRecipe()],Response::HTTP_SEE_OTHER);
         } else if ($form->isSubmitted()) {
 
+            $response = new Response(null, 422 );
             $flash->add('error', 'Veillez entrer un commentaire et/ou une note.');
+            
         }
         return $this->render('recipes/show.html.twig', [
             'form' => $form->createView(),
@@ -132,6 +137,6 @@ class RecipesController extends AbstractController
             'comments' => $comments,
             'appreciations' => $appreciations,
             'displayForm' => $displayForm
-        ]);
+        ],$response);
     }
 }

@@ -15,7 +15,7 @@
         </div>
         <div class="card-footer bg-transparent d-flex justify-content-between">
 			<span>
-				<div class="rateyo fs-md-6 d-inline-block" data-rateyo-rating="{{ recipe.getTotalGrades }}"
+				<div class="rateyo fs-md-6 d-inline-block" data-turbo="false" data-rateyo-rating="{{ recipe.getTotalGrades }}"
                      data-rateyo-num-stars="5"></div>
 			
 				{{ recipe.grades | length > 0 ? recipe.getTotalGrades ~'/5' }}

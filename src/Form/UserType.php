@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Users;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -10,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
+use App\Entity\City;
 
 class UserType extends AbstractType
 {
@@ -18,12 +20,9 @@ class UserType extends AbstractType
         $builder
             ->add('lastName', TextType::class, [
                 'label' => 'Nom',
+                'required' => false,
                 'attr' => [
                     'placeholder' => 'Nom de l\'utilisateur'
-                ],
-                'constraints' => [
-                    new NotBlank(),
-                    new NotNull(),
                 ],
             ])
             ->add('firstName')
@@ -32,7 +31,11 @@ class UserType extends AbstractType
             ->add('address1')
             ->add('address2')
             ->add('zipCode')
-            ->add('idCity')
+            ->add('idCity',EntityType::class,[
+                'label' => 'Ville',
+                'required' => false,
+                'class' => City::class,
+            ])
             ->add('Valider', SubmitType::class);
     }
 

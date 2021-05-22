@@ -45,3 +45,23 @@ body {
     line-height: 1.33;
     border-radius: 35px;
 }
+
+.message-position {
+    position: fixed;
+    top: 0;
+    z-index: 1020;
+    right: 387px;
+}
+
+@media (max-width: 767px) {
+    .message-position {
+
+        right: 8px;
+    }
+}
+@media(min-width:768px) {
+    .message-position {
+        top: 83px;
+        right: 14px;
+    }
+}

@@ -1,4 +1,4 @@
-import { Flipper, spring } from 'flip-toolkit'
+import {Flipper, spring} from 'flip-toolkit'
 
 /**
  * @property {HTMLElement} pagination
@@ -8,8 +8,8 @@ import { Flipper, spring } from 'flip-toolkit'
 export default class Filter {
 
     /**
-     * 
-     * @param {HTMLElement|null} element 
+     *
+     * @param {HTMLElement|null} element
      */
     constructor(element) {
         if (element === null) {
@@ -19,8 +19,11 @@ export default class Filter {
         this.content = element.querySelector('.js-filter-content')
         this.form = element.querySelector('.js-filter-form')
         console.log('je me construi');
+        console.log(this.content)
+        if (this.content) {
 
-        this.bindEvents()
+            this.bindEvents()
+        }
     }
 
     /**
@@ -48,6 +51,7 @@ export default class Filter {
         })
         return this.loadUrl(url.pathname + '?' + params.toString())
     }
+
     async loadUrl(url) {
         this.showLoader();
         const params = new URLSearchParams(url.split('?')[1] || '')
@@ -75,32 +79,32 @@ export default class Filter {
 
     /**
      * replace grid element with effect
-     * @param {string} content 
+     * @param {string} content
      */
     flipContent(content) {
         const springConfig = 'gentle'
-        const exitSpring = function(element, index, onComplete) {
+        const exitSpring = function (element, index, onComplete) {
             spring({
                 config: 'stiff',
                 values: {
                     translateY: [0, -20],
                     opacity: [1, 0]
                 },
-                onUpdate: ({ translateY, opacity }) => {
+                onUpdate: ({translateY, opacity}) => {
                     element.style.opacity = opacity;
                     element.style.transform = `translateY(${translateY}px)`;
                 },
                 onComplete
             });
         }
-        const appearSpring = function(element, index) {
+        const appearSpring = function (element, index) {
             spring({
                 config: 'stiff',
                 values: {
                     translateY: [20, 0],
                     opacity: [0, 1]
                 },
-                onUpdate: ({ translateY, opacity }) => {
+                onUpdate: ({translateY, opacity}) => {
                     element.style.opacity = opacity;
                     element.style.transform = `translateY(${translateY}px)`;
                 },
@@ -152,6 +156,7 @@ export default class Filter {
         loader.setAttribute('aria-hidden', 'false')
         loader.style.display = null;
     }
+
     hideLoader() {
         this.form.classList.remove('is-loading')
         const loader = this.form.querySelector('.js-loading')

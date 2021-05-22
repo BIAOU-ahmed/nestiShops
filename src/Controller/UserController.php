@@ -38,20 +38,24 @@ class UserController extends AbstractController
 
             $this->get('session')->remove('clear');
         }
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
-            dump($user);
-            $em->flush();
+        if ($form->isSubmitted()&& $form->isValid()) {
 
-            $this->addFlash('success', 'Les information on été bien modifié.');
-            return $this->redirectToRoute('profil');
+            dump($form);
         }
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $user = $form->getData();
+////            $em->flush();
+//
+//            $this->addFlash('success', 'Les information on été bien modifié.');
+//            return $this->redirectToRoute('profil');
+//        }
 
+        $response = new Response(null, $form->isSubmitted() ? 422 : 200);
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
             'form' => $form->createView(),
             'clear' => $clear
-        ]);
+        ],$response);
     }
 
     /**
@@ -135,12 +139,14 @@ class UserController extends AbstractController
             $this->get('session')->set('clear', 'true');
             $this->get('session')->remove('orderlines');
             $this->addFlash('success', 'Votre Commande à bien été validé.');
-            return $this->redirectToRoute('profil');
+            return $this->redirectToRoute('profil', [], Response::HTTP_SEE_OTHER);
         }
+        $response = new Response(null, $form->isSubmitted() ? 422 : 200);
         return $this->render('user/payment.html.twig', [
             'controller_name' => 'UserController',
             'form' => $form->createView(),
-        ]);
+        ], $response
+        );
     }
 
     /**

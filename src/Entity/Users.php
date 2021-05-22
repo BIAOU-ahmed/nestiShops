@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
@@ -23,6 +24,7 @@ class Users implements UserInterface
     private $idUsers;
 
     /**
+     * @Assert\NotBlank
      * @ORM\Column(name="lastName",type="string", length=255)
      */
     private $lastName;
@@ -141,7 +143,7 @@ class Users implements UserInterface
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
+    public function setLastName($lastName ): self
     {
         $this->lastName = $lastName;
 
@@ -153,7 +155,7 @@ class Users implements UserInterface
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setFirstName($firstName): self
     {
         $this->firstName = $firstName;
 

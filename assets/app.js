@@ -39,15 +39,15 @@ $(function() {
 
 $(function() {
 
-    $("#rateYo").rateYo({
-        normalFill: "#A0A0A0"
-    });
-
-
-    $(".rateyo").rateYo({
-        readOnly: true,
-        starWidth: "20px"
-
-    });
+    // $("#rateYo").rateYo({
+    //     normalFill: "#A0A0A0"
+    // });
+    //
+    //
+    // $(".rateyo").rateYo({
+    //     readOnly: true,
+    //     starWidth: "20px"
+    //
+    // });
 
 });
