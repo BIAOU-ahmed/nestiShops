@@ -11,6 +11,15 @@ export default class Cart {
             console.log('add event')
 
         });
+        console.log('toto recipe cart');
+
+        const addFromRecipeBtn = document.querySelectorAll('.add_to_cart_from_recipe');
+        console.log('addFromrecipe', addFromRecipeBtn);
+        addFromRecipeBtn.forEach(element => {
+            element.addEventListener('click', add);
+            console.log('add event')
+
+        });
 
         // $(function() {
         //
@@ -33,17 +42,17 @@ export default class Cart {
         // });
 
         function add() {
-            let qtyInput = document.querySelector('#qte_article');
+            let qtyInput = document.querySelector('#qte_article') ?? document.querySelector('#qte_article_recipe') ;
             const article = qtyInput.dataset.id;
             const inventory = qtyInput.dataset.inventory;
-            const quantity = qtyInput.value
+            const quantity = document.querySelector('#qte_article') ? qtyInput.value : 1
             console.log('quantity', quantity)
             console.log('inventory', inventory)
             console.log('add to cart', Number(quantity))
             if (Number(quantity) > 0 && Number(quantity) <= Number(inventory)) {
                 console.log('in if')
                 window.localStorage.setItem(article, quantity);
-
+                qtyInput.value = "";
             } else {
                 alert('La quantité est incorect')
             }

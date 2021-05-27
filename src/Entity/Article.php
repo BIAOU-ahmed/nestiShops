@@ -295,6 +295,25 @@ class Article
         return $arrayArticlePrice[0]->getPrice();
     }
 
+    public function getLastPriceAt(string $dateMax): string
+    {
+
+        $maxDate = 0;
+        $arrayArticlePrice = $this->getArticlePrices();
+        $price = '';
+        foreach ($arrayArticlePrice as $value) {
+            $date = strtotime($value->getDateStart()->format('Y-m-d'));
+            if ($date <= $dateMax) {
+                if ($maxDate < $date) {
+                    $maxDate = $date;
+                    $price = $value->getPrice();
+                }
+            }
+        }
+        return $price;
+    }
+    
+
     public function getNbBought()
     {
         $totalQuantity = 0;
@@ -324,9 +343,9 @@ class Article
     }
     public function getImageName(): ?String
     {
-        $imageName = "default.jpg";
+        $imageName = "noImage.jpg";
         if($this->getIdImage()){
-            $imageName = $this->getIdImage()->getName().'.'.$this->getIdImage()->getFileExtension();
+            $imageName = "articles/".$this->getIdImage()->getName().'.'.$this->getIdImage()->getFileExtension();
         }
         return $imageName;
     }

@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Twig\Environment;
 use Twig\Extra\Intl\IntlExtension;
+use App\Repository\UsersRepository;
 
 class UserController extends AbstractController
 {
@@ -26,9 +27,11 @@ class UserController extends AbstractController
     public function index(
         EntityManagerInterface $em,
         Request $request,
-        UserInterface $user
+        UserInterface $user,
+        UsersRepository $userRepository
     ): Response
     {
+//        $localUser = $userRepository->find(1);
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -38,23 +41,25 @@ class UserController extends AbstractController
 
             $this->get('session')->remove('clear');
         }
-        if ($form->isSubmitted()&& $form->isValid()) {
-
+        if ($form->isSubmitted() ) {
+//            dump($localUser);
+            dump($userRepository->find(1));
             dump($form);
         }
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $user = $form->getData();
-////            $em->flush();
-//
-//            $this->addFlash('success', 'Les information on été bien modifié.');
-//            return $this->redirectToRoute('profil');
-//        }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $em->flush();
+
+            $this->addFlash('success', 'Les information on été bien modifié.');
+            return $this->redirectToRoute('profil');
+        }
 
         $response = new Response(null, $form->isSubmitted() ? 422 : 200);
         return $this->render('user/index.html.twig', [
             'controller_name' => 'UserController',
             'form' => $form->createView(),
-            'clear' => $clear
+            'clear' => $clear,
+            'user' => $user
         ],$response);
     }
 

@@ -59,9 +59,18 @@ body {
         right: 8px;
     }
 }
-@media(min-width:768px) {
+
+@media (min-width: 768px) {
     .message-position {
         top: 83px;
         right: 14px;
     }
+}
+
+#output {
+    position: absolute;
+}
+
+.code_element {
+    display: block;
 }

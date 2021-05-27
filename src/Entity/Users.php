@@ -9,9 +9,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
+ * @UniqueEntity("email", message="Email indisponible.")
+ * @UniqueEntity("username", message="Nom d'utilisateur indisponible.")
  */
 class Users implements UserInterface
 {
@@ -19,22 +22,33 @@ class Users implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(name="idUsers",type="integer")
-     * 
+     *
      */
     private $idUsers;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\NotBlank(
+     *     message="Ce champ est obligatoire"
+     * )
      * @ORM\Column(name="lastName",type="string", length=255)
      */
     private $lastName;
 
     /**
+     * @Assert\NotBlank(
+     *     message="Ce champ est obligatoire"
+     * )
      * @ORM\Column(name="firstName",type="string", length=255)
      */
     private $firstName;
 
     /**
+     * @Assert\NotBlank(
+     *     message="Ce champ est obligatoire"
+     * )
+     * @Assert\Email(
+     *     message = "L'email '{{ value }}' est invalid."
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $email;
@@ -55,11 +69,17 @@ class Users implements UserInterface
     private $dateCreation;
 
     /**
+     * @Assert\NotBlank(
+     *     message="Ce champ est obligatoire"
+     * )
      * @ORM\Column(name="login",type="string", length=65)
      */
     private $username;
 
     /**
+     * @Assert\NotBlank(
+     *     message="Ce champ est obligatoire"
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $address1;
@@ -70,6 +90,18 @@ class Users implements UserInterface
     private $address2;
 
     /**
+     * @Assert\NotBlank(
+     *     message="Ce champ est obligatoire"
+     * )
+     * @Assert\Regex(
+     *     pattern="/^[0-9]+$/",
+     *     message="Le code postal ne doit contenir que des chiffres"
+     * )
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 5,
+     *      exactMessage = "Le code postal doit avoir exactement {{ limit }} chiffres",
+     * )
      * @ORM\Column(name="zipCode",type="integer")
      */
     private $zipCode;
@@ -86,7 +118,7 @@ class Users implements UserInterface
     private $chef;
 
     /**
-     * @ORM\ManyToOne(targetEntity=City::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=City::class, inversedBy="users",cascade={"persist"})
      * @ORM\JoinColumn(name="idCity",referencedColumnName="idCity")
      */
     private $idCity;
@@ -113,7 +145,7 @@ class Users implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="idUsers", orphanRemoval=true)
-     * 
+     *
      * @Groups({"show_user"})
      */
     private $comments;
@@ -143,7 +175,7 @@ class Users implements UserInterface
         return $this->lastName;
     }
 
-    public function setLastName($lastName ): self
+    public function setLastName($lastName): self
     {
         $this->lastName = $lastName;
 
@@ -167,7 +199,7 @@ class Users implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail($email): self
     {
         $this->email = $email;
 
@@ -179,7 +211,7 @@ class Users implements UserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword($password): self
     {
         $this->password = $password;
 
@@ -209,12 +241,13 @@ class Users implements UserInterface
 
         return $this;
     }
+
     public function getAddress1(): ?string
     {
         return $this->address1;
     }
 
-    public function setAddress1(string $address1): self
+    public function setAddress1($address1): self
     {
         $this->address1 = $address1;
 
@@ -233,12 +266,12 @@ class Users implements UserInterface
         return $this;
     }
 
-    public function getZipCode(): ?int
+    public function getZipCode()
     {
         return $this->zipCode;
     }
 
-    public function setZipCode(int $zipCode): self
+    public function setZipCode($zipCode): self
     {
         $this->zipCode = $zipCode;
 
@@ -410,7 +443,7 @@ class Users implements UserInterface
 
     /**
      * @return Collection|Comment[]
-      */
+     */
     public function getComments(): Collection
     {
         return $this->comments;
@@ -471,7 +504,7 @@ class Users implements UserInterface
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(?string $username): self
     {
         $this->username = $username;
 

@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Luhn;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Positive;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class PaymentType extends AbstractType
 {
@@ -20,7 +22,7 @@ class PaymentType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => false,
-                'required'=> true,
+                'required' => true,
                 'attr' => [
                     'placeholder' => 'Rechercher'
                 ],
@@ -30,31 +32,34 @@ class PaymentType extends AbstractType
             ])
             ->add('creditCard', TextType::class, [
                 'label' => false,
-                'required'=> true,
+                'required' => true,
                 'attr' => [
                     'placeholder' => '1112'
                 ],
                 'constraints' => [
                     new NotBlank(),
-                    new Luhn(['message'=>'Le numéro de cart est invalid']),
+                    new Luhn(['message' => 'Le numéro de cart est invalid']),
                 ],
             ])
             ->add('secretCode', TextType::class, [
                 'label' => false,
-                'required'=> true,
+                'required' => true,
                 'attr' => [
                     'placeholder' => '854'
-                ],'constraints' => [
+                ], 'constraints' => [
                     new NotBlank(),
-                    new Length(['min'=>3,'max'=>3,'minMessage'=>'Le code secret doit avoir trois chiffre', 'maxMessage' =>'Le code secret doit avoir trois chiffre'])
+                    new Regex([
+                        'pattern' => "/^[0-9]+$/",
+                        'message' => 'un nombre atendut']),
+                    new Length(['min' => 3, 'max' => 3, 'exactMessage' => 'Le code secret doit avoir trois chiffres', ])
                 ],
             ])
             ->add('address', TextType::class, [
                 'label' => false,
-                'required'=> true,
+                'required' => true,
                 'attr' => [
                     'placeholder' => '14 avenue du grand Alec'
-                ],'constraints' => [
+                ], 'constraints' => [
                     new NotBlank(),
                 ],
             ])

@@ -30,6 +30,11 @@ class Grades
      */
     private $rating;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateCreation;
+
   
 
     public function getIdUsers(): ?Users
@@ -64,6 +69,18 @@ class Grades
     public function setRating(float $rating): self
     {
         $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
 
         return $this;
     }

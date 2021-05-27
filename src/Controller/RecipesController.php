@@ -12,6 +12,7 @@ use App\Repository\CommentRepository;
 use App\Repository\GradesRepository;
 use App\Repository\RecipeRepository;
 use App\Repository\UsersRepository;
+use App\Repository\ArticleRepository;
 use App\Service\CommentService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -62,9 +63,16 @@ class RecipesController extends AbstractController
         CommentService $commentService,
         UserInterface $user,
         UsersRepository $repoUser,
-        GradesRepository $repoGrade
+        GradesRepository $repoGrade,
+        ArticleRepository $articleRepository
     ): Response
     {
+
+        $myDate = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        $_SESSION['orderlines'][$recipe->getIdRecipe()] =$myDate->getTimestamp();
+        // $d = [];
+        // $d[$recipe->getIdRecipe()] = $myDate->getTimestamp();
+        // $this->get('session')->set('orderlines', $d);
         $comment = $commentRepository->findOneBy(['idRecipe' => $recipe->getIdRecipe(), 'idUsers' => $user]);
         $rate = $repoGrade->findOneBy(['idRecipe' => $recipe->getIdRecipe(), 'idUsers' => $user]);
         $displayForm = true;
@@ -84,11 +92,17 @@ class RecipesController extends AbstractController
             if ($userComment || $userGrade) {
                 $localForm = $this->createForm(CommentType::class, $userComment);
                 $localForm->handleRequest($request);
-
-                $appreciations[] = ['user' => $oneUser, 'comment' => $userComment, 'grade' => $userGrade, 'form' => $localForm->createView()];
+                $date =$userComment ? $userComment->getDateCreation() : $userGrade->getDateCreation();
+                $appreciations[] = ['user' => $oneUser, 'comment' => $userComment, 'grade' => $userGrade,"date"=>$date, 'form' => $localForm->createView()];
             }
         }
+        $ingredientRecipes = [];
+        foreach($recipe->getIngredientRecipes() as $ingredient){
+            $article = $articleRepository->findOneBy(["idProduct"=>$ingredient->getIdProduct(),"idUnit"=>$ingredient->getIdUnit(),"unitQuantity"=>$ingredient->getQuantity(),"flag"=>"a"]);
+            dump($article);
+            $ingredientRecipes[] = ["ingredient"=> $ingredient,"article"=>$article,"image" =>$article? $article->getImageName():"noImage.jpg"];
 
+        }
         $response = new Response(null, 200);
         dump($appreciations);
         dump($comments);
@@ -104,6 +118,7 @@ class RecipesController extends AbstractController
                 dump('befor', $mainRate);
                 if (!$rate) {
                     $rate = new Grades();
+                    $rate->setDateCreation( new \DateTime('now', new \DateTimeZone('Europe/Paris')));
                     $rate->setIdRecipe($recipe);
                     $rate->setIdUsers($user);
                 }
@@ -129,13 +144,14 @@ class RecipesController extends AbstractController
 
             $response = new Response(null, 422 );
             $flash->add('error', 'Veillez entrer un commentaire et/ou une note.');
-            
+
         }
         return $this->render('recipes/show.html.twig', [
             'form' => $form->createView(),
             'recipe' => $recipe,
             'comments' => $comments,
             'appreciations' => $appreciations,
+            'ingredientRecipes'=>$ingredientRecipes,
             'displayForm' => $displayForm
         ],$response);
     }

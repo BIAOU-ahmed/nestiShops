@@ -367,10 +367,37 @@ class Recipe
 
     public function getImageName(): ?String
     {
-        $imageName = "default.jpg";
+        $imageName = "noImage.jpg";
         if($this->getIdImage()){
-            $imageName = $this->getIdImage()->getName().'.'.$this->getIdImage()->getFileExtension();
+            $imageName = "rtecipes/".$this->getIdImage()->getName().'.'.$this->getIdImage()->getFileExtension();
         }
         return $imageName;
     }
+
+    public function getDisplayDifficulty(){
+        $difficulty = "Facile";
+
+        if($this->getDifficulty()>=4){
+            $difficulty = "Dificile";
+        }else if($this->getDifficulty()>2){
+            $difficulty = "Moyen";
+        }
+        return $difficulty;
+    }
+    public function getTime()
+    {
+        $time = (int) $this->getPreparationTime();
+        $hour = intdiv($time, 60);
+        $min = fmod($time, 60);
+        $hour = ltrim($hour, "0");
+        $min = ltrim($min, "0");
+        // $hour = (String) ((int)$hour) ;
+
+        $hour = $hour ? $hour . 'h' : '';
+        $min = $min ? $min . 'min' : '';
+
+        $displayTime = $hour . $min;
+        return $displayTime;
+    }
+
 }

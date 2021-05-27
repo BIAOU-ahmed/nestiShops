@@ -3,8 +3,8 @@
         <a href="{{ path('recipe_show', {'id':recipe.idRecipe}) }}"
            class="text-muted text-secondary text-decoration-none">
 
-            <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/recipes/{{ recipe.getImageName }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }}
-                 data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/recipes/{{ recipe.getImageName }}" {# Optional but avoids having a page jump when the image is loaded #}
+            <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ recipe.getImageName }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }}
+                 data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ recipe.getImageName }}" {# Optional but avoids having a page jump when the image is loaded #}
                  width="100%" height="200"/>
         </a>
         {# <img src="{{asset('build/illeflottantananas1617911494.jpg')}}" class="img-fluid h-50 img-thumbnail rounded-top card-img-top" alt="..."> #}

@@ -1,37 +1,114 @@
 {% extends 'base.html.twig' %} {% block title %} Hello RecipesController! {% endblock %} {% block body %}
 
     <div class="container mt-5 mb-5 text-white">
-{#    {{ dump(recipe) }}#}
+    {# {{ dump(recipe) }} #}
     <h1 class=" text-center  ">
         {{ recipe.name }}
 
     </h1>
-    <img src="{{ asset('build/illeflottantananas1617911494.jpg') }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }}
-            alt="l'image représentant la recette"
-         data-hd-src="{{ asset('build/illeflottantananas1617911494.jpg') }}" class="rounded mx-auto d-block" {# Optional but avoids
+    <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ recipe.getImageName }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }}
+         alt="l'image représentant la recette"
+         data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ recipe.getImageName }}" class="rounded mx-auto d-block" {# Optional but avoids
         having a page jump when the image is loaded #} width="400" height="400"/>
-    <div class="mx-auto w-25 d-flex justify-content-between">
-        <span class="w-50 ">
-				Temps de préparation
-			</span>
-        <span class="w-50 ">
-				Difficulté
-			</span>
+{#    <div class="row mx-auto">#}
+{#        <div class="col-sm-6">Column 1</div>#}
+{#        <div class="col-sm-6">Column 2</div>#}
+{#    </div>#}
+    <div class="d-flex justify-content-center">
+        <div class="row ">
+            <div class="col-6 col-sm-6 ">Temps de préparation</div>
+            <div class="col-6 col-sm-6 ">Difficulté</div>
+        </div>
     </div>
-    <div class="text-dark mx-auto w-25 border bg-white d-flex justify-content-between">
-        <span class="w-50 border">
-				{{ recipe.preparationTime }}
-			</span>
-        <span class="w-50 border ">
-				{{ recipe.difficulty }}
-			</span>
+
+
+{#    <div class=" w-sm-100 w-25 d-flex justify-content-between">#}
+{#        <span class="w-50 ">#}
+{#				Temps de préparation#}
+{#			</span>#}
+{#        <span class="w-50 ">#}
+{#				Difficulté#}
+{#			</span>#}
+{#    </div>#}
+{#    <div class="text-dark mx-auto w-25 border text-center bg-white d-flex justify-content-between">#}
+{#        <span class="w-50 border">#}
+{#				{{ recipe.getTime }}#}
+{#			</span>#}
+{#        <span class="w-50 border ">#}
+{#				{{ recipe.getDisplayDifficulty }}#}
+{#			</span>#}
+{#    </div>#}
+    <div class="d-flex justify-content-center text-dark">
+        <div class="row bg-white">
+            <div class="col-6 col-sm-6 border">{{ recipe.getTime }}</div>
+            <div class="col-6 col-sm-6 border">{{ recipe.getDisplayDifficulty }}</div>
+        </div>
     </div>
+
     <div class="text-dark mx-auto w-25 mt-5 border bg-white d-flex justify-content-center">
         Liste d'ingredient pour {{ recipe.portions }} personne
     </div>
-    {% for ingredient in recipe.ingredientRecipes %}
-        {{ ingredient.quantity }} {{ ingredient.idUnit.name }} {{ ingredient.idProduct.IdIngredient.name }}
-    {% endfor %}
+    {# <div class="row"> #}
+
+    {# <div class="card p-0" style="width: 12% !important;"> #}
+    {# <img #}
+    {# src="https://mdbootstrap.com/img/new/standard/city/041.jpg" #}
+    {# class="card-img-top" #}
+    {# alt="..." #}
+    {# /> #}
+    {# <div class="card-body text-dark"> #}
+    {# <h5 class="card-title">5 kg de farine</h5> #}
+    {# </div> #}
+    {# <div class="card-footer"> #}
+    {# <small class="text-muted"><i class="fa-2x fas fa-plus-circle"></i></small> #}
+    {# </div> #}
+    {# </div> #}
+    {# <div class="card p-0" style="width: 12% !important;"> #}
+    {# <img #}
+    {# src="https://mdbootstrap.com/img/new/standard/city/041.jpg" #}
+    {# class="card-img-top" #}
+    {# alt="..." #}
+    {# /> #}
+    {# <div class="card-body text-dark"> #}
+    {# <h5 class="card-title">5 kg de farine</h5> #}
+    {# </div> #}
+    {# <div class="card-footer"> #}
+    {# <small class="text-muted"><i class="fa-2x fas fa-plus-circle"></i></small> #}
+    {# </div> #}
+    {# </div> #}
+    {# </div> #}
+
+    <div class="container">
+        <div class="row text-dark">
+            {% for ingredient in ingredientRecipes %}
+                <div class="col-6 col-sm-2 col-md-3 col-lg-2 ">
+                    <div class="card">
+                        <img
+                                src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ ingredient.image }}"
+                                class="card-img-top"
+                                alt="..."
+                        />
+                        <div class="card-body">
+                            <h5 class="card-title">  {{ ingredient.ingredient.getDisplayName }}
+                            </h5>
+                            <p class="card-text">
+                            </p>
+                        </div>
+                          {% if ingredient.article %}
+                        <div class="card-footer">
+                            <button type="button" id="qte_article_recipe" data-id="{{ ingredient.article.idArticle }}" data-inventory="{{ingredient.article.getInventory}}" class="add_to_cart_from_recipe text-muted" name="button"><i class="fa-2x fas fa-plus-circle"> </i></button>
+                        </div>
+
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    {# {% for ingredient in recipe.ingredientRecipes %} #}
+    {# {{ ingredient.quantity }} {{ ingredient.idUnit.name }} {{ ingredient.idProduct.IdIngredient.name }} #}
+    {# {% endfor %} #}
 
     <div class="text-dark mx-auto w-25 mt-5 border bg-white d-flex justify-content-center">
         Preparations

@@ -17,6 +17,7 @@ const $ = require('jquery');
 new Filter(document.querySelector('.js-filter'))
 import './../node_modules/rateyo/src/jquery.rateyo'
 import './../node_modules/rateyo/src/jquery.rateyo.css'
+import './../node_modules/vicopo/api'
 $(function() {
 
     $("#rateYo").rateYo({

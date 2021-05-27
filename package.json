@@ -23,6 +23,7 @@
     "dependencies": {
         "flip-toolkit": "^7.0.13",
         "jquery": "^3.6.0",
-        "rateyo": "^2.3.2"
+        "rateyo": "^2.3.2",
+        "vicopo": "^1.2.1"
     }
 }

@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class IngredientRecipe
 {
-  
+
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity=Ingredient::class, inversedBy="ingredientRecipes", fetch="EAGER")
@@ -42,7 +42,7 @@ class IngredientRecipe
      */
     private $idUnit;
 
-  
+
 
     public function getIdProduct(): ?Ingredient
     {
@@ -102,5 +102,9 @@ class IngredientRecipe
         $this->idUnit = $idUnit;
 
         return $this;
+    }
+
+    public function getDisplayName(){
+      return $this->getQuantity().' '.$this->getIdUnit()->getName().' '.$this->getIdProduct()->getIdIngredient()->getName();
     }
 }

@@ -1,6 +1,45 @@
-<div class="tab-pane pb-5 fade bg-white d-flex justify-content-center" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+<div class="w-75 text-dark" data-turbo="false">
+    {{ form_start(form) }}
+    {{ form_label(form.lastName) }}
+    {{ form_widget(form.lastName) }}
+    {{ form_errors(form.lastName) }}
 
-    <div class="w-75 ">
-        {{ form(form) }}
-    </div>
+    {{ form_label(form.firstName) }}
+    {{ form_widget(form.firstName) }}
+
+    {{ form_label(form.email) }}
+    {{ form_widget(form.email) }}
+
+
+
+    {{ form_label(form.username) }}
+    {{ form_widget(form.username) }}
+
+    {{ form_label(form.address1) }}
+    {{ form_widget(form.address1) }}
+
+    {{ form_label(form.address2) }}
+    {{ form_widget(form.address2) }}
+
+    {{ form_label(form.zipCode) }}
+    {{ form_widget(form.zipCode) }}
+
+{#    {'attr': { 'autocomplete':'off'}}#}
+{#    <ul id="output"  class="shadow-sm mb-5 bg-body list-unstyled">#}
+{#        <li data-vicopo=" #user_zipCode" type="button" data-vicopo-click='{"#user_zipCode": "code", "#user_idCity": "ville"}' >#}
+{#            <strong data-vicopo-code-postal></strong>#}
+{#            <span data-vicopo-ville></span>#}
+{#        </li>#}
+{#    </ul>#}
+
+{#    <div id="output" class=" w-100 shadow-sm mb-5 bg-body rounded">#}
+{#        <a class="code_element w-100" href="#" data-vicopo="#user_idCity, #user_zipCode" data-vicopo-click='{"#user_zipCode": "code", "#user_idCity": "ville"}' > <strong data-vicopo-code-postal></strong>#}
+{#            <span data-vicopo-ville></span> </a>#}
+{#    </div>#}
+
+    {{ form_label(form.idCity) }}
+    {{ form_widget(form.idCity) }}
+
+    {{ form_end(form) }}
+
 </div>

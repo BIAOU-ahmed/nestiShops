@@ -3,10 +3,9 @@
         <div class="card ">
             <div class="card-body">
                 <h4 class="card-title">
-                    Recent Comments
+                    Récente appréciation
                 </h4>
                 <h6 class="card-subtitle">
-                    Latest Comments section by users
                 </h6>
             </div>
             <div class="comment-widgets m-b-20">
@@ -15,7 +14,7 @@
                     <div class="d-flex flex-row comment-row mb-3">
                         <div class="p-2">
 								<span class="text-white bg-dark btn rounded-circle btn-xl">
-									JL
+									{{ appreciation.user.firstname |first |upper }}{{ appreciation.user.lastname |first |upper }}
 								</span>
                         </div>
                         <div class=" w-100">
@@ -34,7 +33,7 @@
                             {% endif %}
                             <div class="comment-footer">
 										<span class="text-muted date">
-											April 14, 2019
+                    {{ appreciation.date |format_date('full', locale='fr') }}
 										</span>
                                 {% if appreciation.comment and appreciation.comment.flag == 'a' %}
                                     <span class="badge bg-success">

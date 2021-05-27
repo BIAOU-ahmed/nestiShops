@@ -139,4 +139,17 @@ class Orders
 
         return $this;
     }
+
+    public function getPrice()
+    {
+        $orderLines = $this->getOrderLines();
+        $price = 0;
+        $dateMax = strtotime($this->getDateCreation()->format('Y-m-d'));
+        foreach ($orderLines as $line) {
+            $price += $line->getIdArticle()->getLastPriceAt($dateMax) * $line->getQuantity();
+        }
+        return $price;
+    }
+
+
 }

@@ -15,6 +15,9 @@ class IndexController extends AbstractController
     public function index(RecipeRepository $recipeRepository): Response
     {
         $recipes = $recipeRepository->findAll();
+
+        $rec = $this->get('session')->get('orderlines');
+        dump($rec);
         return $this->render('index/index.html.twig', [
             'controller_name' => 'IndexController',
             'recipe' => $recipes,

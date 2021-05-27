@@ -3,20 +3,63 @@
 {% block title %}Hello IndexController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
 
-{{ dump(recipe) }}
-{# {{ dump(recipe[0].comments[0]) }} #}
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'F:/dev/Projets/web/nestiShops/src/Controller/IndexController.php'|file_link(0) }}">src/Controller/IndexController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'F:/dev/Projets/web/nestiShops/templates/index/index.html.twig'|file_link(0) }}">templates/index/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {# {{ dump(recipe) }} #}
+    {# {{ dump(recipe[0].comments[0]) }} #}
+    {# <div class="example-wrapper"> #}
+    {# <h1>Hello {{ controller_name }}! ✅</h1> #}
+
+    {# This friendly message is coming from: #}
+    {# <ul> #}
+    {# <li>Your controller at <code><a href="{{ 'F:/dev/Projets/web/nestiShops/src/Controller/IndexController.php'|file_link(0) }}">src/Controller/IndexController.php</a></code></li> #}
+    {# <li>Your template at <code><a href="{{ 'F:/dev/Projets/web/nestiShops/templates/index/index.html.twig'|file_link(0) }}">templates/index/index.html.twig</a></code></li> #}
+    {# </ul> #}
+    {# </div> #}
+
+    <div class="container">
+        <div class="card mb-3 w-50 mx-auto">
+            <div class="row g-0">
+                <div class="col-md-5">
+                    <img src="{{ asset('build/illeflottantananas1617911494.jpg') }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }}
+                         alt="l'image représentant la recette"
+                         data-hd-src="{{ asset('build/illeflottantananas1617911494.jpg') }}"
+                         class="rounded mx-auto d-block" width="100%" height="100%"/>
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body">
+                        <h5 class="card-title">A propos de Nesti</h5>
+                        <p class="card-text">
+                            Fondé en 1984 par les Frères Hernandez, notre établissement a fourni un excelent chocolat
+                            venant des quatres coins du monde. C'est en 1945, que Marina Hernadez, decide de diversifier
+                            l'entreprise familiale, sans perdre en prestige. Nesti devint alors une référence dans le
+                            monde de la patisserie Nous consacrons notre temps à trouver les meilleurs ingrédients à
+                            travers le monde.
+
+                            Afin que vous puissiez en famille et entre amis continuer à perpetuer l'art de la
+                            patisserie. Parce que c'est toujours un plaisir de partager !
+                        </p>
+                    </div>
+
+                    <div class="card-footer">
+                        <a type="button" href="{{ path('suggestion') }}" class="w-100 btn btn-primary">Nos suggestions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 {% endblock %}
