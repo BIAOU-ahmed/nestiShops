@@ -1,65 +1,292 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
+{% block title %}
+	Hello IndexController!
+{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
-        }
+	<style>
+		.example-wrapper {
+			margin: 1em auto;
+			max-width: 800px;
+			width: 95%;
+			font: 18px / 1.5 sans-serif;
+		}
 
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
-        }
-    </style>
+		.example-wrapper code {
+			background: #F5F5F5;
+			padding: 2px 6px;
+		}
+	</style>
 
-    {# {{ dump(recipe) }} #}
-    {# {{ dump(recipe[0].comments[0]) }} #}
-    {# <div class="example-wrapper"> #}
-    {# <h1>Hello {{ controller_name }}! ✅</h1> #}
+	{# {{ dump(recipe) }} #}
+	{# {{ dump(recipe[0].comments[0]) }} #}
+	{# <div class="example-wrapper"> #}
+	{# <h1>Hello {{ controller_name }}! ✅</h1> #}
 
-    {# This friendly message is coming from: #}
-    {# <ul> #}
-    {# <li>Your controller at <code><a href="{{ 'F:/dev/Projets/web/nestiShops/src/Controller/IndexController.php'|file_link(0) }}">src/Controller/IndexController.php</a></code></li> #}
-    {# <li>Your template at <code><a href="{{ 'F:/dev/Projets/web/nestiShops/templates/index/index.html.twig'|file_link(0) }}">templates/index/index.html.twig</a></code></li> #}
-    {# </ul> #}
-    {# </div> #}
+	{# This friendly message is coming from: #}
+	{# <ul> #}
+	{# <li>Your controller at <code><a href="{{ 'F:/dev/Projets/web/nestiShops/src/Controller/IndexController.php'|file_link(0) }}">src/Controller/IndexController.php</a></code></li> #}
+	{# <li>Your template at <code><a href="{{ 'F:/dev/Projets/web/nestiShops/templates/index/index.html.twig'|file_link(0) }}">templates/index/index.html.twig</a></code></li> #}
+	{# </ul> #}
+	{# </div> #}
 
-    <div class="container">
-        <div class="card mb-3 w-50 mx-auto">
-            <div class="row g-0">
-                <div class="col-md-5">
-                    <img src="{{ asset('build/illeflottantananas1617911494.jpg') }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }}
-                         alt="l'image représentant la recette"
-                         data-hd-src="{{ asset('build/illeflottantananas1617911494.jpg') }}"
-                         class="rounded mx-auto d-block" width="100%" height="100%"/>
-                </div>
-                <div class="col-md-7">
-                    <div class="card-body">
-                        <h5 class="card-title">A propos de Nesti</h5>
-                        <p class="card-text">
-                            Fondé en 1984 par les Frères Hernandez, notre établissement a fourni un excelent chocolat
-                            venant des quatres coins du monde. C'est en 1945, que Marina Hernadez, decide de diversifier
-                            l'entreprise familiale, sans perdre en prestige. Nesti devint alors une référence dans le
-                            monde de la patisserie Nous consacrons notre temps à trouver les meilleurs ingrédients à
-                            travers le monde.
+	{# <div class="container">
+														        <div class="card mb-3 w-50 mx-auto">
+														            <div class="row g-0">
+														                <div class="col-md-5">
+														                    <img src="{{ asset('build/illeflottantananas1617911494.jpg') }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }}
+														                         alt="l'image représentant la recette"
+														                         data-hd-src="{{ asset('build/illeflottantananas1617911494.jpg') }}"
+														                         class="rounded mx-auto d-block" width="100%" height="100%"/>
+														                </div>
+														                <div class="col-md-7">
+														                    <div class="card-body">
+														                        <h5 class="card-title">A propos de Nesti</h5>
+														                        <p class="card-text">
+														                            Fondé en 1984 par les Frères Hernandez, notre établissement a fourni un excelent chocolat
+														                            venant des quatres coins du monde. C'est en 1945, que Marina Hernadez, decide de diversifier
+														                            l'entreprise familiale, sans perdre en prestige. Nesti devint alors une référence dans le
+														                            monde de la patisserie Nous consacrons notre temps à trouver les meilleurs ingrédients à
+														                            travers le monde.
+														
+														                            Afin que vous puissiez en famille et entre amis continuer à perpetuer l'art de la
+														                            patisserie. Parce que c'est toujours un plaisir de partager !
+														                        </p>
+														                    </div>
+														
+														                    <div class="card-footer">
+														                        <a type="button" href="{{ path('suggestion') }}" class="w-100 btn btn-primary">Nos suggestions</a>
+														                    </div>
+														                </div>
+														            </div>
+														        </div>
+														
+														    </div> #}
 
-                            Afin que vous puissiez en famille et entre amis continuer à perpetuer l'art de la
-                            patisserie. Parce que c'est toujours un plaisir de partager !
-                        </p>
-                    </div>
+		<section class="hero"> <div class="hero__slider owl-carousel">
+			<div class="hero__item set-bg" data-setbg="{{ asset('build/hero-1.jpg') }}">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="col-lg-8">
+							<div class="hero__text">
+								<h2>
+									Making your life sweeter one bite at a time!
+								</h2>
+								<a href="#" class="primary-btn">
+									Our cakes
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="hero__item set-bg" data-setbg="{{ asset('build/hero-1.jpg') }}">
+				<div class="container">
+					<div class="row d-flex justify-content-center">
+						<div class="col-lg-8">
+							<div class="hero__text">
+								<h2>
+									Making your life sweeter one bite at a time!
+								</h2>
+								<a href="#" class="primary-btn">
+									Our cakes
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
-                    <div class="card-footer">
-                        <a type="button" href="{{ path('suggestion') }}" class="w-100 btn btn-primary">Nos suggestions</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+	<!-- About Section Begin -->
+	<section class="about spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6">
+					<div class="about__text">
+						<div class="section-title">
+							<span>
+								Apropos de Nesti
+							</span>
+							<h2>
+								Des gâteaux et des pâtisseries de la maison de la  reine !
+							</h2>
+						</div>
+						<p>
+							Fondé en 1984 par les Frères Hernandez, notre établissement a fourni un excelent chocolat
+																																																																										                            venant des quatres coins du monde. C'est en 1945, que Marina Hernadez, decide de diversifier
+																																																																										                            l'entreprise familiale, sans perdre en prestige. Nesti devint alors une référence dans le
+																																																																										                            monde de la patisserie Nous consacrons notre temps à trouver les meilleurs ingrédients à
+																																																																										                            travers le monde.
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6">
+					<img
+					src="{{ asset('build/illeflottantananas1617911494.jpg') }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }} alt="l'image représentant la recette" data-hd-src="{{ asset('build/illeflottantananas1617911494.jpg') }}" class="rounded mx-auto d-block" width="100%" height="400"/>
+				{# <div class="about__bar">
+																																										<div class="about__bar__item">
+																																											<p>
+																																												Cake design
+																																											</p>
+																																											<div id="bar1" class="barfiller">
+																																												<div class="tipWrap">
+																																													<span class="tip"></span>
+																																												</div>
+																																												<span class="fill" data-percentage="95"></span>
+																																											</div>
+																																										</div>
+																																										<div class="about__bar__item">
+																																											<p>
+																																												Cake Class
+																																											</p>
+																																											<div id="bar2" class="barfiller">
+																																												<div class="tipWrap">
+																																													<span class="tip"></span>
+																																												</div>
+																																												<span class="fill" data-percentage="80"></span>
+																																											</div>
+																																										</div>
+																																										<div class="about__bar__item">
+																																											<p>
+																																												Cake Recipes
+																																											</p>
+																																											<div id="bar3" class="barfiller">
+																																												<div class="tipWrap">
+																																													<span class="tip"></span>
+																																												</div>
+																																												<span class="fill" data-percentage="90"></span>
+																																											</div>
+																																										</div>
+																																									</div> #}
+				</div>
+			</div>
+		</div>
+	</section>
 
-    </div>
+
+	<!-- Categories Section Begin -->
+	<div class="categories">
+		<div class="container">
+			<div class="row">
+				<div class="categories__slider owl-carousel">
+					<div class="categories__item">
+						<div class="categories__item__icon">
+							<span class="flaticon-029-cupcake-3"></span>
+							<h5>
+								Cupcake
+							</h5>
+						</div>
+					</div>
+					<div class="categories__item">
+						<div class="categories__item__icon">
+							<span class="flaticon-034-chocolate-roll"></span>
+							<h5>
+								Butter
+							</h5>
+						</div>
+					</div>
+					<div class="categories__item">
+						<div class="categories__item__icon">
+							<span class="flaticon-005-pancake"></span>
+							<h5>
+								Red Velvet
+							</h5>
+						</div>
+					</div>
+					<div class="categories__item">
+						<div class="categories__item__icon">
+							<span class="flaticon-030-cupcake-2"></span>
+							<h5>
+								Biscuit
+							</h5>
+						</div>
+					</div>
+					<div class="categories__item">
+						<div class="categories__item__icon">
+							<span class="flaticon-006-macarons"></span>
+							<h5>
+								Donut
+							</h5>
+						</div>
+					</div>
+					<div class="categories__item">
+						<div class="categories__item__icon">
+							<span class="flaticon-006-macarons"></span>
+							<h5>
+								Cupcake
+							</h5>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Testimonial Section Begin -->
+	{# {{dump(appreciations)}} #}
+	<section class="testimonial spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="section-title">
+						<span>
+							Testimonial
+						</span>
+						<h2>
+							Our client say
+						</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="testimonial__slider owl-carousel">
+					{% for appreciation in  appreciations %}
+						<div class="col-lg-6">
+							<div class="testimonial__item">
+								<div class="testimonial__author">
+									<div class="testimonial__author__pic">
+										<img src="img/testimonial/ta-1.jpg" alt="">
+									</div>
+									<div class="testimonial__author__text">
+										<h5>
+											{{ appreciation.user.firstName ~' '~ appreciation.user.lastName }}
+										</h5>
+										<span>
+											{{ appreciation.date |format_date('full', locale='fr') }}
+										</span>
+									</div>
+								</div>
+								{# <div class="rating">
+																																															<span class="icon_star"></span>
+																																															<span class="icon_star"></span>
+																																															<span class="icon_star"></span>
+																																															<span class="icon_star"></span>
+																																															<span class="icon_star-half_alt"></span>
+																																														</div> #}
+								{% if appreciation.grade %}
+									<div class="rating rateyo" data-rateyo-rating="{{ appreciation.grade.getRating }}" data-rateyo-num-stars="5"></div>
+								{% endif %}
+								{# <div class="rating rateyo fs-md-6 d-inline-block" data-turbo="false" data-rateyo-rating="4" data-rateyo-num-stars="5"></div> #}
+								<p>
+									{% if appreciation.comment %}
+
+										{{ appreciation.comment.commentContent }}
+
+									{% endif %}
+									{# Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt #}
+									{# ut labore et dolore magna aliqua viverra lacus vel facilisis. #}
+								</p>
+							</div>
+						</div>
+					{% endfor %}
+
+				</div>
+			</div>
+		</div>
+	</section>
 
 {% endblock %}

@@ -369,7 +369,7 @@ class Recipe
     {
         $imageName = "noImage.jpg";
         if($this->getIdImage()){
-            $imageName = "rtecipes/".$this->getIdImage()->getName().'.'.$this->getIdImage()->getFileExtension();
+            $imageName = "recipes/".$this->getIdImage()->getName().'.'.$this->getIdImage()->getFileExtension();
         }
         return $imageName;
     }

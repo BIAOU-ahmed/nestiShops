@@ -7,6 +7,16 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
+import './styles/barfiller.css';
+import './styles/bootstrap.min.css';
+import './styles/elegant-icons.css';
+import './styles/flaticon.css';
+import './styles/magnific-popup.css';
+import './styles/nice-select.css';
+import './styles/owl.carousel.min.css';
+import './styles/slicknav.min.css';
+import './styles/style.css';
+// import './styles/swipe.css';
 import './styles/swipe.css';
 import Filter from './modules/Filter'
 import './modules/cart.js'
@@ -17,7 +27,7 @@ const $ = require('jquery');
 new Filter(document.querySelector('.js-filter'))
 import './../node_modules/rateyo/src/jquery.rateyo'
 import './../node_modules/rateyo/src/jquery.rateyo.css'
-import './../node_modules/vicopo/api'
+// import './../node_modules/vicopo/api'
 $(function() {
 
     $("#rateYo").rateYo({

@@ -1,7 +1,15 @@
-import {Controller} from 'stimulus';
+import { Controller } from 'stimulus';
 
 import Filter from './../modules/Filter'
 import Cart from './../modules/cart'
+import Barfiller from './../modules/jquery.barfiller'
+import Magnific from './../modules/jquery.magnific-popup.min'
+import NiceSelect from './../modules/jquery.nice-select.min'
+import NiceScroll from './../modules/jquery.nicescroll.min'
+import Slicknav from './../modules/jquery.slicknav'
+import Main from './../modules/main'
+import Owl from './../modules/owl.carousel.min'
+
 
 import './../../node_modules/rateyo/src/jquery.rateyo'
 import './../../node_modules/rateyo/src/jquery.rateyo.css'
@@ -22,11 +30,19 @@ export default class extends Controller {
     connect() {
         // this.element.textContent = 'Hello Stimulus! Edit me in assets/controllers/hello_controller.js';
         console.log('controller hello stimulus ')
-        new Filter(document.querySelector('.js-filter'))
-        new Cart()
+        $(function() {
+            new Filter(document.querySelector('.js-filter'))
+        })
+        new Owl()
+        new Barfiller()
+        new Magnific()
+            // new NiceSelect()
+        new NiceScroll()
+        new Slicknav()
+        new Main()
         $("#rateYo").rateYo({
 
-            onSet: function (rating) {
+            onSet: function(rating) {
                 $("#rating").val(rating);
                 console.log('toto', $("#rating"));
                 alert("Rating is set to: " + rating);
@@ -34,7 +50,7 @@ export default class extends Controller {
         });
         $("#updateRateYo").rateYo({
 
-            onSet: function (rating) {
+            onSet: function(rating) {
                 $("#updateRating").val(rating);
                 console.log('toto', $("#updateRating"));
                 alert("Rating is set : " + rating);
@@ -104,19 +120,19 @@ export default class extends Controller {
         //
         // });
 
-        $(function () {
-        //     let s = $('#output>li')
-        //     // console.log(s)
-        //     $('#output').html("");
-        //     setTimeout(function () {
-        //         $('#output').append(s)
-        //         console.log('it done')
-        //     }, 4000);
-        //     // console.log('in set out ', $('#output>li'))
-        //     $('#output').html(" <li data-vicopo=\" #user_zipCode\" type=\"button\" data-vicopo-click='{\"#user_zipCode\": \"code\", \"#user_idCity\": \"ville\"}' >\n" +
-        //         "            <strong data-vicopo-code-postal></strong>\n" +
-        //         "            <span data-vicopo-ville></span>\n" +
-        //         "        </li>")
+        $(function() {
+            //     let s = $('#output>li')
+            //     // console.log(s)
+            //     $('#output').html("");
+            //     setTimeout(function () {
+            //         $('#output').append(s)
+            //         console.log('it done')
+            //     }, 4000);
+            //     // console.log('in set out ', $('#output>li'))
+            //     $('#output').html(" <li data-vicopo=\" #user_zipCode\" type=\"button\" data-vicopo-click='{\"#user_zipCode\": \"code\", \"#user_idCity\": \"ville\"}' >\n" +
+            //         "            <strong data-vicopo-code-postal></strong>\n" +
+            //         "            <span data-vicopo-ville></span>\n" +
+            //         "        </li>")
         })
 
 

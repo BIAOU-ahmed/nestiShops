@@ -1,5 +1,5 @@
-import {Flipper, spring} from 'flip-toolkit'
-
+import { Flipper, spring } from 'flip-toolkit'
+import Main from './../modules/main'
 /**
  * @property {HTMLElement} pagination
  * @property {HTMLElement} content
@@ -18,6 +18,7 @@ export default class Filter {
         this.pagination = element.querySelector('.js-filter-pagination')
         this.content = element.querySelector('.js-filter-content')
         this.form = element.querySelector('.js-filter-form')
+        console.log('my options', this.form.querySelectorAll('.option'));
         console.log('je me construi');
         console.log(this.content)
         if (this.content) {
@@ -37,16 +38,28 @@ export default class Filter {
             }
         }
         this.form.querySelectorAll('input').forEach(input => {
-            input.addEventListener('change', this.loadForm.bind(this))
-        })
+                input.addEventListener('change', this.loadForm.bind(this))
+            })
+            // this.form.querySelectorAll('.option').forEach(option => {
+            //     console.log('my options foreach ', option);
+            //     option.addEventListener('click', this.loadForm.bind(this))
+            // })
+        console.log('categories', this.form.querySelector('#categories'));
+        this.form.querySelector('#categories').addEventListener('change', this.loadForm.bind(this))
         this.pagination.addEventListener('click', OnClickPagination)
     }
 
     async loadForm() {
+
+        console.log('click on cate');
         const data = new FormData(this.form)
+        console.log('form ', this.form);
+        console.log('form ', data);
         const url = new URL(this.form.getAttribute('action') || window.location.href)
         const params = new URLSearchParams()
         data.forEach((value, key) => {
+            console.log('my key', key);
+            console.log('my value', value);
             params.append(key, value)
         })
         return this.loadUrl(url.pathname + '?' + params.toString())
@@ -83,28 +96,28 @@ export default class Filter {
      */
     flipContent(content) {
         const springConfig = 'gentle'
-        const exitSpring = function (element, index, onComplete) {
+        const exitSpring = function(element, index, onComplete) {
             spring({
                 config: 'stiff',
                 values: {
                     translateY: [0, -20],
                     opacity: [1, 0]
                 },
-                onUpdate: ({translateY, opacity}) => {
+                onUpdate: ({ translateY, opacity }) => {
                     element.style.opacity = opacity;
                     element.style.transform = `translateY(${translateY}px)`;
                 },
                 onComplete
             });
         }
-        const appearSpring = function (element, index) {
+        const appearSpring = function(element, index) {
             spring({
                 config: 'stiff',
                 values: {
                     translateY: [20, 0],
                     opacity: [0, 1]
                 },
-                onUpdate: ({translateY, opacity}) => {
+                onUpdate: ({ translateY, opacity }) => {
                     element.style.opacity = opacity;
                     element.style.transform = `translateY(${translateY}px)`;
                 },
@@ -127,7 +140,7 @@ export default class Filter {
         })
         flipper.recordBeforeUpdate()
         this.content.innerHTML = content
-
+        new Main()
         $(".rateyo").rateYo({
             readOnly: true,
             starWidth: "20px"

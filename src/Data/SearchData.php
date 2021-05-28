@@ -18,9 +18,9 @@ class SearchData
     public $q = '';
 
     /**
-     * @var Category[]
+     * @var Category
      */
-    public $categories = [];
+    public $categories = null;
 
      /**
      * @var null|integer

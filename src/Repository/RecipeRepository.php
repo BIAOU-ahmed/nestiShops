@@ -115,6 +115,7 @@ class RecipeRepository extends ServiceEntityRepository
         ->join('r.category','c');
 
         if(!empty($search->q)){
+            dump('have q search');
             $query = $query
             ->andWhere('r.name LIKE :q')
             ->setParameter('q', "%{$search->q}%");
@@ -130,7 +131,7 @@ class RecipeRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query,
             $search->page,
-            6
+            8
         );
     }
 }
