@@ -374,6 +374,9 @@ class Recipe
         return $imageName;
     }
 
+    public function getAuthor(){
+        return $this->getIdChef()->getIdChef()->getFirstName().' '.$this->getIdChef()->getIdChef()->getLastName();
+    }
     public function getDisplayDifficulty(){
         $difficulty = "Facile";
 

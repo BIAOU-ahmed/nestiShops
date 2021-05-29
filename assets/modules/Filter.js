@@ -18,9 +18,6 @@ export default class Filter {
         this.pagination = element.querySelector('.js-filter-pagination')
         this.content = element.querySelector('.js-filter-content')
         this.form = element.querySelector('.js-filter-form')
-        console.log('my options', this.form.querySelectorAll('.option'));
-        console.log('je me construi');
-        console.log(this.content)
         if (this.content) {
 
             this.bindEvents()
@@ -38,14 +35,16 @@ export default class Filter {
             }
         }
         this.form.querySelectorAll('input').forEach(input => {
-                input.addEventListener('change', this.loadForm.bind(this))
-            })
-            // this.form.querySelectorAll('.option').forEach(option => {
-            //     console.log('my options foreach ', option);
-            //     option.addEventListener('click', this.loadForm.bind(this))
-            // })
-        console.log('categories', this.form.querySelector('#categories'));
-        this.form.querySelector('#categories').addEventListener('change', this.loadForm.bind(this))
+            input.addEventListener('change', this.loadForm.bind(this))
+        })
+        // this.form.querySelectorAll('.option').forEach(option => {
+        //     console.log('my options foreach ', option);
+        //     option.addEventListener('click', this.loadForm.bind(this))
+        // })
+        if (this.form.querySelector('#categories')) {
+
+            this.form.querySelector('#categories').addEventListener('change', this.loadForm.bind(this))
+        }
         this.pagination.addEventListener('click', OnClickPagination)
     }
 
@@ -96,7 +95,7 @@ export default class Filter {
      */
     flipContent(content) {
         const springConfig = 'gentle'
-        const exitSpring = function(element, index, onComplete) {
+        const exitSpring = function (element, index, onComplete) {
             spring({
                 config: 'stiff',
                 values: {
@@ -110,7 +109,7 @@ export default class Filter {
                 onComplete
             });
         }
-        const appearSpring = function(element, index) {
+        const appearSpring = function (element, index) {
             spring({
                 config: 'stiff',
                 values: {

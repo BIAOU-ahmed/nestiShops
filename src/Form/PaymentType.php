@@ -24,7 +24,7 @@ class PaymentType extends AbstractType
                 'label' => false,
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'Rechercher'
+                    'placeholder' => 'Votre nom'
                 ],
                 'constraints' => [
                     new NotBlank(),

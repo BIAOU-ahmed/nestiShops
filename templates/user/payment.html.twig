@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 {% block body %}
 
     <div class="container">
@@ -7,38 +7,38 @@
                 <p>Payment form1</p>
 
                 <article class="card">
-                    <div class="card-body p-5">
-                        {{ form_start(form) }}
+                    <div class="card-body p-5"> #}
+{# {{ form_start(form) }} #}
 
-                        {# {{ form_row(form.commentContent) }} #}
-                        {# {{ form_row(form.commentTitle) }} #}
+{# {{ form_row(form.commentContent) }} #}
+{# {{ form_row(form.commentTitle) }} #}
 
 
-                        <div class="form-group">
+{# <div class="form-group">
                             <label for="username">Full name (on the card)</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-user fa-2x"></i></span>
-                                </div>
-                                {# <input type="text" class="form-control" name="username" placeholder="" required=""> #}
-                                {{ form_widget(form.name) }}
+                                </div> #}
+{# <input type="text" class="form-control" name="username" placeholder="" required=""> #}
+{# {{ form_widget(form.name) }}
                                 {{ form_errors(form.name) }}
                             </div> <!-- input-group.// -->
-                        </div> <!-- form-group.// -->
+                        </div> <!-- form-group.// --> #}
 
-                        <div class="form-group">
+{# <div class="form-group">
                             <label for="cardNumber">Card number</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fa fa-credit-card fa-2x"></i></span>
-                                </div>
-                                {# <input type="text" class="form-control" name="cardNumber" placeholder=""> #}
-                                {{ form_widget(form.creditCard) }}
+                                </div> #}
+{# <input type="text" class="form-control" name="cardNumber" placeholder=""> #}
+{# {{ form_widget(form.creditCard) }}
                                 {{ form_errors(form.creditCard) }}
                             </div> <!-- input-group.// -->
-                        </div> <!-- form-group.// -->
+                        </div> <!-- form-group.// --> #}
 
-                        <div class="row">
+{# <div class="row">
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <label><span class="hidden-xs">Expiration</span> </label>
@@ -58,9 +58,9 @@
                                 <div class="form-group">
                                     <label data-toggle="tooltip" title=""
                                            data-original-title="3 digits code on back side of the card">CVV <i
-                                                class="fa fa-question-circle"></i></label>
-                                    {# <input class="form-control" required="" type="text"> #}
-                                    {{ form_widget(form.secretCode) }}
+                                                class="fa fa-question-circle"></i></label> #}
+{# <input class="form-control" required="" type="text"> #}
+{# {{ form_widget(form.secretCode) }}
                                     {{ form_errors(form.secretCode) }}
                                 </div> <!-- form-group.// -->
                             </div>
@@ -70,9 +70,9 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-map-marker-alt fa-2x"></i></span>
-                                </div>
-                                {# <input type="text" class="form-control" name="username" placeholder="" required=""> #}
-                                {{ form_widget(form.address) }}
+                                </div> #}
+{# <input type="text" class="form-control" name="username" placeholder="" required=""> #}
+{# {{ form_widget(form.address) }}
                                 {{ form_errors(form.address) }}
                             </div> <!-- input-group.// -->
                         </div> <!-- form-group.// -->
@@ -85,4 +85,170 @@
             </aside> <!-- col.// -->
         </div>
     </div>
+{% endblock %} #}
+
+{% extends 'base.html.twig' %}
+{% block title %} payement {% endblock %}
+	{% block body %}
+
+	<!-- Breadcrumb Begin -->
+		<div class="breadcrumb-option"> <div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<div class="breadcrumb__text">
+						<h2>
+							Payer
+						</h2>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<div class="breadcrumb__links">
+						<a href="./index.html">
+							Home
+						</a>
+						<span>
+							Checkout
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Breadcrumb End -->
+
+	<!-- Checkout Section Begin -->
+    
+	<section class="checkout spad">
+		<div class="container">
+			<div class="checkout__form">
+				{{ form_start(form) }}
+					<div class="row">
+						<div class="col-lg-8 col-md-6">
+						
+							<h6 class="checkout__title">
+								information de payement
+							</h6>
+							
+							<div class="checkout__input">
+								<p>
+									Nom
+									<span>
+										*
+									</span>
+								</p>
+								{{ form_widget(form.name) }}
+                                {{ form_errors(form.name) }}
+							</div>
+							<div class="checkout__input">
+								<p>
+									Numero de carte
+									<span>
+										*
+									</span>
+								</p>
+								{{ form_widget(form.creditCard) }}
+                                {{ form_errors(form.creditCard) }}
+							</div>
+							<div class="checkout__input">
+								<p>
+									Adresse
+									<span>
+										*
+									</span>
+								</p>
+                                {{ form_widget(form.address) }}
+                                {{ form_errors(form.address) }}
+								{# <input type="text" placeholder="Street Address" class="checkout__input__add"> #}
+							</div>
+							  <div class="mt-3 mr-2">
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <div class="row g-2">
+                                        <div class="col-md-6">
+                                            <div class="checkout__input">
+                                            <p>
+                                                 Mois 
+                                                <span>
+										            *
+									            </span>
+                                            </p> 
+                                         {{ form_widget(form.month) }}
+                                            {{ form_errors(form.month) }} </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="checkout__input">
+                                            <p>
+                                                 Année 
+                                                <span>
+										            *
+									            </span>
+                                            </p>  {{ form_widget(form.year) }} 
+                                            {{ form_errors(form.year) }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="checkout__input">
+                                            <p>
+                                                 CVV 
+                                                <span>
+										            *
+									            </span>
+                                            </p>  {{ form_widget(form.secretCode) }}
+                                    {{ form_errors(form.secretCode) }} </div>
+                                </div>
+                            </div>
+                        </div>
+                            
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div class="checkout__order">
+								<h6 class="order__title">
+									votre commande
+								</h6>
+								<div class="checkout__order__products">
+									Article
+									<span>
+										Total
+									</span>
+								</div>
+								<ul class="checkout__total__products">
+                                {% for orderLine in orderLines %}
+									<li>
+										<samp>
+											{{loop.index}}.
+										</samp>
+										{{orderLine.article.getDisplayName}}
+										<span>
+											{{ (orderLine.article.getPrice * orderLine.nb) | number_format(2, ',', ' ') }}
+										€
+										</span>
+									</li>
+                                    {% endfor %}
+								
+								<ul class="checkout__total__all">
+									<li>
+										Sous Total
+										<span>
+											{{subTotal | number_format(2, ',', ' ') }}
+										</span>
+									</li>
+									<li>
+										Total
+										<span>
+											$750.99
+										</span>
+									</li>
+								</ul>
+								<button type="submit" class="site-btn">
+									payer
+								</button>
+							</div>
+						</div>
+					</div>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</section>
+    
 {% endblock %}

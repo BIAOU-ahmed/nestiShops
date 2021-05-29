@@ -1,15 +1,11 @@
 {% if displayForm %}
-    <span>
-        Note
-    </span>
-    <div id="rateYo" ></div>
-    {{ form_start(form) }}
+	<a type="button" class="primary-btn text-decoration-none" data-bs-toggle="modal" data-bs-target="#modal{{ recipe.idRecipe }}">
+		Laisser une appréciation
+	</a>
 
-    {{ form_row(form.commentContent) }}
-    {{ form_row(form.commentTitle) }}
-    <input id="rating" type="hidden" name="rate" value="null">
-    <button type="submit" class="mt-2 btn btn-primary w-100  ">
-        Soumettre
-    </button>
-    {{ form_end(form) }}
+
+	<!-- Modal -->
+	<div class="modal fade" id="modal{{ recipe.idRecipe }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		{% include "comment/editDialogComment.html.twig" with {form: form } only %}
+	</div>
 {% endif %}

@@ -2054,7 +2054,7 @@ ol {
 }
 
 .shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty input {
-    width: 65px;
+    width: 50px;
     border: none;
     text-align: center;
     color: #111111;
@@ -2077,6 +2077,12 @@ ol {
     width: 140px;
 }
 
+@media (max-width: 767px) {
+    .shopping__cart__table table tbody tr td.cart__price {
+        
+        font-size: 13px;
+    }
+}
 .shopping__cart__table table tbody tr td.cart__close span {
     font-size: 18px;
     display: inline-block;
@@ -2103,7 +2109,7 @@ ol {
     margin-right: 5px;
 }
 
-.continue__btn a {
+.continue__btn span {
     color: #111111;
     font-size: 14px;
     font-weight: 600;
@@ -2258,7 +2264,7 @@ ol {
     color: #f08632;
 }
 
-.checkout__input input {
+.checkout__input input,.checkout__input select {
     height: 50px;
     width: 100%;
     border: 1px solid #e1e1e1;
@@ -3167,7 +3173,12 @@ ol {
     float: left;
 }
 
-.blog__details__recipe__item h6 {
+.blog__details__recipe__item_lg {
+    width: 50%;
+    float: left;
+}
+
+.blog__details__recipe__item h6, .blog__details__recipe__item_lg h6 {
     color: #111111;
     font-weight: 600;
     text-transform: uppercase;
@@ -3178,9 +3189,10 @@ ol {
     margin-right: 8px;
 }
 
-.blog__details__recipe__item span {
+.blog__details__recipe__item span, .blog__details__recipe__item_lg span {
     font-size: 14px;
     color: #888888;
+    text-align: center;
 }
 
 .blog__details__recipe__details {
@@ -3418,7 +3430,7 @@ ol {
 }
 
 .blog__details__comment__item__pic img {
-    height: 90px;
+    height: 105px;
     width: 90px;
     border-radius: 50%;
 }
@@ -3463,14 +3475,14 @@ ol {
     position: relative;
 }
 
-.blog__details__comment__item__text .blog__details__comment__btns a:after {
+/* .blog__details__comment__item__text .blog__details__comment__btns a:after {
     position: absolute;
     right: -16px;
     top: -2px;
-    content: "|";
+    content: "  |";
     color: #888888;
     font-weight: 500;
-}
+} */
 
 .blog__details__comment__item__text .blog__details__comment__btns a:last-child {
     margin-right: 0;

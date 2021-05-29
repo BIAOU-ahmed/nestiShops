@@ -8,21 +8,21 @@
     {# {% for ingredient in ingredients %} #}
     {# {{ dump(ingredient) }} #}
     {# {% endfor %} #}
-    <div data-controller="suggestion">
+    <div data-controller="suggestion" class="mt-5" id="suggestion">
         <h1 id="title_choices" data-url="{{ path('suggestion') }}" class="text-center text-white">Liste des Ingredients</h1>
         <div id="supper_parent">
             <div id="main_content" class="d-flex justify-content-center" style="height: 30rem;">
                 {% for ingredient in ingredients %}
                     <div class="card position-absolute {{ random('rl') ~ '-'~random(3) }}" style="width: 18rem;">
-                        <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/articles/{{ ingredient.article }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image' ) }}
-                             data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/articles/{{ ingredient.article }}"
+                        <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ ingredient.article }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image' ) }}
+                             data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ ingredient.article }}"
                              width="100%" height="300">
 
-                        <div class="card-body">
+                        <div class="suggestion card-body">
                             <h2 class="card-title">{{ ingredient.ingredient.idIngredient.name }}</h2>
                             {# <button class="bg-red rounded-circle h-50 w-50 flex-col flex items-center" id="left"><i class="fas fa-times fa-3xl"></i>Sweep</button> #}
 
-                            <div class="d-flex justify-content-between">
+                            <div class=" d-flex justify-content-between">
                                 <button class="sweep btn btn-danger rounded-circle btn-xl"
                                         data-id="{{ ingredient.ingredient.idIngredient.idProduct }}" type="button"><i
                                             class="fas fa-times"></i>

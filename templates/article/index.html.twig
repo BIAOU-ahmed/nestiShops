@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %} {% block title %} Hello RecipesController! {% endblock %} {% block body %}
+{# {% extends 'base.html.twig' %} {% block title %} Hello RecipesController! {% endblock %} {% block body %}
 
 <div class="container mt-5 js-filter">
 
@@ -21,4 +21,70 @@
         </div>
 
     </div>
-    </div {% endblock %}
+    </div {% endblock %} #}
+
+
+{% extends 'base.html.twig' %}
+{% block title %}
+	articles
+{% endblock %}
+{% block body %}
+	<div
+		class="js-filter">
+		<!-- Breadcrumb Begin -->
+		<div class="breadcrumb-option">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<div class="breadcrumb__text">
+							<h2>
+								Articles
+							</h2>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<div class="breadcrumb__links">
+							<a class="text-decoration-none" href="{{ path('index') }}">
+								Accueil
+							</a>
+							<span>
+								Articles
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Shop Section Begin -->
+		<section class="shop spad">
+			<div class="container">
+				<div class="shop__option">
+					<div class="row">
+						<div class="col-lg-7 col-md-7">
+							<div class="shop__option__search">
+							
+								{% include 'article/_filter.html.twig' with {form: form} only %}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row js-filter-content">
+					{% include "article/_article.html.twig" %}
+				</div>
+				<div class="shop__last__option">
+					<div class="row">
+						<div
+							class="col-lg-6 col-md-6 col-sm-6 js-filter-pagination">
+							{# <div class="shop__pagination"> #}
+							{{ knp_pagination_render(articles, 'pagination/_paginate.html.twig')}}
+							{# </div> #}
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+{% endblock %}

@@ -42,7 +42,7 @@ export default class Cart {
         // });
 
         function add() {
-            let qtyInput = document.querySelector('#qte_article') ?? document.querySelector('#qte_article_recipe') ;
+            let qtyInput = document.querySelector('#qte_article') ?? document.querySelector('#qte_article_recipe');
             const article = qtyInput.dataset.id;
             const inventory = qtyInput.dataset.inventory;
             const quantity = document.querySelector('#qte_article') ? qtyInput.value : 1
@@ -52,7 +52,7 @@ export default class Cart {
             if (Number(quantity) > 0 && Number(quantity) <= Number(inventory)) {
                 console.log('in if')
                 window.localStorage.setItem(article, quantity);
-                qtyInput.value = "";
+                qtyInput.value = "1";
             } else {
                 alert('La quantité est incorect')
             }
@@ -81,8 +81,9 @@ export default class Cart {
             // localArticles.forEach(elm => {
             //     total += Number(elm.nb);
             // })
-            let shops = document.querySelectorAll('.shop');
+            let shops = document.querySelectorAll('.shopping_cart');
             console.log('number', total);
+            console.log('shops', shops);
             shops.forEach(elm => {
                 elm.textContent = String(total);
 
@@ -125,7 +126,7 @@ export default class Cart {
             for (let i = 0; i < localStorage.length; i++) {
                 var localValue = localStorage.getItem(localStorage.key(i));
                 if (Number(localStorage.key(i))) {
-                    const article = {id: localStorage.key(i), nb: localValue}
+                    const article = { id: localStorage.key(i), nb: localValue }
                     localArticles.push(article);
                 }
 

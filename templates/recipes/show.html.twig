@@ -1,25 +1,25 @@
-{% extends 'base.html.twig' %} {% block title %} Hello RecipesController! {% endblock %} {% block body %}
+{# {% extends 'base.html.twig' %} {% block title %} Hello RecipesController! {% endblock %} {% block body %}
 
-    <div class="container mt-5 mb-5 text-white">
+    <div class="container mt-5 mb-5 text-white"> #}
     {# {{ dump(recipe) }} #}
-    <h1 class=" text-center  ">
+    {# <h1 class=" text-center  ">
         {{ recipe.name }}
 
     </h1>
     <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ recipe.getImageName }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image') }}
          alt="l'image représentant la recette"
          data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ recipe.getImageName }}" class="rounded mx-auto d-block" {# Optional but avoids
-        having a page jump when the image is loaded #} width="400" height="400"/>
+        having a page jump when the image is loaded  width="400" height="400"/> #}
 {#    <div class="row mx-auto">#}
 {#        <div class="col-sm-6">Column 1</div>#}
 {#        <div class="col-sm-6">Column 2</div>#}
 {#    </div>#}
-    <div class="d-flex justify-content-center">
+    {# <div class="d-flex justify-content-center">
         <div class="row ">
             <div class="col-6 col-sm-6 ">Temps de préparation</div>
             <div class="col-6 col-sm-6 ">Difficulté</div>
         </div>
-    </div>
+    </div> #}
 
 
 {#    <div class=" w-sm-100 w-25 d-flex justify-content-between">#}
@@ -38,7 +38,7 @@
 {#				{{ recipe.getDisplayDifficulty }}#}
 {#			</span>#}
 {#    </div>#}
-    <div class="d-flex justify-content-center text-dark">
+    {# <div class="d-flex justify-content-center text-dark">
         <div class="row bg-white">
             <div class="col-6 col-sm-6 border">{{ recipe.getTime }}</div>
             <div class="col-6 col-sm-6 border">{{ recipe.getDisplayDifficulty }}</div>
@@ -47,7 +47,7 @@
 
     <div class="text-dark mx-auto w-25 mt-5 border bg-white d-flex justify-content-center">
         Liste d'ingredient pour {{ recipe.portions }} personne
-    </div>
+    </div> #}
     {# <div class="row"> #}
 
     {# <div class="card p-0" style="width: 12% !important;"> #}
@@ -78,7 +78,7 @@
     {# </div> #}
     {# </div> #}
 
-    <div class="container">
+    {# <div class="container">
         <div class="row text-dark">
             {% for ingredient in ingredientRecipes %}
                 <div class="col-6 col-sm-2 col-md-3 col-lg-2 ">
@@ -104,13 +104,13 @@
                 </div>
             {% endfor %}
         </div>
-    </div>
+    </div> #}
 
     {# {% for ingredient in recipe.ingredientRecipes %} #}
     {# {{ ingredient.quantity }} {{ ingredient.idUnit.name }} {{ ingredient.idProduct.IdIngredient.name }} #}
     {# {% endfor %} #}
 
-    <div class="text-dark mx-auto w-25 mt-5 border bg-white d-flex justify-content-center">
+    {# <div class="text-dark mx-auto w-25 mt-5 border bg-white d-flex justify-content-center">
         Preparations
     </div>
     {% for paragraph in recipe.paragraphs |sort((a, b) => a.paragraphPosition
@@ -125,4 +125,91 @@
 
 
 
-    {% include "comment/_form.html.twig" %} {% include "comment/comments.html.twig" %} {% endblock %}
+    {% include "comment/_form.html.twig" %} {% include "comment/comments.html.twig" %} {% endblock %} #}
+
+{% extends 'base.html.twig' %} {% block title %} Detail recette {% endblock %} {% block body %}
+
+    <div class="blog-hero set-bg" data-setbg="{{asset('build/blog-hero.jpg')}}">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-7">
+                    <div class="blog__hero__text">
+                        <div class="label">{{recipe.category.name}}</div>
+                        <h2>{{ recipe.name }}</h2>
+                        <ul>
+                            <li>par <span>{{ recipe.getAuthor }}</span></li>
+                            <li>{{ recipe.getDateCreation |format_date( locale='fr') }}</li>
+                            <li>112 Views</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Details Section Begin -->
+    <section class="blog-details spad">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-8">
+                    <div class="blog__details__content">
+                        
+                        <div class="blog__details__recipe">
+                            <div class="blog__details__recipe__item">
+                                <h6><i class="far fa-user"></i> POUR</h6>
+                                <span>{{ recipe.portions }} personnes</span>
+                            </div>
+                            <div class="blog__details__recipe__item">
+                                <h6><img src="img/blog/details/clock.png" alt=""> DIFFICULTER</h6>
+                                <span>{{ recipe.getDisplayDifficulty }}</span>
+                            </div>
+                            <div class="blog__details__recipe__item">
+                                <h6><i class="far fa-clock"></i> Préparation</h6>
+                                <span >{{ recipe.getTime }}</span>
+                            </div>
+                        </div>
+                        <div class="blog__details__recipe__details">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="blog__details__ingredients">
+                                        <h6>Ingredients</h6>
+                                        <ul>
+                                            {% for ingredient in ingredientRecipes %}
+                                           
+                                                <li>
+                                                <span>.</span>{{ ingredient.ingredient.getDisplayName }}   
+                                                
+                                                
+                                                {% if ingredient.article %}   
+                                                <button type="button" id="qte_article_recipe" data-id="{{ ingredient.article.idArticle }}" data-inventory="{{ingredient.article.getInventory}}" class="add_to_cart_from_recipe btn text-white btn-circle"><i class="fas fa-plus-circle" aria-hidden="true"></i></button>
+                                                 {% endif %}
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="blog__details__ingredients__pic">
+                                        <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ recipe.getImageName }}" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="blog__details__direction">
+                            <h6>Preparations</h6>
+                            <ul>
+                              {% for paragraph in recipe.paragraphs |sort((a, b) => a.paragraphPosition
+                                        <=> b.paragraphPosition) %}
+                                <li><span>{{ paragraph.paragraphPosition }}.</span>  {{ paragraph.content| nl2br }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% include "comment/comments.html.twig" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+{% endblock %}

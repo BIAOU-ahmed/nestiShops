@@ -63,7 +63,8 @@ class ArticleRepository extends ServiceEntityRepository
     public function findSearch(SearchArticleData $search){
 
         $query = $this
-            ->createQueryBuilder('a');
+            ->createQueryBuilder('a')
+            ->andWhere('a.flag=\'a\'');;
 
         if(!empty($search->q)){
             $query = $query

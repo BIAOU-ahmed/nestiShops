@@ -1,11 +1,11 @@
-<div class="col-sm-6 col-md-6 col-lg-4 mb-3" id="article-{{ article.idarticle }}">
+{# <div class="col-sm-6 col-md-6 col-lg-4 mb-3" id="article-{{ article.idarticle }}">
     <div class="card">
         <a href="{{ path('article_show', {'id':article.idarticle}) }}" class="text-decoration-none">
             <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ article.getImageName }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image' ) }}
                  data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ article.getImageName }}" {# Optional but avoids having a page jump when the image
-                is loaded #} width="100%"
-                 height="200"/> {# <img src="{{asset('build/illeflottantananas1617911494.jpg')}}" class="img-fluid h-50 img-thumbnail rounded-top card-img-top" alt="..."> #}
-            <div class="card-body h-auto">
+                {# is loaded  width="100%"#}
+                 {# height="200"/> <img src="{{asset('build/illeflottantananas1617911494.jpg')}}" class="img-fluid h-50 img-thumbnail rounded-top card-img-top" alt="..."> #} 
+            {# <div class="card-body h-auto">
                 <h5 class="card-title ">
                     {{ article.getDisplayName }}
                 </h5>
@@ -22,4 +22,25 @@
         </a>
 
     </div>
-</div>
+</div>  #}
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="product__item">
+            <div class="product__item__pic set-bg" data-setbg="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ article.getImageName }}">
+                <div class="product__label">
+                    <span>{{article.idProduct.ingredient ? "Ingredient": "Ustensil"}}</span>
+                </div>
+            </div>
+            <div class="product__item__text">
+                <h6><a class="text-decoration-none" href="{{ path('article_show', {'id':article.idarticle}) }}">{{ article.getDisplayName }}</a></h6>
+                {% if article.getInventory >0 %}
+                <div class="product__item__price"> {{ article.getPrice | number_format(2, ',', ' ') }} €</div>
+                <div class="cart_add">
+                    <a class="text-decoration-none" href="#">Add to cart</a>
+                </div>
+                {% else %}
+                    <span class="text-danger">momentanément indisponible</span>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>

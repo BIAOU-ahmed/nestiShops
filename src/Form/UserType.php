@@ -31,35 +31,30 @@ class UserType extends AbstractType
         $builder
             ->add('lastName', TextType::class, [
                 'label' => 'Nom',
-                'required' => false,
                 'attr' => [
                     'placeholder' => 'Nom de l\'utilisateur'
                 ],
             ])
             ->add('firstName', TextType::class, [
                 'label' => 'Prenom',
-                'required' => false,
                 'attr' => [
                     'placeholder' => 'Prenom de l\'utilisateur'
                 ]
             ])
             ->add('email', TextType::class, [
                 'label' => 'Email',
-                'required' => false,
                 'attr' => [
                     'placeholder' => 'Email de l\'utilisateur'
                 ]
             ])
             ->add('username', TextType::class, [
                 'label' => 'Nom d\'utilisateur',
-                'required' => false,
                 'attr' => [
                     'placeholder' => 'Nom d\'utilisateur'
                 ]
             ])
             ->add('address1', TextType::class, [
                 'label' => 'Adresse',
-                'required' => false,
                 'attr' => [
                     'placeholder' => 'Adresse'
                 ]
@@ -73,7 +68,6 @@ class UserType extends AbstractType
             ])
             ->add('zipCode', TextType::class, [
                 'label' => 'Code Postal',
-                'required' => false,
                 'attr' => [
                     'placeholder' => '34000'
                 ]
@@ -82,11 +76,10 @@ class UserType extends AbstractType
                 'label' => 'Ville',
                 'required' => false,
                 'constraints' => [
-                    new NotBlank(['message'=>'Ce champ est obligatoire']),
+                    new NotBlank(),
                 ],
 
-            ])
-            ->add('Valider', SubmitType::class);
+            ]);
 
         $builder->get('idCity')
             ->addModelTransformer($this->transformer);

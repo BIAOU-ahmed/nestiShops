@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UsersRepository;
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints as RollerworksPassword;
 
 /**
  * @ORM\Entity(repositoryClass=UsersRepository::class)
@@ -54,19 +56,22 @@ class Users implements UserInterface
     private $email;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\NotCompromisedPassword
+     * @RollerworksPassword\PasswordStrength(minLength=8, minStrength=4, message="mot de passe trop faible")
      * @ORM\Column(name="passwordHash", type="string", length=255)
-     */
+     */ 
     private $password;
 
     /**
      * @ORM\Column(type="string", length=1)
      */
-    private $flag;
+    private $flag = "w";
 
     /**
      * @ORM\Column(name="dateCreation",type="datetime")
      */
-    private $dateCreation;
+    private $dateCreation ;
 
     /**
      * @Assert\NotBlank(
@@ -156,6 +161,7 @@ class Users implements UserInterface
         $this->grades = new ArrayCollection();
         $this->connectionLogs = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->dateCreation = new DateTime();
     }
 
     public function getIdUsers(): ?int

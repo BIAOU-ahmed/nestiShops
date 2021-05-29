@@ -8,7 +8,7 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
 import './styles/barfiller.css';
-import './styles/bootstrap.min.css';
+// import './styles/bootstrap.min.css';
 import './styles/elegant-icons.css';
 import './styles/flaticon.css';
 import './styles/magnific-popup.css';

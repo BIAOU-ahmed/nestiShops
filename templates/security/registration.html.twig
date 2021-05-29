@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Registration
+{% endblock %}
+{% block body %}
+	<div class="container" data-turbo="false">
+		<div class="row ">
+			{{ form_start(form) }}
+			<div class="row mt-2">
+				<div class="col-md-6">
+					{{ form_label(form.lastName) }}
+					{{ form_widget(form.lastName) }}
+				</div>
+				<div class="col-md-6">
+					{{ form_label(form.firstName) }}
+					{{ form_widget(form.firstName) }}
+				</div>
+			</div>
+
+
+			{{ form_label(form.email) }}
+			{{ form_widget(form.email) }}
+
+
+			{{ form_label(form.username) }}
+			{{ form_widget(form.username) }}
+
+			{{ form_widget(form.password) }}
+
+			{{ form_label(form.address1) }}
+			{{ form_widget(form.address1) }}
+
+
+			{{ form_label(form.address2) }}
+			{{ form_widget(form.address2) }}
+
+
+			<div class="row mt-2">
+				<div class="col-md-6">
+					{{ form_label(form.zipCode) }}
+					{{ form_widget(form.zipCode) }}
+				</div>
+				<div class="col-md-6">
+					{{ form_label(form.idCity) }}
+					{{ form_widget(form.idCity) }}
+				</div>
+			</div>
+
+			<div class="mt-5 text-center">
+				<button type="submit" class="primary-btn text-decoration-none">
+					Valider
+				</button>
+			</div>
+
+			{{ form_end(form) }}
+
+		</div>
+	</div>
+
+
+{% endblock %}

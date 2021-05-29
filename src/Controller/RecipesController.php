@@ -61,7 +61,7 @@ class RecipesController extends AbstractController
         Request $request,
         CommentRepository $commentRepository,
         CommentService $commentService,
-        UserInterface $user,
+        UserInterface $user = null,
         UsersRepository $repoUser,
         GradesRepository $repoGrade,
         ArticleRepository $articleRepository
@@ -76,7 +76,7 @@ class RecipesController extends AbstractController
         $comment = $commentRepository->findOneBy(['idRecipe' => $recipe->getIdRecipe(), 'idUsers' => $user]);
         $rate = $repoGrade->findOneBy(['idRecipe' => $recipe->getIdRecipe(), 'idUsers' => $user]);
         $displayForm = true;
-        if ($rate || $comment) {
+        if ($rate || $comment || !$user) {
             $displayForm = false;
         }
         if (!$comment) {
@@ -90,7 +90,7 @@ class RecipesController extends AbstractController
             $userComment = $commentRepository->findOneBy(['idRecipe' => $recipe->getIdRecipe(), 'idUsers' => $oneUser->getIdUsers(), 'flag' => ['a', 'w']]);
             $userGrade = $repoGrade->findOneBy(['idRecipe' => $recipe->getIdRecipe(), 'idUsers' => $oneUser->getIdUsers()]);
             if ($userComment || $userGrade) {
-                $localForm = $this->createForm(CommentType::class, $userComment);
+                $localForm = $this->createForm(CommentType::class, $comment);
                 $localForm->handleRequest($request);
                 $date =$userComment ? $userComment->getDateCreation() : $userGrade->getDateCreation();
                 $appreciations[] = ['user' => $oneUser, 'comment' => $userComment, 'grade' => $userGrade,"date"=>$date, 'form' => $localForm->createView()];
@@ -135,9 +135,14 @@ class RecipesController extends AbstractController
             dump('comment', $comment);
             if ($form->get('commentTitle')->getData() || $form->get('commentContent')->getData()) {
                 dump('in the if');
+                foreach ($recipe->getComments() as  $value) {
+
+                    dump($value);
+                }
                 $commentService->persistComment($comment, $recipe, $user);
+                dump('user for comment',$user);
             }
-//            die();
+        //    die();
             $this->addFlash('success', 'Votre commentaire est bien envoyé, merci.');
             return $this->redirectToRoute('recipe_show', ['id' => $recipe->getIdRecipe()],Response::HTTP_SEE_OTHER);
         } else if ($form->isSubmitted()) {

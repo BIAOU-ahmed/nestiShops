@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Form\RegistrationType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -24,6 +27,31 @@ class SecurityController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
+
+    /**
+     * @Route("/registration", name="app_registration")
+     */
+    public function registration(
+        Request $request,
+        EntityManagerInterface $em
+    ): Response {
+
+        $form = $this->createForm(RegistrationType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $em->persist($user);
+            $em->flush();
+            // dd($user);
+            $this->addFlash('success', 'Compte créer avec succes.');
+            return $this->redirectToRoute('app_login');
+        }
+        $response = new Response(null, $form->isSubmitted() ? 422 : 200);
+        return $this->render('security/registration.html.twig',[
+            'form' => $form->createView(),
+        ], $response);
     }
 
     /**

@@ -32,6 +32,7 @@ export default class extends Controller {
         console.log('controller hello stimulus ')
         $(function() {
             new Filter(document.querySelector('.js-filter'))
+            new Cart()
         })
         new Owl()
         new Barfiller()

@@ -1,75 +1,134 @@
-<div class="container mt-5 text-dark d-flex justify-content-center mt-100 mb-100">
-    <div class="w-100 row">
-        <div class="card ">
-            <div class="card-body">
-                <h4 class="card-title">
-                    Récente appréciation
-                </h4>
-                <h6 class="card-subtitle">
-                </h6>
-            </div>
-            <div class="comment-widgets m-b-20">
-                {# {{ dump(appreciations) }} #}
-                {% for appreciation in appreciations %}
-                    <div class="d-flex flex-row comment-row mb-3">
-                        <div class="p-2">
-								<span class="text-white bg-dark btn rounded-circle btn-xl">
-									{{ appreciation.user.firstname |first |upper }}{{ appreciation.user.lastname |first |upper }}
+{# <div class="container mt-5 text-dark d-flex justify-content-center mt-100 mb-100">
+	<div class="w-100 row">
+		<div class="card ">
+			<div class="card-body">
+				<h4 class="card-title">
+					Récente appréciation
+				</h4>
+				<h6 class="card-subtitle"></h6>
+			</div>
+			<div class="comment-widgets m-b-20"> #}
+				{# {{ dump(appreciations) }} #}
+				{# {% for appreciation in appreciations %}
+				                    <div class="d-flex flex-row comment-row mb-3">
+				                        <div class="p-2">
+												<span class="text-white bg-dark btn rounded-circle btn-xl">
+													{{ appreciation.user.firstname |first |upper }}{{ appreciation.user.lastname |first |upper }}
+												</span>
+				                        </div>
+				                        <div class=" w-100">
+				                            <h5>
+				                                {{ appreciation.user.firstName ~' '~ appreciation.user.lastName }}
+				                            </h5>
+				                            {% if appreciation.grade %}
+				                                <div class="rateyo" data-rateyo-rating="{{ appreciation.grade.getRating }}"
+				                                     data-rateyo-num-stars="5"></div>
+				                            {% endif %}
+				
+				                            {% if appreciation.comment %}
+				                                <span>
+														{{ appreciation.comment.commentTitle }}
+													</span>
+				                            {% endif %}
+				                            <div class="comment-footer">
+														<span class="text-muted date">
+				                    {{ appreciation.date |format_date('full', locale='fr') }}
+														</span>
+				                                {% if appreciation.comment and appreciation.comment.flag == 'a' %}
+				                                    <span class="badge bg-success">
+				                                    Approuvé
+				                                </span>
+				                                {% else %}
+				                                    <span class="badge bg-primary">
+				                                    Pending
+				                                </span>
+				                                {% endif %}
+				                                {% if (appreciation.comment and appreciation.comment.flag == 'w' and app.user == appreciation.user) or (appreciation.comment == null and app.user == appreciation.user) %}
+				
+				                                    <!-- Button trigger modal -->
+				                                    <a type="button" class="" data-bs-toggle="modal"
+				                                       data-bs-target="#modal{{ app.user.idUsers }}">
+				                                        <i class="fa fa-pencil"></i>
+				                                    </a>
+				
+				                                    <!-- Modal -->
+				                                    <div class="modal fade" id="modal{{ app.user.idUsers }}" tabindex="-1"
+				                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+				                                        {% include "comment/editDialogComment.html.twig" with {form: appreciation.form, grade:appreciation.grade } only %}
+				                                    </div>
+				
+				                                {% endif %}
+				                            </div>
+				                            {% if appreciation.comment %}
+				                                <p class="m-b-5 m-t-10">
+				                                    {{ appreciation.comment.commentContent }}
+				                                </p>
+				                            {% endif %}
+				                        </div>
+				                    </div>
+				                {% endfor %}
+				
+				            </div>
+				        </div>
+				    </div>
+				</div> #}
+
+
+					<div class="blog__details__comment"> <h5>
+						{{ appreciations |length }}
+						Appréciations
+					</h5>
+
+					{% include "comment/_form.html.twig" %}
+					{% for appreciation in appreciations %}
+						<div class="blog__details__comment__item">
+							<div class="blog__details__comment__item__pic">
+								<img src="{{asset('build/profile.jpg')}}" alt="">
+							</div>
+							<div class="blog__details__comment__item__text">
+								<h6>
+									{{ appreciation.user.firstName ~' '~ appreciation.user.lastName }}
+								</h6>
+								<span>
+									{{ appreciation.date |format_date( locale='fr') }}
 								</span>
-                        </div>
-                        <div class=" w-100">
-                            <h5>
-                                {{ appreciation.user.firstName ~' '~ appreciation.user.lastName }}
-                            </h5>
-                            {% if appreciation.grade %}
-                                <div class="rateyo" data-rateyo-rating="{{ appreciation.grade.getRating }}"
-                                     data-rateyo-num-stars="5"></div>
-                            {% endif %}
+								{% if appreciation.grade %}
+									<div class="rateyo" data-rateyo-rating="{{ appreciation.grade.getRating }}" data-rateyo-num-stars="5"></div>
+								{% endif %}
+								{% if appreciation.comment %}
+									<p>
+										{{ appreciation.comment.commentContent | nl2br }}
+									</p>
+								{% endif %}
+								<div class="blog__details__comment__btns">
+									{% if appreciation.comment and appreciation.comment.flag == 'a' %}
+										<label class="badge bg-success">
+											Approuvé
+										</label>
+									{% else %}
+										<label class="badge bg-primary">
+											Pending
+										</label>
+									{% endif %}
+									{% if (appreciation.comment and appreciation.comment.flag == 'w' and app.user == appreciation.user) or (appreciation.comment == null and app.user == appreciation.user) %}
 
-                            {% if appreciation.comment %}
-                                <span>
-										{{ appreciation.comment.commentTitle }}
-									</span>
-                            {% endif %}
-                            <div class="comment-footer">
-										<span class="text-muted date">
-                    {{ appreciation.date |format_date('full', locale='fr') }}
-										</span>
-                                {% if appreciation.comment and appreciation.comment.flag == 'a' %}
-                                    <span class="badge bg-success">
-                                    Approuvé
-                                </span>
-                                {% else %}
-                                    <span class="badge bg-primary">
-                                    Pending
-                                </span>
-                                {% endif %}
-                                {% if (appreciation.comment and appreciation.comment.flag == 'w' and app.user == appreciation.user) or (appreciation.comment == null and app.user == appreciation.user) %}
+										<!-- Button trigger modal -->
+										<a type="button" class="" data-bs-toggle="modal" data-bs-target="#modal{{ app.user.idUsers }}">
+											<i class="fa fa-pencil"></i>
+										</a>
 
-                                    <!-- Button trigger modal -->
-                                    <a type="button" class="" data-bs-toggle="modal"
-                                       data-bs-target="#modal{{ app.user.idUsers }}">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
+										<!-- Modal -->
+										<div class="modal fade" id="modal{{ app.user.idUsers }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+											{% include "comment/editDialogComment.html.twig" with {form: appreciation.form, grade:appreciation.grade } only %}
+										</div>
 
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="modal{{ app.user.idUsers }}" tabindex="-1"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        {% include "comment/editDialogComment.html.twig" with {form: appreciation.form, grade:appreciation.grade } only %}
-                                    </div>
+									{% endif %}
 
-                                {% endif %}
-                            </div>
-                            {% if appreciation.comment %}
-                                <p class="m-b-5 m-t-10">
-                                    {{ appreciation.comment.commentContent }}
-                                </p>
-                            {% endif %}
-                        </div>
-                    </div>
-                {% endfor %}
+									{# <a href="#">Like</a> #}
+								</div>
+							</div>
+						</div>
+					{% endfor %}
 
-            </div>
-        </div>
-    </div>
-</div>
+
+				</div>

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %} {% block title %} Hello RecipesController! {% endblock %} {% block body %}
+{# {% extends 'base.html.twig' %} {% block title %} Hello RecipesController! {% endblock %} {% block body %}
 
     <div class="container mt-5 mb-5 text-white">
         <h1 class=" text-center  ">
@@ -8,8 +8,7 @@
         <div class="mx-auto d-flex justify-content-center ">
             <div class="mb-3">
                 <img src="{{ asset('build/illeflottantananas1617911494.jpg') }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image' ) }}
-                     data-hd-src="{{ asset('build/illeflottantananas1617911494.jpg') }}" class="rounded " {# Optional but avoids having a page
-                jump when the image is loaded #} width="400" height="400"/>
+                     data-hd-src="{{ asset('build/illeflottantananas1617911494.jpg') }}" class="rounded "  width="400" height="400"/>
                 {% if article.getInventory >0 %}
                 <span class="border d-block w-50 mt-2 mb-2 ">prix: {{ article.getPrice | number_format(2, ',', ' ') }} € </span>
 
@@ -48,4 +47,103 @@
         {% endif %}
     </div>
 
+{% endblock %} #}
+
+{% extends 'base.html.twig' %}
+{% block title %}
+	Detail article
+{% endblock %}
+{% block body %}
+
+	<!-- Breadcrumb Begin -->
+	<div class="breadcrumb-option">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<div class="breadcrumb__text">
+						<h2>
+							Détail de l'article
+						</h2>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<div class="breadcrumb__links">
+						<a class="text-decoration-none" href="{{ path('index') }}">
+							Accueil
+						</a>
+						<a class="text-decoration-none" href="{{ path('articles') }}">
+							Articles
+						</a>
+						<span>
+							{{ article.getDisplayName }}
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Shop Details Section Begin -->
+	<section class="product-details spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="product__details__img">
+						<div class="product__details__big__img">
+							<img class="big_img" src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ article.getImageName }}" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="product__details__text">
+						<div class="product__label">
+							{{article.idProduct.ingredient ? "Ingredient": "Ustensil"}}
+						</div>
+						<h4>
+							{{ article.getDisplayName }}
+						</h4>
+						<h5>
+							{{ article.getPrice | number_format(2, ',', ' ') }}
+							€
+						</h5>
+						{% if article.getInventory >0 %}
+							<div class="product__details__option">
+								<div class="quantity">
+									<div class="pro-qty">
+										<input type="number" data-id="{{ article.idArticle }}" data-inventory="{{ article.getInventory }}" id="qte_article" value="1" min="1" max=" {{ article.getInventory }} ">
+									</div>
+								</div>
+								<button type="button" class="add_to_cart primary-btn">
+									Add to cart
+								</button>
+							</div>
+						{% else %}
+							<span class="bg-white text-center d-block mt-2 text-danger">
+								momentanément indisponible
+							</span>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{% if recipes %}
+		<!-- Related Products Section Begin -->
+		<section class="related-products spad">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						<div class="section-title">
+							<h2>
+								Recettes liées
+							</h2>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					{% include "recipes/_recipes.html.twig" with {recipes: recipes} only %}
+				</div>
+			</div>
+		</section>
+	{% endif %}
 {% endblock %}
