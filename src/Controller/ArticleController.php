@@ -51,10 +51,10 @@ class ArticleController extends AbstractController
         }
         $recipes = [];
       foreach ($array as $ingredientRecipe){
-//          dump($ingredientRecipe->getIdRecipe());
+          
           $recipes[] = $ingredientRecipe->getIdRecipe();
       }
-//      dump($array);
+      
         return $this->render('article/show.html.twig', [
             'article' => $article,
             'recipes' =>$recipes

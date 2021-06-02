@@ -67,9 +67,11 @@ class RecipesController extends AbstractController
         ArticleRepository $articleRepository
     ): Response
     {
-
+        if(session_id() == ''){
+            session_start();
+         }
         $myDate = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
-        $_SESSION['orderlines'][$recipe->getIdRecipe()] =$myDate->getTimestamp();
+        $_SESSION['visites'][$recipe->getIdRecipe()] =$myDate->getTimestamp();
         // $d = [];
         // $d[$recipe->getIdRecipe()] = $myDate->getTimestamp();
         // $this->get('session')->set('orderlines', $d);
@@ -99,13 +101,11 @@ class RecipesController extends AbstractController
         $ingredientRecipes = [];
         foreach($recipe->getIngredientRecipes() as $ingredient){
             $article = $articleRepository->findOneBy(["idProduct"=>$ingredient->getIdProduct(),"idUnit"=>$ingredient->getIdUnit(),"unitQuantity"=>$ingredient->getQuantity(),"flag"=>"a"]);
-            dump($article);
+            
             $ingredientRecipes[] = ["ingredient"=> $ingredient,"article"=>$article,"image" =>$article? $article->getImageName():"noImage.jpg"];
 
         }
         $response = new Response(null, 200);
-        dump($appreciations);
-        dump($comments);
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
@@ -113,34 +113,23 @@ class RecipesController extends AbstractController
 
             $comment = $form->getData();
             if ($_POST['rate'] != "null") {
-//                dd($rate);
                 $mainRate =$rate;
-                dump('befor', $mainRate);
                 if (!$rate) {
                     $rate = new Grades();
                     $rate->setDateCreation( new \DateTime('now', new \DateTimeZone('Europe/Paris')));
                     $rate->setIdRecipe($recipe);
                     $rate->setIdUsers($user);
                 }
-                dump('after', $mainRate);
 
                 $rate->setRating($_POST['rate']);
-                // dump($form);
-//                 dd($rate);
                 if (!$mainRate) {
                     $em->persist($rate);
                 }
                 $em->flush();
             }
-            dump('comment', $comment);
             if ($form->get('commentTitle')->getData() || $form->get('commentContent')->getData()) {
-                dump('in the if');
-                foreach ($recipe->getComments() as  $value) {
-
-                    dump($value);
-                }
+             
                 $commentService->persistComment($comment, $recipe, $user);
-                dump('user for comment',$user);
             }
         //    die();
             $this->addFlash('success', 'Votre commentaire est bien envoyé, merci.');

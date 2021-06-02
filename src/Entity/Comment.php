@@ -137,13 +137,12 @@ class Comment
         return $this;
     }
     public function getGrade(){
-        // dump($this->getIdUsers()->getGrades());
+        
         $grade = false;
         foreach ($this->getIdUsers()->getGrades() as $key => $value) {
-            // dump($value);
+            
             if($value->getIdRecipe() == $this->getIdRecipe() && $value->getIdUsers() == $this->getIdUsers()){
-                dump('in the if');
-                dump($value);
+                
                 $grade = $value->getRating();
             }
         }

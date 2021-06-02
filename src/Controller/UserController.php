@@ -30,8 +30,7 @@ class UserController extends AbstractController
         UserInterface $user,
         UsersRepository $userRepository
     ): Response {
-        //        $localUser = $userRepository->find(1);
-
+        
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         $clear = false;
@@ -40,11 +39,7 @@ class UserController extends AbstractController
 
             $this->get('session')->remove('clear');
         }
-        // if ($form->isSubmitted()) {
-        //     //            dump($localUser);
-        //     dump($userRepository->find(1));
-        //     dump($form);
-        // }
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
             $em->flush();
@@ -77,7 +72,7 @@ class UserController extends AbstractController
                 $data = [];
                 $value = $_POST['localStorage'];
                 foreach ($value as $elem) {
-                    //                    var_dump('toto',$elem);
+                    
                     $article = $repo->findOneBy(['idArticle' => $elem['id']]);
                     $data[] = ['article' => $article, 'nb' => $elem['nb']];
                 }
@@ -87,9 +82,7 @@ class UserController extends AbstractController
                 }
                 $this->get('session')->set('orderlines', $data);
             }
-            //            dd($value);
-            //            dump('totototototoo');
-            //            dump($email);
+            
             return new JsonResponse([
                 'content' => $this->renderView('user/_cart_element.html.twig', ['values' => $data, 'subTotal' => $subTotal, 'starDate' => date('y-m-d')]),
                 'value' => $value
@@ -115,19 +108,15 @@ class UserController extends AbstractController
         if (!$orderLines) {
             return $this->redirectToRoute('index');
         } else {
-            dump($orderLines);
+            
             $subTotal = 0;
             foreach ($orderLines as $value) {
                 $subTotal += $value['article']->getprice() * $value['nb'];
             }
         }
-        if ($form->isSubmitted() ){
-            dump('is submit');
-            dump($form);
-        }
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            dump('form is valid');
+            
             $order = new Orders();
             $order->setDateCreation(new \DateTime('now', new \DateTimeZone('Europe/Paris')))
                 ->setFlag('w')
@@ -138,22 +127,21 @@ class UserController extends AbstractController
             foreach ($orderLines as $line) {
                 $article = $repoArticle->find($line['article']->getIdArticle());
                 $orderLine = new OrderLine();
-                //                dump($line['article']);
+                
                 $orderLine->setIdOrders($order)
                     ->setIdArticle($article)
                     ->setQuantity($line['nb']);
-                //                dump($orderLine);
-                //                $order->addOrderLine($orderLine);
+                    
                 $em->persist($orderLine);
                 $em->flush();
             }
-            //            dump($order);
+            
             $this->get('session')->set('clear', 'true');
             $this->get('session')->remove('orderlines');
             $this->addFlash('success', 'Votre Commande à bien été validé.');
             return $this->redirectToRoute('profil', [], Response::HTTP_SEE_OTHER);
         }
-        dump('after if not valid');
+        
         $response = new Response(null, $form->isSubmitted() ? 422 : 200);
         return $this->render(
             'user/payment.html.twig',

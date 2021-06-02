@@ -1,140 +1,3 @@
-{# {% if values %}
-
-    <div class="row">
-        {{ dump(total) }}
-        <!--Grid column-->
-        <div class="col-lg-8">
-
-            <!-- Card -->
-            <div class="card wish-list mb-3">
-                <div class="card-body">
-
-                    <h5 class="mb-4">{{ pluralize(values | length, 'Article') }} </h5>
-                    {% for article in values %}
-                        <div class="row mb-4">
-                            <div class="col-md-5 col-lg-3 col-xl-3">
-                                <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
-                                    <img class="img-fluid w-100"
-                                         src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/articles/{{ article.article.getImageName }}"
-                                         alt="Sample">
-
-                                </div>
-                            </div>
-                            <div class="col-md-7 col-lg-9 col-xl-9">
-                                <div>
-                                    <div class="d-flex justify-content-between">
-                                        <div>
-                                            <h5>{{ article.article.getDisplayName }}</h5>
-                                        </div>
-                                        <div>
-
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn articleDown btn-danger btn-number"
-                                                            data-id="{{ article.article.idArticle }}" {{ article.nb == 1 ? 'disabled':'' }}>
-                                                        <i class="fas fa-minus"
-                                                           data-id="{{ article.article.idArticle }}"></i>
-                                                    </button>
-                                                </span>
-                                                <input type="text" name="quant[2]" class="w-25 form-control text-center input-number"
-                                                       value="{{ article.nb }}" readonly >
-                                                <span class="input-group-btn">
-                                                    <button type="button" class=" articleUp btn btn-success btn-number"
-                                                            data-id="{{ article.article.idArticle }}"
-                                                            data-inventory="{{ article.article.getInventory }}">
-                                                        <i class="fas fa-plus" data-id="{{ article.article.idArticle }}"
-                                                           data-inventory="{{ article.article.getInventory }}"></i>
-                                                    </button>
-                                                </span>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <button type="button"
-                                                    class="deleteArticle card-link-secondary small text-uppercase mr-3" data-id="{{ article.article.idArticle }}">
-                                                <i class="fas fa-trash-alt mr-1" data-id="{{ article.article.idArticle }}" ></i> Supprimer
-                                            </button>
-                                        </div>
-                                        <p class="mb-0">
-                                            <span><strong>{{ article.article.getPrice | number_format(2, ',', ' ') }} €</strong></span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <hr class="mb-4">
-                    <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> Do not delay the purchase,
-                        adding
-                        items to your cart does not mean booking them.</p>
-
-                </div>
-            </div>
-            <!-- Card -->
-
-            <!-- Card -->
-            <div class="card mb-3">
-                <div class="card-body">
-
-                    <h5 class="mb-4">Délai de livraison prévu</h5>
-                    {% set startDate =  "now"|date_modify("+5 day")|date("y-m-d")  %}
-                    <p class="mb-0"> {{ startDate |format_date('full', locale='fr') }} - {{ startDate |date_modify("+5 day") |format_date('full', locale='fr') }}</p>
-                </div>
-            </div>
-
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-lg-4">
-
-            <!-- Card -->
-            <div class="card mb-3">
-                <div class="card-body">
-
-                    <h5 class="mb-3">The total amount of</h5>
-
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                            Sous total
-                            <span>{{ total | number_format(2, ',', ' ') }} €</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            Livraison
-                            <span>gratuit</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                            <div>
-                                <strong>The total amount of</strong>
-                                <strong>
-                                    <p class="mb-0">(including VAT)</p>
-                                </strong>
-                            </div>
-                            <span><strong>$53.98</strong></span>
-                        </li>
-                    </ul>
-
-                    <a href="{{ path('payment') }}" type="button"
-                       class="btn btn-primary btn-block waves-effect waves-light">aller au paiement
-                    </a>
-
-                </div>
-            </div>
-
-
-        </div>
-        <!--Grid column-->
-
-    </div>
-{% else %}
-
-    <p class="text-white">Votre panier est vide pour le moment</p>
-
-{% endif %} #}
-
 <div class="breadcrumb-option">
 	<div class="container">
 		<div class="row">
@@ -233,13 +96,13 @@
 							<h5 class=" w-100">
 								Délai de livraison prévu
 							</h5>
-                            {% set startDate =  "now"|date_modify("+5 day")|date("y-m-d")  %}
+							{% set startDate =  "now"|date_modify("+5 day")|date("y-m-d")  %}
 							<span class="w-100">
 
 
 								{{ startDate |format_date('full', locale='fr') }}
-							-
-							{{ startDate |date_modify("+5 day") |format_date('full', locale='fr') }}
+								-
+								{{ startDate |date_modify("+5 day") |format_date('full', locale='fr') }}
 							</span>
 						</div>
 					</div>

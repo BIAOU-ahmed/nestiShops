@@ -73,7 +73,9 @@ class RecipeRepository extends ServiceEntityRepository
     public function findAllByCategoryForApi($value): array
     {
         $conn = $this->getEntityManager()->getConnection();
-
+        if ($value == "gluten") {
+            $value = "sans gluten";
+        }
         $sql = '
             SELECT * FROM view_api_recipes
             WHERE cat=:cat
@@ -96,8 +98,8 @@ class RecipeRepository extends ServiceEntityRepository
             ';
         $stmt = $conn->prepare($sql);
 
-        $stmt->execute(['value' => '%'.$value.'%']);
-//        dd($stmt->fetchAllAssociative());
+        $stmt->execute(['value' => '%' . $value . '%']);
+        //        dd($stmt->fetchAllAssociative());
 
         // returns an array of arrays (i.e. a raw data set)
         return $stmt->fetchAllAssociative();
@@ -107,27 +109,27 @@ class RecipeRepository extends ServiceEntityRepository
      * 
      *@return PaginationInterface 
      */
-    public function findSearch(SearchData $search){
+    public function findSearch(SearchData $search)
+    {
         // return $this->findAll();
         $query = $this
-        ->createQueryBuilder('r')
-        ->select('c','r')
-        ->join('r.category','c')
-        ->andWhere('r.flag=\'a\'');
+            ->createQueryBuilder('r')
+            ->select('c', 'r')
+            ->join('r.category', 'c')
+            ->andWhere('r.flag=\'a\'');
 
-        if(!empty($search->q)){
-            dump('have q search');
+        if (!empty($search->q)) {
+            
             $query = $query
-            ->andWhere('r.name LIKE :q')
-            ->setParameter('q', "%{$search->q}%");
+                ->andWhere('r.name LIKE :q')
+                ->setParameter('q', "%{$search->q}%");
         }
-        if(!empty($search->categories)){
+        if (!empty($search->categories)) {
             $query = $query
-            ->andWhere('c.id IN (:categories)')
-            ->setParameter('categories', $search->categories);
+                ->andWhere('c.id IN (:categories)')
+                ->setParameter('categories', $search->categories);
         }
-        dump($search->q);
-        dump($query->getQuery());
+        
         $query =  $query->getQuery();
         return $this->paginator->paginate(
             $query,

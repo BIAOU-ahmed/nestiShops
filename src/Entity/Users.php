@@ -107,7 +107,7 @@ class Users implements UserInterface
      *      max = 5,
      *      exactMessage = "Le code postal doit avoir exactement {{ limit }} chiffres",
      * )
-     * @ORM\Column(name="zipCode",type="integer")
+     * @ORM\Column(name="zipCode",type="string")
      */
     private $zipCode;
 
@@ -155,6 +155,11 @@ class Users implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LogToken::class, mappedBy="user")
+     */
+    private $logTokens;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -162,6 +167,7 @@ class Users implements UserInterface
         $this->connectionLogs = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->dateCreation = new DateTime();
+        $this->logTokens = new ArrayCollection();
     }
 
     public function getIdUsers(): ?int
@@ -513,6 +519,36 @@ class Users implements UserInterface
     public function setUsername(?string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LogToken[]
+     */
+    public function getLogTokens(): Collection
+    {
+        return $this->logTokens;
+    }
+
+    public function addLogToken(LogToken $logToken): self
+    {
+        if (!$this->logTokens->contains($logToken)) {
+            $this->logTokens[] = $logToken;
+            $logToken->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLogToken(LogToken $logToken): self
+    {
+        if ($this->logTokens->removeElement($logToken)) {
+            // set the owning side to null (unless already changed)
+            if ($logToken->getUser() === $this) {
+                $logToken->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -2,14 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\LogToken;
 use App\Entity\Paragraph;
 use App\Entity\Recipe;
 use App\Repository\IngredientRecipeRepository;
 use App\Repository\ParagraphRepository;
 use App\Repository\RecipeRepository;
+use App\Repository\TokenRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -37,11 +42,30 @@ class ApiController extends AbstractController
     /**
      * @Route("/api/category/{slug}", name="api_gluten")
      */
-    public function findByCategory(String $slug,RecipeRepository $recipe): Response
+    public function findByCategory(UserInterface $user = null, EntityManagerInterface $em, String $slug, RecipeRepository $recipe, TokenRepository $tokenRepository, Request $request): Response
     {
-        $recipes = $recipe->findAllByCategoryForApi($slug);
 
-        return $this->json($recipes);
+        $token = $request->get('token', 1);
+        $check = $tokenRepository->findOneBy(['name' => $token]);
+        if ($check) {
+            $apiLog = new LogToken();
+            $agent = $request->headers->get("user-agent");
+            $apiLog->setUserAgent($agent);
+
+            $apiLog->setToken($check);
+
+            if ($user) {
+                $apiLog->setUser($user);
+            }
+            $em->persist($apiLog);
+            $em->flush();
+            $recipes = $recipe->findAllByCategoryForApi($slug);
+
+            return $this->json($recipes);
+        } else {
+            return $this->json("Accès refusé");
+        }
+
 
         // return $this->render('api/index.html.twig', [
         //     'controller_name' => 'ApiController',
@@ -52,70 +76,93 @@ class ApiController extends AbstractController
     /**
      * @Route("/api/recipe/{id<[0-9]+>}/paragraph", name="api_recipe")
      */
-    public function showParagraph(Recipe $recipe, SerializerInterface $serializer, ParagraphRepository $recipePara)
+    public function showParagraph(UserInterface $user = null, EntityManagerInterface $em,TokenRepository $tokenRepository, Recipe $recipe, SerializerInterface $serializer, ParagraphRepository $recipePara,  Request $request)
     {
-        $recipeRepo = $recipePara->findBy(['idRecipe' => $recipe->getIdRecipe()]);
-        // dd($recipe->getParagraphs()[0]);
-        // $resp = $recipe->getParagraphs();
-        // $json = $serializer->serialize(
-        //     $recipeRepo,
-        //     'json',
-        //     ['groups' => 'show_recipe']
-        // );
-        // dd($recipeRepo);
+        $token = $request->get('token', 1);
+        // $check = "zjkskbjvsdqkpjsdqvo_zpoergivmlqsmlkvdsqkjbdsqkluazempoazelmjvsqm,uqzieez6962587z3vz523473vzqjgbyjq";
+        $check = $tokenRepository->findOneBy(['name' => $token]);
+        if ($check) {
 
-        $encoder = new JsonEncoder();
-        // $defaultContext = [
-        //     AbstractNormalizer::CIRCULAR_REFERENCE_HANDLER => function ($object, $format, $context) {
-        //         return $object->getName();
-        //     },
-        // ];
-        // $normalizer = new ObjectNormalizer(null, null, null, null, null, null, $defaultContext);
+            $apiLog = new LogToken();
+            $agent = $request->headers->get("user-agent");
+            $apiLog->setUserAgent($agent);
 
-        // $serializer = new Serializer([$normalizer], [$encoder]);
-        $s = $serializer->serialize($recipeRepo, 'json', ['attributes' => ['idParagraph', 'content', 'paragraphPosition', 'dateCreation', '']]);
-        $productDeserialized = $serializer->deserialize($s, Paragraph::class, 'json', ['attributes' => ['idParagraph', 'content', 'paragraphPosition', 'dateCreation', '']]);
-        // dd(json_decode($s));
-        // dd($productDeserialized);
-        // return $serializer->serialize($recipeRepo, 'json');
-        return $this->json(json_decode($s));
+            $apiLog->setToken($check);
 
-        // return $this->render('api/index.html.twig', [
-        //     'controller_name' => 'ApiController',
-        //     'rec' => $recipes
-        // ]);
+            if ($user) {
+                $apiLog->setUser($user);
+            }
+            $em->persist($apiLog);
+            $em->flush();
+
+            $recipeRepo = $recipePara->findBy(['idRecipe' => $recipe->getIdRecipe()]);
+
+
+            $encoder = new JsonEncoder();
+            $s = $serializer->serialize($recipeRepo, 'json', ['attributes' => ['idParagraph', 'content', 'paragraphPosition', 'dateCreation', '']]);
+            $productDeserialized = $serializer->deserialize($s, Paragraph::class, 'json', ['attributes' => ['idParagraph', 'content', 'paragraphPosition', 'dateCreation', '']]);
+
+            return $this->json(json_decode($s));
+        } else {
+            return $this->json("Accès refusé");
+        }
     }
 
     /**
      * @Route("/api/recipe/{id<[0-9]+>}/ingredient", name="api_recipe_ingredient")
      */
-    public function showIngredientRecipe(Recipe $recipe, SerializerInterface $serializer, IngredientRecipeRepository $recipeIng): Response
+    public function showIngredientRecipe(UserInterface $user = null, EntityManagerInterface $em,TokenRepository $tokenRepository, Recipe $recipe, SerializerInterface $serializer, IngredientRecipeRepository $recipeIng, Request $request): Response
     {
-        $recipeIngredients = $recipeIng->findAllIngredientForRecipe($recipe->getIdRecipe());
-        // dd($recipe->getParagraphs()[0]);
-        // $resp = $recipe->getIngredientRecipes();
-        // $json = $serializer->serialize(
-        //     $recipeRepo,
-        //     'json',
-        //     ['groups' => 'show_recipe']
-        // );
-        // dd($recipeRepo);
-        // $s = $serializer->serialize($recipeIngredients, 'json', ['attributes' => ['idProduct','quantity', 'recipePosition', 'idUnit']]);
 
-        return $this->json($recipeIngredients);
+        $token = $request->get('token', 1);
+        $check = $tokenRepository->findOneBy(['name' => $token]);
+        if ($check) {
 
-        // return $this->render('api/index.html.twig', [
-        //     'controller_name' => 'ApiController',
-        //     'rec' => $recipes
-        // ]);
+            $apiLog = new LogToken();
+            $agent = $request->headers->get("user-agent");
+            $apiLog->setUserAgent($agent);
+
+            $apiLog->setToken($check);
+
+            if ($user) {
+                $apiLog->setUser($user);
+            }
+            $em->persist($apiLog);
+            $em->flush();
+
+            $recipeIngredients = $recipeIng->findAllIngredientForRecipe($recipe->getIdRecipe());
+
+            return $this->json($recipeIngredients);
+        } else {
+            return $this->json("Accès refusé");
+        }
     }
 
     /**
      * @Route("/api/search/{slug}", name="api_search")
      */
-    public function searchRecipe(string $slug,RecipeRepository $recipeRepository)
+    public function searchRecipe(UserInterface $user = null, EntityManagerInterface $em,TokenRepository $tokenRepository, string $slug, RecipeRepository $recipeRepository, Request $request)
     {
-        $data = $recipeRepository->findByLike($slug);
+        $token = $request->get('token', 1);
+        // $check = "zjkskbjvsdqkpjsdqvo_zpoergivmlqsmlkvdsqkjbdsqkluazempoazelmjvsqm,uqzieez6962587z3vz523473vzqjgbyjq";
+        $check = $tokenRepository->findOneBy(['name' => $token]);
+        if ($check) {
+
+            $apiLog = new LogToken();
+            $agent = $request->headers->get("user-agent");
+            $apiLog->setUserAgent($agent);
+
+            $apiLog->setToken($check);
+
+            if ($user) {
+                $apiLog->setUser($user);
+            }
+            $em->persist($apiLog);
+            $em->flush();
+            $data = $recipeRepository->findByLike($slug);
+        } else {
+            return $this->json("Accès refusé");
+        }
         return $this->json($data);
     }
 }

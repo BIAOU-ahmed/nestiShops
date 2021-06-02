@@ -24,9 +24,24 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lastName')
-            ->add('firstName')
-            ->add('email')
+            ->add('lastName', TextType::class, [
+                'label' => 'Nom',
+                'attr' => [
+                    'placeholder' => 'Nom de l\'utilisateur'
+                ],
+            ])
+            ->add('firstName', TextType::class, [
+                'label' => 'Prenom',
+                'attr' => [
+                    'placeholder' => 'Prenom de l\'utilisateur'
+                ]
+            ])
+            ->add('email', TextType::class, [
+                'label' => 'Email',
+                'attr' => [
+                    'placeholder' => 'Email de l\'utilisateur'
+                ]
+            ])
             ->add('password', RepeatedType::class, [
                 'first_name' => 'password',
                 'second_name' => 'confirm',
@@ -34,10 +49,31 @@ class RegistrationType extends AbstractType
                 'second_options' => ['label' => 'Confirmation'],
                 'type' => PasswordType::class,
             ])
-            ->add('username')
-            ->add('address1')
-            ->add('address2')
-            ->add('zipCode')
+            ->add('username', TextType::class, [
+                'label' => 'Nom d\'utilisateur',
+                'attr' => [
+                    'placeholder' => 'Nom d\'utilisateur'
+                ]
+            ])
+            ->add('address1', TextType::class, [
+                'label' => 'Adresse',
+                'attr' => [
+                    'placeholder' => 'Adresse'
+                ]
+            ])
+            ->add('address2', TextType::class, [
+                'label' => 'Complement',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => ''
+                ]
+            ])
+            ->add('zipCode', TextType::class, [
+                'label' => 'Code Postal',
+                'attr' => [
+                    'placeholder' => '34000'
+                ]
+            ])
             ->add('idCity', TextType::class, [
                 'label' => 'Ville',
                 'required' => false,

@@ -24,7 +24,7 @@ class SuggestionController extends AbstractController
         $allIngredient = [];
         foreach ($ingredients as $ingredient) {
             $article = $articleRepository->findOneBy(['idProduct' => $ingredient->getIdIngredient()]);
-            $imageName = 'defaul';
+            $imageName = 'noImage.jpg';
             if ($article) {
                 $imageName = $article->getImageName();
             }
@@ -34,15 +34,13 @@ class SuggestionController extends AbstractController
         $recipes = $recipeRepository->findAll();
         if ($request->isXmlHttpRequest()) {
             if (isset($_POST['listOfingredients'])) {
-//                dump($_POST['listOfingredients']);
                 $ingredientArray = [];
                 foreach ($_POST['listOfingredients'] as $ing) {
                     $ingredient = $ingredientRepository->find($ing);
                     $ingredientArray[] = $ingredient;
-//                    dump($ingredient);
-//                    dump($ing);
+                    
                 }
-//                dump($ingredientArray);
+                
                 $matchedRecipes = [];
                 $possibleRecipes = [];
                 foreach ($recipes as $recipe) {
@@ -51,14 +49,11 @@ class SuggestionController extends AbstractController
                     foreach ($arrayOfIngredientRecipes as $recipeIngredient) {
                         $ingredientInRecipe[] = $recipeIngredient->getIdProduct();
                     }
-//                    dump($ingredientInRecipe);
-//                    dump($ingredientArray);
-
-
+                    
                     $diff = array_udiff($ingredientArray, $ingredientInRecipe, function (Ingredient $objA, Ingredient $objB) {
                         return $objA->getIdIngredient() <=> $objB->getIdIngredient();
                     });
-//                    dump($diff);
+                    
                     if (!count($diff)) {
                         $matchedRecipes[] = $recipe;
                     } else {
@@ -67,8 +62,7 @@ class SuggestionController extends AbstractController
                         }
                     }
 
-//                    $result = array_diff($ingredientArray, $ingredientInRecipe);
-//                    dump($result);
+                    
                 }
             }
             return new JsonResponse([

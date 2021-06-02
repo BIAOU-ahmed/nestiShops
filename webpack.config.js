@@ -10,9 +10,9 @@ Encore
 // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
-    .setPublicPath('/build')
+    .setPublicPath('https://alidjinou.needemand.com/realisations/nestiShops/public/build')
     // only needed for CDN's or sub-directory deploy
-    //.setManifestKeyPrefix('build/')
+    .setManifestKeyPrefix('https://alidjinou.needemand.com/realisations/nestiShops/public/build/')
     .enableVersioning(Encore.isProduction())
 /*
  * ENTRY CONFIG
@@ -20,7 +20,7 @@ Encore
  * Each entry will result in one JavaScript file (e.g. app.js)
  * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
  */
-.addEntry('app', './assets/app.js')
+.addEntry('app', '/assets/app.js')
 
 // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
 .enableStimulusBridge('./assets/controllers.json')

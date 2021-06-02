@@ -87,12 +87,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     {
 
 //        $user = $this->entityManager->getRepository(Users::class)->findOneBy(['username' => $credentials['username'], 'flag' => 'a']);
-        dump('valide connected');
+        
         $loggingUser = $request->getSession()->get('_security.last_username');
-        dump($request->getSession()->get('_security.last_username'));
+        
         $user = $this->entityManager->getRepository(Users::class)->findOneBy(['username' => $loggingUser]);
-        dump(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
-        dump($user);
+        
         $connection = new ConnectionLog();
         $connection->setIdUsers($user)
             ->setDateConnection(new \DateTime('now', new \DateTimeZone('Europe/Paris')));

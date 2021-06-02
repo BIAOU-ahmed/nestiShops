@@ -1,49 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SuggestionController!{% endblock %}
+{% block title %}
+	Suggestions
+{% endblock %}
 
 {% block body %}
-    {# {{ dump(ingredients) }} #}
 
-    {# {% for ingredient in ingredients %} #}
-    {# {{ dump(ingredient) }} #}
-    {# {% endfor %} #}
-    <div data-controller="suggestion" class="mt-5" id="suggestion">
-        <h1 id="title_choices" data-url="{{ path('suggestion') }}" class="text-center text-white">Liste des Ingredients</h1>
-        <div id="supper_parent">
-            <div id="main_content" class="d-flex justify-content-center" style="height: 30rem;">
-                {% for ingredient in ingredients %}
-                    <div class="card position-absolute {{ random('rl') ~ '-'~random(3) }}" style="width: 18rem;">
-                        <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ ingredient.article }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image' ) }}
-                             data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ ingredient.article }}"
-                             width="100%" height="300">
+	<div data-controller="suggestion" class=" h-100 " id="suggestion">
+		<h1 id="title_choices" data-url="{{ path('suggestion') }}" class="text-center mb-2">
+			Liste des Ingredients
+		</h1>
+		<div id="supper_parent">
+			<div id="main_content" class="d-flex justify-content-center" style="height: 30rem;">
+				{% for ingredient in ingredients %}
+					<div class=" card position-absolute {{ random('rl') ~ '-'~random(3) }} suggestion" style="width: 18rem;">
+						<h2 class="title text-center card-title text-white">
+							{{ ingredient.ingredient.idIngredient.name }}
+						</h2>
+						<div class="d-flex justify-content-center">
+							<img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ ingredient.article }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image' ) }} data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ ingredient.article }}" width="90%" height="300" class="border text-center ">
+						</div>
 
-                        <div class="suggestion card-body">
-                            <h2 class="card-title">{{ ingredient.ingredient.idIngredient.name }}</h2>
-                            {# <button class="bg-red rounded-circle h-50 w-50 flex-col flex items-center" id="left"><i class="fas fa-times fa-3xl"></i>Sweep</button> #}
 
-                            <div class=" d-flex justify-content-between">
-                                <button class="sweep btn btn-danger rounded-circle btn-xl"
-                                        data-id="{{ ingredient.ingredient.idIngredient.idProduct }}" type="button"><i
-                                            class="fas fa-times"></i>
-                                </button>
-                                <button class="keep btn btn-success rounded-circle btn-xl"
-                                        data-id="{{ ingredient.ingredient.idIngredient.idProduct }}" type="button"><i
-                                            class="fas fa-check"></i>
-                                </button>
-                            </div>
+						<div
+							class=" card-body">
 
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="d-flex justify-content-center">
+							{# <button class="bg-red rounded-circle h-50 w-50 flex-col flex items-center" id="left"><i class="fas fa-times fa-3xl"></i>Sweep</button> #}
 
-                <button type="button" id="list_recipes" class="visually-hidden btn btn-primary">Liste de recettes</button>
-            </div>
-        </div>
-    </div>
+							<div class=" d-flex justify-content-between">
+								<button class="sweep btn btn-danger rounded-circle btn-xl" data-id="{{ ingredient.ingredient.idIngredient.idProduct }}" type="button">
+									<i class="fas fa-times"></i>
+								</button>
+								<button class="keep btn btn-success rounded-circle btn-xl" data-id="{{ ingredient.ingredient.idIngredient.idProduct }}" type="button">
+									<i class="fas fa-check"></i>
+								</button>
+							</div>
 
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="d-flex justify-content-center">
+
+				<button type="button" id="list_recipes" class="visually-hidden btn btn-primary">
+					Liste de recettes
+				</button>
+			</div>
+		</div>
+	</div>
 
 
 {% endblock %}

@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -34,14 +36,19 @@ class SecurityController extends AbstractController
      */
     public function registration(
         Request $request,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        UserPasswordEncoderInterface $encoder
     ): Response {
 
-        $form = $this->createForm(RegistrationType::class);
+        $user = new Users();
+        $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
+            // $user = $form->getData();
+            $hash = $encoder->encodePassword($user,$user->getPassword());
+            $user->setPassword($hash);
+            
             $em->persist($user);
             $em->flush();
             // dd($user);

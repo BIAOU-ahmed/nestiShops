@@ -1,160 +1,8 @@
-{# {% extends 'base.html.twig' %} {% block title %} Hello RecipesController! {% endblock %} {% block body %}
-
-    <div class="container mt-5 js-filter">
-        <h1 class="text-center text-white">Profil</h1>
-
-        {% if clear %}
-            <span id="clear_local"></span>
-        {% endif %} #}
-{#        {{ dump(user) }}#}
-        {# <div class="row mb-5">
-            <div class="col-md-4 border bg-white ">
-                <h2 class="border text-center w-100">à propos de moi</h2>
-                <div class="d-flex justify-content-center">
-                <span class="text-white bg-dark btn rounded-circle btn-xl">
-                    JL
-                </span>
-                </div>
-                <h3 class="text-center">{{ app.user.firstname |capitalize }} {{ app.user.lastname |upper }}</h3>
-                <h4>Adresse</h4>
-                <hr>
-                <span class="ms-5">{{ app.user.address1 }} {{ app.user.address2 }}, {{ app.user.zipCode }} {{ app.user.idCity.name ?? '' }}</span>
-                <h4>Réalisation</h4>
-                <hr>
-                <span>Nombre de commande éffectuer : {{ user.orders|length }} </span>
-            </div>
-            <div class="col-md-8"> #}
-
-                {# <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"> #}
-                {# <li class="nav-item" role="presentation"> #}
-                {# <button class="nav-link text-white active" id="pills-profile-tab" data-bs-toggle="pill" #}
-                {# data-bs-target="#pills-profile " type="button" role="tab" aria-controls="pills-profile" #}
-                {# aria-selected="true"> Profile #}
-                {# </button> #}
-                {# </li> #}
-                {# <li class="nav-item" role="presentation"> #}
-                {# <button class="nav-link text-white" id="pills-orders-tab" data-bs-toggle="pill" #}
-                {# data-bs-target="#pills-orders" type="button" role="tab" aria-controls="pills-home" #}
-                {# aria-selected="false">Commande #}
-                {# </button> #}
-                {# </li> #}
-                {# </ul> #}
-                {# <div class="tab-content" id="pills-tabContent"> #}
-
-                {# #}{# {% include "user/_form.html.twig" %} #}
-                {# #}{# {% include "user/_orders.html.twig" %} #}
-                {# <div class="tab-pane pb-5 fade bg-white d-flex show active justify-content-center" #}
-                {# id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"> #}
-                {# #}{# {{ form(form) }} #}
-                {# </div> #}
-                {# <div class="tab-pane fade bg-white " id="pills-orders" role="tabpanel" #}
-                {# aria-labelledby="pills-orders-tab"> #}
-                {# order #}
-                {# </div> #}
-                {# </div> #}
-
-                {# <ul class="nav nav-pills mb-3" id="myTab0" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button
-                                class="nav-link active  text-white"
-                                id="home-tab0"
-                                data-bs-toggle="tab"
-                                data-bs-target="#home0"
-                                type="button"
-                                role="tab"
-                                aria-controls="home"
-                                aria-selected="true"
-                        >
-                            Profile
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button
-                                class="nav-link  text-white"
-                                id="profile-tab0"
-                                data-bs-toggle="tab"
-                                data-bs-target="#profile0"
-                                type="button"
-                                role="tab"
-                                aria-controls="profile"
-                                aria-selected="false"
-                        >
-                            Commandes
-                        </button>
-                    </li>
-                </ul>
-                <div class="tab-content text-white" id="myTabContent0 text-white">
-                    <div
-                            class="tab-pane fade show active bg-white "
-                            id="home0"
-                            role="tabpanel"
-                            aria-labelledby="home-tab0"
-                    >
-                        <div class="d-flex  justify-content-center">
-
-                              {% include "user/_form.html.twig" %}
-
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="profile0" role="tabpanel" aria-labelledby="profile-tab0"> #}
-{#                        {% include "user/_orders.html.twig" %}#}
-                    {# </div>
-                </div>
-
-            </div>
-
-
-        </div>
-    </div #}
-    {# {% endblock %} #}
-
-    {% extends 'base.html.twig' %} {% block title %} profile {% endblock %} {% block body %}
-
-{# <div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
-        </div>
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value=""></div>
-                    <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                    <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-                    <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                    <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
-                </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-
-                {# <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
-            #}
-              {# {% include "user/_orders.html.twig" %}
-            </div> 
-        </div>
-    </div>
-</div>
-</div>
-</div>  #}
+{% extends 'base.html.twig' %}
+{% block title %}
+	profile
+{% endblock %}
+{% block body %}
 
 
 	<!-- Breadcrumb Begin -->
@@ -182,66 +30,52 @@
 		</div>
 	</div>
 
-<div class="container bootstrap snippet">
-    <div class="row">
-  		<div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-            <span class="font-weight-bold">{{ app.user.lastname |upper }}</span>
-            <span class="text-black-50">{{ app.user.email }}</span><span> </span></div>
-        </div>
-    	<div class="col-sm-9">
-        
-            
-            
-            <ul class="nav nav-pills mb-3" id="myTab0" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button
-                                class="nav-link active "
-                                id="home-tab0"
-                                data-bs-toggle="tab"
-                                data-bs-target="#home0"
-                                type="button"
-                                role="tab"
-                                aria-controls="home"
-                                aria-selected="true"
-                        >
-                            Profile
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button
-                                class="nav-link "
-                                id="profile-tab0"
-                                data-bs-toggle="tab"
-                                data-bs-target="#profile0"
-                                type="button"
-                                role="tab"
-                                aria-controls="profile"
-                                aria-selected="false"
-                        >
-                            Commandes
-                        </button>
-                    </li>
-                </ul>
-                <div class="tab-content " id="myTabContent0 ">
-                    <div
-                            class="tab-pane fade show active "
-                            id="home0"
-                            role="tabpanel"
-                            aria-labelledby="home-tab0"
-                    >
-                        
+	<div class="container bootstrap snippet">
+		<div class="row">
+			<div class="col-md-3 border-right">
+				<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+					<img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+					<span class="font-weight-bold">
+						{{ app.user.lastname |upper }}
+					</span>
+					<span class="text-black-50">
+						{{ app.user.email }}
+					</span>
+					<span></span>
+				</div>
+			</div>
+			<div class="col-sm-9">
 
-                              {% include "user/_form.html.twig" %}
 
-                     
-                    </div>
-                    <div class="tab-pane fade" id="profile0" role="tabpanel" aria-labelledby="profile-tab0"> #}
-                       {% include "user/_orders.html.twig" %}
-                     </div>
-                </div>
+				<ul class="nav nav-pills mb-3" id="myTab0" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active " id="home-tab0" data-bs-toggle="tab" data-bs-target="#home0" type="button" role="tab" aria-controls="home" aria-selected="true">
+							Profile
+						</button>
+					</li>
+					<li class="nav-item" role="presentation">
+						<button class="nav-link " id="profile-tab0" data-bs-toggle="tab" data-bs-target="#profile0" type="button" role="tab" aria-controls="profile" aria-selected="false">
+							Commandes
+						</button>
+					</li>
+				</ul>
+				<div class="tab-content " id="myTabContent0 ">
+					<div class="tab-pane fade show active " id="home0" role="tabpanel" aria-labelledby="home-tab0">
 
-         
-        </div><!--/col-9-->
-    </div><!--/row-->
-     {% endblock %}
+
+						{% include "user/_form.html.twig" %}
+
+
+					</div>
+					<div class="tab-pane fade" id="profile0" role="tabpanel" aria-labelledby="profile-tab0">
+						#}
+						{% include "user/_orders.html.twig" %}
+					</div>
+				</div>
+
+
+			</div>
+			<!--/col-9-->
+		</div>
+		<!--/row-->
+	{% endblock %}

@@ -1,177 +1,144 @@
-{# <nav class="navbar navbar-expand-lg navbar-light text-white background sticky-top">
-    <!-- Container wrapper -->
-    <div class="container-fluid">
-        <!-- Toggle button -->
-        <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarLeftAlignExample" aria-controls="navbarLeftAlignExample" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-        </button>
-        <a class="nav-link active fs-1" aria-current="page" href="{{ path('index') }}">Nesti</a>
-        <div class="btn-group d-lg-none">
-            <a class="nav-link  hidden-arrow" href="{{ path('cart') }}" id="navbarDropdownMenuLink" role="button">
-                <i class="fas fa-shopping-cart fa-lg"></i>
-                <span class=" shop badge rounded-pill badge-notification bg-danger">6</span>
+<!-- Offcanvas Menu Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+	<div class="offcanvas__cart">
+		<div class="offcanvas__cart__links">
+			{% if app.user %}
+				<a href="{{ path('profil') }}" class="text-dark text-decoration-none">
+					<i class="me-2 far fa-user-circle"></i>
+					Profileee
+				</a>
+			{% endif %}
+		</div>
+		<div class="offcanvas__cart__item">
+			<a href="#">
+				<img src="{{ asset('build/cart.png') }}" alt="">
+				<span class="shopping_cart">
+					0
+				</span>
+			</a>
+		</div>
+	</div>
+	<div class="offcanvas__logo">
+		<a href="./index.html">
+			<img src="img/logo.png" alt="">
+		</a>
+	</div>
+	<div id="mobile-menu-wrap"></div>
+	<div class="offcanvas__option">
+		<ul>
+			{% if app.user %}
 
-            </a>
-            <button type="button" class=" bg-white btn rounded-circle btn-xl" data-bs-toggle="dropdown"
-            >{{ app.user.firstname |first |upper }}{{ app.user.lastname |first |upper }}</button>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                    <a class="dropdown-item" href="#">Menu item</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">Menu item</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="#">Menu item</a>
-                </li>
-            </ul>
-        </div>
+				<li class="pt-1">
+					<a class="" href="{{ path('app_logout') }}">
+						<i class="me-2 fas fa-sign-out-alt"></i>
+						Déconnexion
+					</a>
+				</li>
+			{% else %}
+				<li class="pt-1">
+					<a class="" href="{{ path('app_login') }}">
+						<i class="me-2 fas fa-sign-out-alt"></i>
+						Connexion
+					</a>
+				</li>
 
-        <!-- Collapsible wrapper -->
-        <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
-            <!-- Left links -->
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item ">
-                    <a class="nav-link active text-white" aria-current="page" href="{{ path('recipes') }}">Recettes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ path('articles') }}">Marché</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{{ path('suggestion') }}"  >Nos
-                        Suggestions</a>
-                </li>
-            </ul>
-            <!-- Left links -->
-        </div>
-        <div class="btn-group d-none d-lg-block">
-            <a class="d-inline nav-link  hidden-arrow" href="{{ path('cart') }}" data-turbo="false" id="navbarDropdownMenuLink" role="button">
-                <i class="fas fa-shopping-cart fa-lg"></i>
-
-                <span class=" shop badge rounded-pill badge-notification bg-danger " >6</span>
-            </a>
-            <button type="button" class="dropdown-toggle bg-white btn rounded-circle btn-xl" data-bs-toggle="dropdown"
-            >{{ app.user.firstname |first |upper }}{{ app.user.lastname |first |upper }}</button>
-
-            {# <button role="button" type="button" class="btn" data-bs-toggle="dropdown"> #}
-            {# Dr #}
-            {# </button> #}
-
-            {# <span type="button" class="  dropdown-toggle" data-bs-toggle="dropdown" #}
-            {# aria-expanded="false"> #}
-            {# <span class=" rounded-circle border"  style="height: 50px; width: 50px"> #}
-            {# {{ app.user.firstname |first |upper }} {{ app.user.lastname |first |upper }} #}
-
-            {# </span> #}
-            {# </span> #}
-            {# <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                    <a class="dropdown-item" href="#">Menu item</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{{ path('profil') }}"><i class="me-2 far fa-user-circle"></i>Profil</a>
-                </li>
-                <li>
-                    <a class="dropdown-item" href="{{ path('app_logout') }}"><i class="me-2 fas fa-sign-out-alt"></i> Déconnexion</a>
-                </li>
-            </ul>
-        </div>
+			{% endif %}
 
 
-    </div>
-</nav>  #}
+		</ul>
+	</div>
+</div>
+<!-- Offcanvas Menu End -->
 
-    <!-- Page Preloder -->
-    {# <div id="preloder">
-        <div class="loader"></div>
-    </div> #}
+<!-- Header Section Begin -->
+<header class="header">
+	<div class="header__top">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="header__top__inner">
+						<div class="header__top__left">
+							<ul>
+								{% if app.user %}
+									<li class="pt-1">
+										<a class="" href="{{ path('app_logout') }}">
+											<i class="me-2 fas fa-sign-out-alt"></i>
+											Déconnexion
+										</a>
+									</li>
+								{% else %}
+									<li class="pt-1">
+										<a class="" href="{{ path('app_login') }}">
+											<i class="me-2 fas fa-sign-out-alt"></i>
+											Connexion
+										</a>
+									</li>
+								{% endif %}
 
-    <!-- Offcanvas Menu Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="offcanvas__cart">
-            <div class="offcanvas__cart__links">
-                {% if app.user %}
-                    <a href="{{ path('profil') }}" class="text-dark"><i class="me-2 far fa-user-circle"></i>Profil</a>
-                {% endif %} </div>
-            <div class="offcanvas__cart__item">
-                <a href="#"><img src="{{ asset('build/cart.png') }}" alt=""> <span class="shopping_cart" >0</span></a>
-            </div>
-        </div>
-        <div class="offcanvas__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
-        </div>
-        <div id="mobile-menu-wrap"></div>
-        <div class="offcanvas__option">
-            <ul>
-            {% if app.user %}
-            
-                <li><a class="dropdown-item" href="{{ path('app_logout') }}"><i class="me-2 fas fa-sign-out-alt"></i> Déconnexion</a></li>
-            {% else %}
-                <li><a class="dropdown-item" href="{{ path('app_login') }}"><i class="me-2 fas fa-sign-out-alt"></i> Connexion</a></li>
+							</ul>
+						</div>
+						<div class="header__logo ">
+							<a href="{{ path('index') }}">
+								<img class="w-50" src="{{ asset('https://alidjinou.needemand.com/realisations/nestiShops/public/build/logo.png') }}" alt="">
+							</a>
+						</div>
+						<div class="header__top__right">
+							<div class="header__top__right__links">
+								{% if app.user %}
+									<a href="{{ path('profil') }}" class="text-dark text-decoration-none">
+										<i class="me-2 far fa-user-circle "></i>
+										Profile
+									</a>
+								{% endif %}
+							</div>
+							<div class="header__top__right__cart">
+								<a href="{{ path('cart') }}">
+									<img src="{{ asset('build/cart.png') }}" alt="">
+									<span class="shopping_cart">
+										0
+									</span>
+								</a>
 
-            {% endif %}
-            
-               
-                
-            </ul>
-        </div>
-    </div>
-    <!-- Offcanvas Menu End -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="canvas__open">
+				<i class="fa fa-bars"></i>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<nav class="header__menu mobile-menu">
+					<ul>
+						<li class=" {% if app.request.attributes.get('_route') == 'index' %}active{% endif %}">
+							<a class="text-decoration-none" href="{{ path('index') }}">
+								Accueil
+							</a>
+						</li>
+						<li class="{% if app.request.attributes.get('_route') == 'recipes' or app.request.attributes.get('_route') == 'recipe_show' %}active{% endif %}">
+							<a class="text-decoration-none" href="{{ path('recipes') }}">
+								Recettes
+							</a>
+						</li>
+						<li class="{% if app.request.attributes.get('_route') == 'articles' or app.request.attributes.get('_route') == 'article_show' %}active{% endif %}">
+							<a class="text-decoration-none" href="{{ path('articles') }}">
+								Marcher
+							</a>
+						</li>
+						<li class="{% if app.request.attributes.get('_route') == 'suggestion' %}active{% endif %}">
+							<a class="text-decoration-none" href="{{ path('suggestion') }}">
+								Nos Suggestions
+							</a>
 
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="header__top__inner">
-                            <div class="header__top__left">
-                                <ul>
-                                    {% if app.user %}
-                                        <li><a class="dropdown-item" href="{{ path('app_logout') }}"><i class="me-2 fas fa-sign-out-alt"></i> Déconnexion</a></li>
-                                    {% else %}
-                                        <li><a class="dropdown-item" href="{{ path('app_login') }}"><i class="me-2 fas fa-sign-out-alt"></i> Connexion</a></li>
-                                    {% endif %}
-            
-                                </ul>
-                            </div>
-                            <div class="header__logo">
-                                <a href="./index.html"><img src="img/logo.png" alt=""></a>
-                            </div>
-                            <div class="header__top__right">
-                                <div class="header__top__right__links">
-                                {% if app.user %}
-                                    <a href="{{ path('profil') }}" class="text-dark"><i class="me-2 far fa-user-circle"></i>Profil</a>
-                                    {% endif %}
-                                </div>
-                                <div class="header__top__right__cart">
-                                    <a href="{{ path('cart') }}"><img src="{{ asset('build/cart.png') }}" alt=""> <span class="shopping_cart">0</span></a>
-                                   
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="canvas__open"><i class="fa fa-bars"></i></div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <nav class="header__menu mobile-menu">
-                        <ul>
-                            <li class=" {% if app.request.attributes.get('_route') == 'index' %}active{% endif %}"><a class="text-decoration-none" href="{{ path('index') }}">Accueil</a></li>
-                            <li class="{% if app.request.attributes.get('_route') == 'recipes' or app.request.attributes.get('_route') == 'recipe_show' %}active{% endif %}" ><a class="text-decoration-none" href="{{ path('recipes') }}">Recettes</a></li>
-                            <li class="{% if app.request.attributes.get('_route') == 'articles' or app.request.attributes.get('_route') == 'article_show' %}active{% endif %}"><a class="text-decoration-none" href="{{ path('articles') }}">Marcher</a></li>
-                            <li class="{% if app.request.attributes.get('_route') == 'suggestion' %}active{% endif %}"><a class="text-decoration-none" href="{{ path('suggestion') }}">Nos Suggestions</a>
-                              
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+</header>

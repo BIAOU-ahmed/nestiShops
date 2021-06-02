@@ -19,20 +19,15 @@ class CommentService
     public function persistComment(Comment $comment, Recipe $recipe, Users $user)
     {
         $mainComment = $comment->getIdUsers();
-        dump('main comment befor', $mainComment);
+    
         $comment->setFlag('w')
             ->setIdRecipe($recipe)
             ->setIdUsers($user)
             ->setDateCreation(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
-        dump('main comment after', $mainComment);
-        dump($user);
-        foreach ($recipe->getComments() as  $value) {
-
-            dump($value);
-        }
+     
+        
         if (!$mainComment) {
-            dump('comment dont have Id');
-            dump($comment);
+           
             $this->manager->persist($comment);
         }
         $this->manager->flush();

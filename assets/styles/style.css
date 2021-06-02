@@ -592,7 +592,7 @@ ol {
     position: relative;
 }
 
-.hero__text:after {
+.hero__text::before {
     position: absolute;
     left: 15px;
     top: 15px;

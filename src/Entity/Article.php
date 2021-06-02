@@ -320,7 +320,7 @@ class Article
         foreach ($this->getLots() as $lot) {
             $totalQuantity += $lot->getQuantity();
         }
-//        dump('acheter', $totalQuantity);
+        
         return $totalQuantity;
     }
 
@@ -332,7 +332,7 @@ class Article
                 $totalQuantity += $orderLine->getQuantity();
             }
         }
-//        dump('vendu', $totalQuantity);
+        
 
         return $totalQuantity;
     }
