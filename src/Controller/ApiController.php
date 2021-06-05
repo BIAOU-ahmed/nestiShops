@@ -20,12 +20,16 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ApiController extends AbstractController
 {
+     
     /**
+     * index
      * @Route("/api/recipes", name="api")
+     * @param  RecipeRepository $recipe
+     * @return Response
      */
     public function index(RecipeRepository $recipe): Response
     {
@@ -38,9 +42,17 @@ class ApiController extends AbstractController
         //     'rec' => $recipes
         // ]);
     }
-
+   
     /**
+     * findByCategory
      * @Route("/api/category/{slug}", name="api_gluten")
+     * @param  UserInterface $user
+     * @param  EntityManagerInterface $em
+     * @param  String $slug
+     * @param  RecipeRepository $recipe
+     * @param  TokenRepository $tokenRepository
+     * @param  Request $request
+     * @return Response
      */
     public function findByCategory(UserInterface $user = null, EntityManagerInterface $em, String $slug, RecipeRepository $recipe, TokenRepository $tokenRepository, Request $request): Response
     {
@@ -73,8 +85,18 @@ class ApiController extends AbstractController
         // ]);
     }
 
+     
     /**
+     * showParagraph
      * @Route("/api/recipe/{id<[0-9]+>}/paragraph", name="api_recipe")
+     * @param  UserInterface $user
+     * @param  EntityManagerInterface $em
+     * @param  TokenRepository $tokenRepository
+     * @param  Recipe $recipe
+     * @param  SerializerInterface $serializer
+     * @param  ParagraphRepository $recipePara
+     * @param  Request $request
+     * @return JsonResponse
      */
     public function showParagraph(UserInterface $user = null, EntityManagerInterface $em,TokenRepository $tokenRepository, Recipe $recipe, SerializerInterface $serializer, ParagraphRepository $recipePara,  Request $request)
     {
@@ -108,10 +130,19 @@ class ApiController extends AbstractController
         }
     }
 
+      
     /**
+     * showIngredientRecipe
      * @Route("/api/recipe/{id<[0-9]+>}/ingredient", name="api_recipe_ingredient")
+     * @param  UserInterface $user
+     * @param  EntityManagerInterface $em
+     * @param  TokenRepository $tokenRepository
+     * @param  Recipe $recipe
+     * @param  IngredientRecipeRepository $recipeIng
+     * @param  Request $request
+     * @return Response
      */
-    public function showIngredientRecipe(UserInterface $user = null, EntityManagerInterface $em,TokenRepository $tokenRepository, Recipe $recipe, SerializerInterface $serializer, IngredientRecipeRepository $recipeIng, Request $request): Response
+    public function showIngredientRecipe(UserInterface $user = null, EntityManagerInterface $em,TokenRepository $tokenRepository, Recipe $recipe, IngredientRecipeRepository $recipeIng, Request $request): Response
     {
 
         $token = $request->get('token', 1);
@@ -138,8 +169,17 @@ class ApiController extends AbstractController
         }
     }
 
+       
     /**
+     * searchRecipe
      * @Route("/api/search/{slug}", name="api_search")
+     * @param  UserInterface $user
+     * @param  EntityManagerInterface $em
+     * @param  TokenRepository $tokenRepository
+     * @param  string $slug
+     * @param  RecipeRepository $recipeRepository
+     * @param  Request $request
+     * @return JsonResponse
      */
     public function searchRecipe(UserInterface $user = null, EntityManagerInterface $em,TokenRepository $tokenRepository, string $slug, RecipeRepository $recipeRepository, Request $request)
     {

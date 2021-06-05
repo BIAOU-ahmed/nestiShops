@@ -8,7 +8,12 @@ use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class CityToStringTransformer implements DataTransformerInterface
-{
+{    
+    /**
+     * entityManager
+     *
+     * @var mixed
+     */
     private $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager)

@@ -8,14 +8,33 @@ use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CommentService
-{
+{    
+    /**
+     * manager
+     *
+     * @var mixed
+     */
     private $manager;
-
+    
+    /**
+     * __construct
+     *
+     * @param  EntityManagerInterface $manager
+     * @return void
+     */
     public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
-
+    
+    /**
+     * persistComment
+     *
+     * @param  Comment $comment
+     * @param  Recipe $recipe
+     * @param  Users $user
+     * @return void
+     */
     public function persistComment(Comment $comment, Recipe $recipe, Users $user)
     {
         $mainComment = $comment->getIdUsers();

@@ -18,26 +18,44 @@ class Ingredient
      * @ORM\Id
      * @ORM\OneToOne(targetEntity=Product::class, inversedBy="ingredient", cascade={"persist", "remove"}, fetch="EAGER")
      * @ORM\JoinColumn(name="idIngredient", nullable=false, referencedColumnName="idProduct")
+     * @var mixed
      */
     private $idIngredient;
 
     /**
      * @ORM\OneToMany(targetEntity=IngredientRecipe::class, mappedBy="idProduct")
+     * @var mixed
      */
     private $ingredientRecipes;
-
+    
+    /**
+     * __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->ingredientRecipes = new ArrayCollection();
     }
 
   
-
+    
+    /**
+     * getIdIngredient
+     *
+     * @return Product
+     */
     public function getIdIngredient(): ?Product
     {
         return $this->idIngredient;
     }
-
+    
+    /**
+     * setIdIngredient
+     *
+     * @param  Product $idIngredient
+     * @return self
+     */
     public function setIdIngredient(Product $idIngredient): self
     {
         $this->idIngredient = $idIngredient;
@@ -52,7 +70,13 @@ class Ingredient
     {
         return $this->ingredientRecipes;
     }
-
+    
+    /**
+     * addIngredientRecipe
+     *
+     * @param  IngredientRecipe $ingredientRecipe
+     * @return self
+     */
     public function addIngredientRecipe(IngredientRecipe $ingredientRecipe): self
     {
         if (!$this->ingredientRecipes->contains($ingredientRecipe)) {
@@ -62,7 +86,13 @@ class Ingredient
 
         return $this;
     }
-
+    
+    /**
+     * removeIngredientRecipe
+     *
+     * @param  IngredientRecipe $ingredientRecipe
+     * @return self
+     */
     public function removeIngredientRecipe(IngredientRecipe $ingredientRecipe): self
     {
         if ($this->ingredientRecipes->removeElement($ingredientRecipe)) {

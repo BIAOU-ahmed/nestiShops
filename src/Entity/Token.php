@@ -16,34 +16,58 @@ class Token
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @var mixed
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var mixed
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=LogToken::class, mappedBy="token")
+     * @var mixed
      */
     private $logTokens;
-
+    
+    /**
+     * __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->logTokens = new ArrayCollection();
     }
-
+    
+    /**
+     * getId
+     *
+     * @return int
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    
+    /**
+     * getName
+     *
+     * @return string
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
-
+    
+    /**
+     * setName
+     *
+     * @param  string $name
+     * @return self
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -58,7 +82,13 @@ class Token
     {
         return $this->logTokens;
     }
-
+    
+    /**
+     * addLogToken
+     *
+     * @param  LogToken $logToken
+     * @return self
+     */
     public function addLogToken(LogToken $logToken): self
     {
         if (!$this->logTokens->contains($logToken)) {
@@ -68,7 +98,13 @@ class Token
 
         return $this;
     }
-
+    
+    /**
+     * removeLogToken
+     *
+     * @param  LogToken $logToken
+     * @return self
+     */
     public function removeLogToken(LogToken $logToken): self
     {
         if ($this->logTokens->removeElement($logToken)) {

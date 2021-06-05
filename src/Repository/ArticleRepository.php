@@ -6,6 +6,7 @@ use App\Data\SearchArticleData;
 use App\Entity\Article;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
@@ -58,9 +59,9 @@ class ArticleRepository extends ServiceEntityRepository
 
     /**
      * @param SearchArticleData $search
-     * @return PaginationInterface
+     * @return PaginationInterface<string>
      */
-    public function findSearch(SearchArticleData $search){
+    public function findSearch(SearchArticleData $search):PaginationInterface {
 
         $query = $this
             ->createQueryBuilder('a')

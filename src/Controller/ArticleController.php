@@ -14,8 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ArticleController extends AbstractController
 {
+     
     /**
-     * @Route("/articles", name="articles")
+     * index
+     *  @Route("/articles", name="articles")
+     * @param  ArticleRepository $articleRepo
+     * @param  Request $request
+     * @return Response
      */
     public function index(ArticleRepository $articleRepo, Request $request): Response
     {
@@ -40,8 +45,12 @@ class ArticleController extends AbstractController
         ]);
     }
 
-     /**
-     * @Route("/article/{id<[0-9]+>}", name="article_show")
+      
+    /**
+     * show
+     *  @Route("/article/{id<[0-9]+>}", name="article_show")
+     * @param  Article $article
+     * @return Response
      */
     public function show(Article $article): Response {
         $array = [];

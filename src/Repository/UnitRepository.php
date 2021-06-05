@@ -13,7 +13,13 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Unit[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class UnitRepository extends ServiceEntityRepository
-{
+{    
+    /**
+     * __construct
+     *
+     * @param  ManagerRegistry $registry
+     * @return void
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Unit::class);

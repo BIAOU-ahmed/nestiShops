@@ -14,8 +14,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
+   
     /**
-     * @Route("/login", name="app_login")
+     * login
+     *  @Route("/login", name="app_login")
+     * @param  AuthenticationUtils $authenticationUtils
+     * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -31,14 +35,16 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
+      
     /**
+     * registration
      * @Route("/registration", name="app_registration")
+     * @param  Request $request
+     * @param  EntityManagerInterface $em
+     * @param  UserPasswordEncoderInterface $encoder
+     * @return Response
      */
-    public function registration(
-        Request $request,
-        EntityManagerInterface $em,
-        UserPasswordEncoderInterface $encoder
-    ): Response {
+    public function registration(Request $request,EntityManagerInterface $em,UserPasswordEncoderInterface $encoder ): Response {
 
         $user = new Users();
         $form = $this->createForm(RegistrationType::class, $user);
@@ -61,8 +67,11 @@ class SecurityController extends AbstractController
         ], $response);
     }
 
+       
     /**
+     * logout
      * @Route("/logout", name="app_logout")
+     * @return void
      */
     public function logout()
     {

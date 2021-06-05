@@ -12,8 +12,15 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class IndexController extends AbstractController
 {
+      
     /**
-     * @Route("/", name="index")
+     * index
+     *  @Route("/", name="index")
+     * @param  RecipeRepository $recipeRepository
+     * @param  GradesRepository $gradesRepository
+     * @param  CommentRepository $commentRepository
+     * @param  UsersRepository $usersRepository
+     * @return Response
      */
     public function index(RecipeRepository $recipeRepository, GradesRepository $gradesRepository, CommentRepository $commentRepository, UsersRepository $usersRepository): Response
     {

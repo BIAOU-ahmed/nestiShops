@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\OrderLine;
 use App\Entity\Orders;
+use App\Entity\Users;
 use App\Form\CommentType;
 use App\Form\PaymentType;
 use App\Form\UserType;
@@ -18,18 +19,20 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Twig\Environment;
 use Twig\Extra\Intl\IntlExtension;
 use App\Repository\UsersRepository;
-
+use Symfony\Component\HttpFoundation\RedirectResponse;
 class UserController extends AbstractController
 {
+      
     /**
-     * @Route("/profil", name="profil")
+     * index
+     *  @Route("/profil", name="profil")
+     * @param  EntityManagerInterface $em
+     * @param  Request $request
+     * @param  UserInterface $user
+     * @param  UsersRepository $userRepository
+     * @return Response
      */
-    public function index(
-        EntityManagerInterface $em,
-        Request $request,
-        UserInterface $user,
-        UsersRepository $userRepository
-    ): Response {
+    public function index(EntityManagerInterface $em, Request $request, UserInterface $user, UsersRepository $userRepository): Response {
         
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -57,8 +60,13 @@ class UserController extends AbstractController
         ], $response);
     }
 
+   
     /**
+     * cart
      * @Route("/panier", name="cart")
+     * @param  ArticleRepository $repo
+     * @param  Request $request
+     * @return Response
      */
     public function cart(ArticleRepository $repo, Request $request): Response
     {
@@ -67,6 +75,7 @@ class UserController extends AbstractController
 
             $value = 0;
             $data = false;
+            $subTotal = 0;
             $total = 0;
             if (isset($_POST['localStorage'])) {
                 $data = [];
@@ -74,9 +83,12 @@ class UserController extends AbstractController
                 foreach ($value as $elem) {
                     
                     $article = $repo->findOneBy(['idArticle' => $elem['id']]);
-                    $data[] = ['article' => $article, 'nb' => $elem['nb']];
+                    $quantity = $elem['nb'];
+                    if($quantity > $article->getInventory()){
+                        $quantity = $article->getInventory();
+                    }
+                    $data[] = ['article' => $article, 'nb' => $quantity];
                 }
-                $subTotal = 0;
                 foreach ($data as $value) {
                     $subTotal += $value['article']->getprice() * $value['nb'];
                 }
@@ -95,12 +107,21 @@ class UserController extends AbstractController
         ]);
     }
 
+      
     /**
-     * @Route("/validation", name="payment")
+     * payment
+     *  @Route("/validation", name="payment")
+     * @param  UsersRepository $userRepository
+     * @param  Request $request
+     * @param  UserInterface $user
+     * @param  EntityManagerInterface $em
+     * @param  ArticleRepository $repoArticle
+     * @return Response
      */
-    public function payment(Request $request, UserInterface $user, EntityManagerInterface $em, ArticleRepository $repoArticle)
+    public function payment(UsersRepository $userRepository, Request $request, UserInterface $user, EntityManagerInterface $em, ArticleRepository $repoArticle)
     {
 
+        $user = $userRepository->find($user) ;
         $form = $this->createForm(PaymentType::class);
         $form->handleRequest($request);
         $orderLines = $this->get('session')->get('orderlines');
@@ -155,12 +176,4 @@ class UserController extends AbstractController
         );
     }
 
-    /**
-     * @Route("/clear", name="clear")
-     */
-    public function clear(Request $request)
-    {
-        sleep(1);
-        return $this->redirectToRoute('profil');
-    }
 }

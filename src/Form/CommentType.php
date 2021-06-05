@@ -10,7 +10,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommentType extends AbstractType
-{
+{    
+    /**
+     * buildForm
+     *
+     * @param  FormBuilderInterface<int> $builder
+     * @param  array<string> $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -24,7 +31,13 @@ class CommentType extends AbstractType
             ])
         ;
     }
-
+    
+    /**
+     * configureOptions
+     *
+     * @param  OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

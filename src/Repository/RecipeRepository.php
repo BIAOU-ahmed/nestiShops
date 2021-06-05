@@ -6,6 +6,7 @@ use App\Data\SearchData;
 use App\Entity\Recipe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
@@ -55,7 +56,12 @@ class RecipeRepository extends ServiceEntityRepository
         ;
     }
     */
-
+    
+    /**
+     * findAllForApi
+     *
+     * @return array<int, array<string, mixed>>
+     */
     public function findAllForApi(): array
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -69,7 +75,13 @@ class RecipeRepository extends ServiceEntityRepository
         // returns an array of arrays (i.e. a raw data set)
         return $stmt->fetchAllAssociative();
     }
-
+    
+    /**
+     * findAllByCategoryForApi
+     *
+     * @param  string $value
+     * @return array<int, array<string, mixed>>
+     */
     public function findAllByCategoryForApi($value): array
     {
         $conn = $this->getEntityManager()->getConnection();
@@ -86,8 +98,15 @@ class RecipeRepository extends ServiceEntityRepository
 
         // returns an array of arrays (i.e. a raw data set)
         return $stmt->fetchAllAssociative();
-    }
-    public function findByLike($value): array
+    }    
+     
+    /**
+     * findByLike
+     *
+     * @param  String $value
+     * @return array<int, array<string, mixed>>
+     */
+    public function findByLike(String $value): array
     {
         $conn = $this->getEntityManager()->getConnection();
 
@@ -105,11 +124,14 @@ class RecipeRepository extends ServiceEntityRepository
         return $stmt->fetchAllAssociative();
     }
 
+   
     /**
-     * 
-     *@return PaginationInterface 
+     * findSearch
+     *
+     * @param  SearchData $search
+     * @return PaginationInterface<string>
      */
-    public function findSearch(SearchData $search)
+    public function findSearch(SearchData $search) :PaginationInterface
     {
         // return $this->findAll();
         $query = $this

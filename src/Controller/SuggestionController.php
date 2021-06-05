@@ -15,8 +15,16 @@ use App\Repository\IngredientRecipeRepository;
 
 class SuggestionController extends AbstractController
 {
+     
     /**
-     * @Route("/suggestion", name="suggestion")
+     * index
+     *  @Route("/suggestion", name="suggestion")
+     * @param  RecipeRepository $recipeRepository
+     * @param  IngredientRecipeRepository $ingredientRecipeRepository
+     * @param  IngredientRepository $ingredientRepository
+     * @param  ArticleRepository $articleRepository
+     * @param  Request $request
+     * @return Response
      */
     public function index(RecipeRepository $recipeRepository, IngredientRecipeRepository $ingredientRecipeRepository, IngredientRepository $ingredientRepository, ArticleRepository $articleRepository, Request $request): Response
     {
@@ -31,6 +39,9 @@ class SuggestionController extends AbstractController
             $allIngredient[] = ["ingredient" => $ingredient, "article" => $imageName];
         }
 
+        $matchedRecipes = [];
+        $possibleRecipes = [];
+        
         $recipes = $recipeRepository->findAll();
         if ($request->isXmlHttpRequest()) {
             if (isset($_POST['listOfingredients'])) {
@@ -41,8 +52,7 @@ class SuggestionController extends AbstractController
                     
                 }
                 
-                $matchedRecipes = [];
-                $possibleRecipes = [];
+               
                 foreach ($recipes as $recipe) {
                     $arrayOfIngredientRecipes = $ingredientRecipeRepository->findBy(['idRecipe' => $recipe]);
                     $ingredientInRecipe = [];

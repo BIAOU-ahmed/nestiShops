@@ -19,26 +19,44 @@ class Chef
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idChef", referencedColumnName="idUsers")
      * })
+     * @var mixed
      */
     private $idChef;
 
     /**
      * @ORM\OneToMany(targetEntity=Recipe::class, mappedBy="idChef", orphanRemoval=true)
+     * @var mixed
      */
     private $recipes;
-
+    
+    /**
+     * __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->recipes = new ArrayCollection();
     }
 
 
-
+    
+    /**
+     * getIdChef
+     *
+     * @return Users
+     */
     public function getIdChef(): ?Users
     {
         return $this->idChef;
     }
-
+    
+    /**
+     * setIdChef
+     *
+     * @param  Users $idChef
+     * @return self
+     */
     public function setIdChef(?Users $idChef): self
     {
         $this->idChef = $idChef;
@@ -53,7 +71,13 @@ class Chef
     {
         return $this->recipes;
     }
-
+    
+    /**
+     * addRecipe
+     *
+     * @param  Recipe $recipe
+     * @return self
+     */
     public function addRecipe(Recipe $recipe): self
     {
         if (!$this->recipes->contains($recipe)) {
@@ -63,7 +87,13 @@ class Chef
 
         return $this;
     }
-
+    
+    /**
+     * removeRecipe
+     *
+     * @param  Recipe $recipe
+     * @return self
+     */
     public function removeRecipe(Recipe $recipe): self
     {
         if ($this->recipes->removeElement($recipe)) {

@@ -11,7 +11,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SearchForm extends AbstractType{
-
+    
+    /**
+     * buildForm
+     *
+     * @param  FormBuilderInterface<int> $builder
+     * @param  array<string> $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -30,7 +37,13 @@ class SearchForm extends AbstractType{
                 'multiple'=>false
             ])
             ;
-    }
+    }    
+    /**
+     * configureOptions
+     *
+     * @param  OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
@@ -39,7 +52,12 @@ class SearchForm extends AbstractType{
             'crsf_protection' => false
         ]);
     }
-
+    
+    /**
+     * getBlockPrefix
+     *
+     * @return string
+     */
     public function getBlockPrefix()
     {
         return '';

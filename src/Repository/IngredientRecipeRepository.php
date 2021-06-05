@@ -19,7 +19,13 @@ class IngredientRecipeRepository extends ServiceEntityRepository
         parent::__construct($registry, IngredientRecipe::class);
     }
 
-
+    
+    /**
+     * findAllIngredientForRecipe
+     *
+     * @param  mixed $id
+     * @return array<int,array<string, mixed>>
+     */
     public function findAllIngredientForRecipe($id): array
     {
         $conn = $this->getEntityManager()->getConnection();

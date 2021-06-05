@@ -18,14 +18,32 @@ use App\Form\CityType;
 use App\Form\DataTransformer\CityToStringTransformer;
 
 class UserType extends AbstractType
-{
+{    
+    /**
+     * transformer
+     *
+     * @var mixed
+     */
     private $transformer;
-
+    
+    /**
+     * __construct
+     *
+     * @param  CityToStringTransformer $transformer
+     * @return void
+     */
     public function __construct(CityToStringTransformer $transformer)
     {
         $this->transformer = $transformer;
     }
-
+    
+    /**
+     * buildForm
+     *
+     * @param  FormBuilderInterface<int> $builder
+     * @param  array<string> $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -85,7 +103,13 @@ class UserType extends AbstractType
             ->addModelTransformer($this->transformer);
 
     }
-
+    
+    /**
+     * configureOptions
+     *
+     * @param  OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

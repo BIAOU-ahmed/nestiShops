@@ -16,7 +16,14 @@ use Symfony\Component\Validator\Constraints\Positive;
 use Symfony\Component\Validator\Constraints\Regex;
 
 class PaymentType extends AbstractType
-{
+{    
+    /**
+     * buildForm
+     *
+     * @param  FormBuilderInterface<int> $builder
+     * @param  array<string> $options
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -96,7 +103,13 @@ class PaymentType extends AbstractType
             ])
             ->getForm();
     }
-
+    
+    /**
+     * configureOptions
+     *
+     * @param  OptionsResolver $resolver
+     * @return void
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

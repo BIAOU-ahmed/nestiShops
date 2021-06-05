@@ -47,7 +47,7 @@ body {
 }
 
 .message-position {
-    position: fixed;
+    position: fixed !important;
     top: 0;
     z-index: 1020;
     right: 387px;
@@ -61,7 +61,7 @@ body {
 
 @media (min-width: 768px) {
     .message-position {
-        top: 83px;
+        top: 172px;
         right: 14px;
     }
 }

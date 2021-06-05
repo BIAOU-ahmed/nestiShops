@@ -25,8 +25,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class RecipesController extends AbstractController
 {
+   
     /**
-     * @Route("/recipes", name="recipes")
+     * index
+     *  @Route("/recipes", name="recipes")
+     * @param  RecipeRepository $recipeRepository
+     * @param  Request $request
+     * @return Response
      */
     public function index(RecipeRepository $recipeRepository, Request $request): Response
     {
@@ -51,27 +56,31 @@ class RecipesController extends AbstractController
         ]);
     }
 
+  
     /**
-     * @Route("/recipe/{id<[0-9]+>}", name="recipe_show")
+     * show
+     *  @Route("/recipe/{id<[0-9]+>}", name="recipe_show")
+     * @param  EntityManagerInterface $em
+     * @param  FlashBagInterface $flash
+     * @param  Recipe $recipe
+     * @param  Request $request
+     * @param  CommentRepository $commentRepository
+     * @param  CommentService $commentService
+     * @param  UserInterface $user
+     * @param  UsersRepository $repoUser
+     * @param  GradesRepository $repoGrade
+     * @param  ArticleRepository $articleRepository
+     * @param  UsersRepository $userRepository
+     * @return Response
      */
-    public function show(
-        EntityManagerInterface $em,
-        FlashBagInterface $flash,
-        Recipe $recipe,
-        Request $request,
-        CommentRepository $commentRepository,
-        CommentService $commentService,
-        UserInterface $user = null,
-        UsersRepository $repoUser,
-        GradesRepository $repoGrade,
-        ArticleRepository $articleRepository
-    ): Response
+    public function show(EntityManagerInterface $em, FlashBagInterface $flash, Recipe $recipe, Request $request, CommentRepository $commentRepository, CommentService $commentService, UserInterface $user = null, UsersRepository $repoUser, GradesRepository $repoGrade, ArticleRepository $articleRepository, UsersRepository $userRepository): Response
     {
-        if(session_id() == ''){
+        $user = $userRepository->findOneBy(['idUsers'=>$user]);
+        if (session_id() == '') {
             session_start();
-         }
+        }
         $myDate = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
-        $_SESSION['visites'][$recipe->getIdRecipe()] =$myDate->getTimestamp();
+        $_SESSION['visites'][$recipe->getIdRecipe()] = $myDate->getTimestamp();
         // $d = [];
         // $d[$recipe->getIdRecipe()] = $myDate->getTimestamp();
         // $this->get('session')->set('orderlines', $d);
@@ -83,7 +92,6 @@ class RecipesController extends AbstractController
         }
         if (!$comment) {
             $comment = new Comment();
-
         }
         $allUser = $repoUser->findAll();
         $comments = $commentRepository->findBy(['idRecipe' => $recipe->getIdRecipe()]);
@@ -94,16 +102,15 @@ class RecipesController extends AbstractController
             if ($userComment || $userGrade) {
                 $localForm = $this->createForm(CommentType::class, $comment);
                 $localForm->handleRequest($request);
-                $date =$userComment ? $userComment->getDateCreation() : $userGrade->getDateCreation();
-                $appreciations[] = ['user' => $oneUser, 'comment' => $userComment, 'grade' => $userGrade,"date"=>$date, 'form' => $localForm->createView()];
+                $date = $userComment ? $userComment->getDateCreation() : $userGrade->getDateCreation();
+                $appreciations[] = ['user' => $oneUser, 'comment' => $userComment, 'grade' => $userGrade, "date" => $date, 'form' => $localForm->createView()];
             }
         }
         $ingredientRecipes = [];
-        foreach($recipe->getIngredientRecipes() as $ingredient){
-            $article = $articleRepository->findOneBy(["idProduct"=>$ingredient->getIdProduct(),"idUnit"=>$ingredient->getIdUnit(),"unitQuantity"=>$ingredient->getQuantity(),"flag"=>"a"]);
-            
-            $ingredientRecipes[] = ["ingredient"=> $ingredient,"article"=>$article,"image" =>$article? $article->getImageName():"noImage.jpg"];
+        foreach ($recipe->getIngredientRecipes() as $ingredient) {
+            $article = $articleRepository->findOneBy(["idProduct" => $ingredient->getIdProduct(), "idUnit" => $ingredient->getIdUnit(), "unitQuantity" => $ingredient->getQuantity(), "flag" => "a"]);
 
+            $ingredientRecipes[] = ["ingredient" => $ingredient, "article" => $article, "image" => $article ? $article->getImageName() : "noImage.jpg"];
         }
         $response = new Response(null, 200);
         $form = $this->createForm(CommentType::class, $comment);
@@ -113,10 +120,10 @@ class RecipesController extends AbstractController
 
             $comment = $form->getData();
             if ($_POST['rate'] != "null") {
-                $mainRate =$rate;
+                $mainRate = $rate;
                 if (!$rate) {
                     $rate = new Grades();
-                    $rate->setDateCreation( new \DateTime('now', new \DateTimeZone('Europe/Paris')));
+                    $rate->setDateCreation(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
                     $rate->setIdRecipe($recipe);
                     $rate->setIdUsers($user);
                 }
@@ -128,25 +135,24 @@ class RecipesController extends AbstractController
                 $em->flush();
             }
             if ($form->get('commentTitle')->getData() || $form->get('commentContent')->getData()) {
-             
+
                 $commentService->persistComment($comment, $recipe, $user);
             }
-        //    die();
+            //    die();
             $this->addFlash('success', 'Votre commentaire est bien envoyé, merci.');
-            return $this->redirectToRoute('recipe_show', ['id' => $recipe->getIdRecipe()],Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('recipe_show', ['id' => $recipe->getIdRecipe()], Response::HTTP_SEE_OTHER);
         } else if ($form->isSubmitted()) {
 
-            $response = new Response(null, 422 );
+            $response = new Response(null, 422);
             $flash->add('error', 'Veillez entrer un commentaire et/ou une note.');
-
         }
         return $this->render('recipes/show.html.twig', [
             'form' => $form->createView(),
             'recipe' => $recipe,
             'comments' => $comments,
             'appreciations' => $appreciations,
-            'ingredientRecipes'=>$ingredientRecipes,
+            'ingredientRecipes' => $ingredientRecipes,
             'displayForm' => $displayForm
-        ],$response);
+        ], $response);
     }
 }

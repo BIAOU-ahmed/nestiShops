@@ -19,11 +19,14 @@ class Administrator
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="idAdministrator", referencedColumnName="idUsers")
      * })
-     */
+     * @var mixed
+     */    
+  
     private $idAdministrator;
 
     /**
      * @ORM\OneToMany(targetEntity=Importation::class, mappedBy="idAdministrator", orphanRemoval=true)
+     * @var mixed
      */
     private $importations;
 
@@ -33,12 +36,23 @@ class Administrator
     }
 
 
-
+    
+    /**
+     * getIdAdministrator
+     *
+     * @return Users
+     */
     public function getIdAdministrator(): ?Users
     {
         return $this->idAdministrator;
     }
-
+    
+    /**
+     * setIdAdministrator
+     *
+     * @param  Users $idAdministrator
+     * @return self
+     */
     public function setIdAdministrator(Users $idAdministrator): self
     {
         $this->idAdministrator = $idAdministrator;
@@ -53,7 +67,13 @@ class Administrator
     {
         return $this->importations;
     }
-
+    
+    /**
+     * addImportation
+     *
+     * @param  Importation $importation
+     * @return self
+     */
     public function addImportation(Importation $importation): self
     {
         if (!$this->importations->contains($importation)) {
@@ -63,7 +83,13 @@ class Administrator
 
         return $this;
     }
-
+    
+    /**
+     * removeImportation
+     *
+     * @param  Importation $importation
+     * @return self
+     */
     public function removeImportation(Importation $importation): self
     {
         if ($this->importations->removeElement($importation)) {

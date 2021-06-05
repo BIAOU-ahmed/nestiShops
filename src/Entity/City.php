@@ -17,43 +17,73 @@ class City
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(name="idCity",type="integer")
+     * @var mixed
      */
     private $idCity;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var mixed
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Users::class, mappedBy="idCity")
+     * @var mixed
      */
     private $users;
-
+    
+    /**
+     * __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->users = new ArrayCollection();
     }
 
   
-
+    
+    /**
+     * getIdCity
+     *
+     * @return int
+     */
     public function getIdCity(): ?int
     {
         return $this->idCity;
     }
-
+    
+    /**
+     * setIdCity
+     *
+     * @param  int $idCity
+     * @return self
+     */
     public function setIdCity(int $idCity): self
     {
         $this->idCity = $idCity;
 
         return $this;
     }
-
+    
+    /**
+     * getName
+     *
+     * @return string
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
-
+    
+    /**
+     * setName
+     *
+     * @param  string $name
+     * @return self
+     */
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -68,7 +98,13 @@ class City
     {
         return $this->users;
     }
-
+    
+    /**
+     * addUser
+     *
+     * @param  Users $user
+     * @return self
+     */
     public function addUser(Users $user): self
     {
         if (!$this->users->contains($user)) {
@@ -78,7 +114,13 @@ class City
 
         return $this;
     }
-
+    
+    /**
+     * removeUser
+     *
+     * @param  Users $user
+     * @return self
+     */
     public function removeUser(Users $user): self
     {
         if ($this->users->removeElement($user)) {
@@ -90,8 +132,13 @@ class City
 
         return $this;
     }
-
-    public function __toString()
+    
+    /**
+     * __toString
+     *
+     * @return String
+     */
+    public function __toString():String
     {
         return $this->getName();
     }

@@ -17,24 +17,42 @@ class Moderator
      * @ORM\Id
      * @ORM\OneToOne(targetEntity=Users::class, inversedBy="moderator", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="idModerator", nullable=false, referencedColumnName="idUsers")
+     * @var mixed
      */
     private $idModerator;
 
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="idModerator")
+     * @var mixed
      */
     private $comments;
-
+    
+    /**
+     * __construct
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->comments = new ArrayCollection();
     }
-
+    
+    /**
+     * getIdModerator
+     *
+     * @return Users
+     */
     public function getIdModerator(): ?Users
     {
         return $this->idModerator;
     }
-
+    
+    /**
+     * setIdModerator
+     *
+     * @param  Users $idModerator
+     * @return self
+     */
     public function setIdModerator(?Users $idModerator): self
     {
         $this->idModerator = $idModerator;
@@ -49,7 +67,13 @@ class Moderator
     {
         return $this->comments;
     }
-
+    
+    /**
+     * addComment
+     *
+     * @param  Comment $comment
+     * @return self
+     */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
@@ -59,7 +83,13 @@ class Moderator
 
         return $this;
     }
-
+    
+    /**
+     * removeComment
+     *
+     * @param  Comment $comment
+     * @return self
+     */
     public function removeComment(Comment $comment): self
     {
         if ($this->comments->removeElement($comment)) {
