@@ -103,11 +103,11 @@
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6">
 					<div class="breadcrumb__links">
-						<a href="./index.html">
-							Home
+						<a href="{{ path('index') }}">
+							Accueil
 						</a>
 						<span>
-							Checkout
+							Paiement
 						</span>
 					</div>
 				</div>
@@ -224,7 +224,7 @@
 										€
 										</span>
 									</li>
-                                    {% endfor %}
+                                {% endfor %}
 								
 								<ul class="checkout__total__all">
 									<li>
@@ -236,7 +236,9 @@
 									<li>
 										Total
 										<span>
-											$750.99
+										{% set var_1 = 0 + subTotal|number_format(2,'.',',') %}
+										{% set var_2 = 0 + 1.2 |number_format(2,'.',',') %}
+											{{ (var_1 * var_2) | number_format(2, ',', ' ') }} €
 										</span>
 									</li>
 								</ul>

@@ -491,7 +491,7 @@ class Article
             $totalQuantity += $lot->getQuantity();
         }
         
-        return $totalQuantity;
+        return (int)$totalQuantity;
     }
     
     /**

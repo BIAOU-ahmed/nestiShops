@@ -86,12 +86,12 @@
 													<span>
 														.
 													</span>
-													{{ ingredient.ingredient.getDisplayName }}
+													{{ ingredient.ingredient.getDisplayName | raw }}
 
 
 													{% if ingredient.article %}
 														<button type="button" id="qte_article_recipe" data-id="{{ ingredient.article.idArticle }}" data-inventory="{{ingredient.article.getInventory}}" class="add_to_cart_from_recipe btn text-white btn-circle">
-															<i class="fas fa-plus-circle" aria-hidden="true"></i>
+															<i class="fas fa-plus-circle"  data-id="{{ ingredient.article.idArticle }}" data-inventory="{{ingredient.article.getInventory}}" aria-hidden="true"></i>
 														</button>
 													{% endif %}
 												</li>
@@ -118,7 +118,7 @@
 											{{ paragraph.paragraphPosition }}
 											.
 										</span>
-										{{ paragraph.content| nl2br }}
+										{{ paragraph.content| raw}}
 									</li>
 								{% endfor %}
 							</ul>

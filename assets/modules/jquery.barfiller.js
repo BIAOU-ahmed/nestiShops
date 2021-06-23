@@ -1,6 +1,5 @@
 export default class Barfiller {
     constructor(element) {
-        console.log('in the barfiller yeayy');
         /*
          * File: jquery.barfiller.js
          * Version: 1.0.1

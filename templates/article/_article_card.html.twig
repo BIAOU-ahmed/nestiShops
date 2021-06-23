@@ -34,8 +34,8 @@
                 <h6><a class="text-decoration-none" href="{{ path('article_show', {'id':article.idarticle}) }}">{{ article.getDisplayName }}</a></h6>
                 {% if article.getInventory >0 %}
                 <div class="product__item__price"> {{ article.getPrice | number_format(2, ',', ' ') }} €</div>
-                <div class="cart_add">
-                    <a class="text-decoration-none" href="#">Add to cart</a>
+                <div class="cart_add " id="qte_article_recipe"  >
+                    <a class="text-decoration-none add_to_cart_from_recipe" href="" data-id="{{ article.idArticle }}" data-inventory="{{article.getInventory}}">Add to cart</a>
                 </div>
                 {% else %}
                     <span class="text-danger">momentanément indisponible</span>

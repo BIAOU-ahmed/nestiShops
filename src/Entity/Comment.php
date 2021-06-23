@@ -223,9 +223,9 @@ class Comment
     /**
      * getGrade
      *
-     * @return float
+     * @return float|false|null
      */
-    public function getGrade():float{
+    public function getGrade(){
         
         $grade = false;
         foreach ($this->getIdUsers()->getGrades() as $key => $value) {

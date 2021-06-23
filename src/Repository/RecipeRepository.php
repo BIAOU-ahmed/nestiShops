@@ -137,7 +137,7 @@ class RecipeRepository extends ServiceEntityRepository
         $query = $this
             ->createQueryBuilder('r')
             ->select('c', 'r')
-            ->join('r.category', 'c')
+            ->leftJoin('r.category', 'c')
             ->andWhere('r.flag=\'a\'');
 
         if (!empty($search->q)) {

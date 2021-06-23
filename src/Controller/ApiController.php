@@ -181,10 +181,14 @@ class ApiController extends AbstractController
      * @param  Request $request
      * @return JsonResponse
      */
-    public function searchRecipe(UserInterface $user = null, EntityManagerInterface $em,TokenRepository $tokenRepository, string $slug, RecipeRepository $recipeRepository, Request $request)
+    public function searchRecipe(UserInterface $user = null, 
+    EntityManagerInterface $em,
+    TokenRepository $tokenRepository, 
+    string $slug, 
+    RecipeRepository $recipeRepository, 
+    Request $request)
     {
         $token = $request->get('token', 1);
-        // $check = "zjkskbjvsdqkpjsdqvo_zpoergivmlqsmlkvdsqkjbdsqkluazempoazelmjvsqm,uqzieez6962587z3vz523473vzqjgbyjq";
         $check = $tokenRepository->findOneBy(['name' => $token]);
         if ($check) {
 

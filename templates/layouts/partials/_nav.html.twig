@@ -6,13 +6,13 @@
 			{% if app.user %}
 				<a href="{{ path('profil') }}" class="text-dark text-decoration-none">
 					<i class="me-2 far fa-user-circle"></i>
-					Profileee
+					Profile
 				</a>
 			{% endif %}
 		</div>
 		<div class="offcanvas__cart__item">
 			<a href="#">
-				<img src="{{ asset('build/cart.png') }}" alt="">
+				<img src="{{ asset('https://alidjinou.needemand.com/realisations/nestiShops/public/build/cart.png') }}" alt="">
 				<span class="shopping_cart">
 					0
 				</span>
@@ -21,7 +21,7 @@
 	</div>
 	<div class="offcanvas__logo">
 		<a href="./index.html">
-			<img src="img/logo.png" alt="">
+			<img src="{{ asset('https://alidjinou.needemand.com/realisations/nestiShops/public/build/logo.PNG') }}" alt="">
 		</a>
 	</div>
 	<div id="mobile-menu-wrap"></div>
@@ -80,7 +80,7 @@
 						</div>
 						<div class="header__logo ">
 							<a href="{{ path('index') }}">
-								<img class="w-50" src="{{ asset('/build/logo.png') }}" alt="">
+								<img class="w-50" src="{{ asset('https://alidjinou.needemand.com/realisations/nestiShops/public/build/logo.PNG') }}" alt="">
 							</a>
 						</div>
 						<div class="header__top__right">
@@ -94,7 +94,7 @@
 							</div>
 							<div class="header__top__right__cart">
 								<a href="{{ path('cart') }}">
-									<img src="{{ asset('build/cart.png') }}" alt="">
+									<img src="{{ asset('https://alidjinou.needemand.com/realisations/nestiShops/public/build/cart.png') }}" alt="">
 									<span class="shopping_cart">
 										0
 									</span>

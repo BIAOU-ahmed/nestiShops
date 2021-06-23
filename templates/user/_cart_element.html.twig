@@ -10,11 +10,12 @@
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-6">
 				<div class="breadcrumb__links">
-					<a href="./index.html">
-						Home
+					<a class="text-decoration-none" href="{{ path('index') }}">
+						Accueil
 					</a>
+
 					<span>
-						Panier
+						panier
 					</span>
 				</div>
 			</div>
@@ -22,117 +23,128 @@
 	</div>
 </div>
 
-
-<!-- Shopping Cart Section Begin -->
-<section class="shopping-cart spad">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8">
-				<div class="shopping__cart__table">
-					<table>
-						<thead>
-							<tr>
-								<th>
-									Product
-								</th>
-								<th>
-									Quantity
-								</th>
-								<th>
-									Total
-								</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							{% for article in values %}
+{% if values %}
+	<!-- Shopping Cart Section Begin -->
+	<section class="shopping-cart spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="shopping__cart__table">
+						<table>
+							<thead>
 								<tr>
-									<td class="product__cart__item">
-										<div class="product__cart__item__pic">
-											<img
-											src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ article.article.getImageName }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image' ) }} data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ article.article.getImageName }}" is loaded width="100" height="100"/>
-										{# <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ article.article.getImageName }}" alt=""> #}
-										</div>
-										<div class="product__cart__item__text">
-											<h6>
-												{{ article.article.getDisplayName }}
-											</h6>
-											<h5>
-												{{ article.article.getPrice | number_format(2, ',', ' ') }}
-												€
-											</h5>
-										</div>
-									</td>
-									<td class="quantity__item">
-										<div class="quantity">
-											<div class="pro-qty">
-												<span data-id="{{ article.article.idArticle }}" data-inventory="{{ article.article.getInventory }}" class="cart_btn articleDown text-decoration-none">
-													-
-												</span>
-												<input type="text" value="{{ article.nb }}" readonly>
-												<span data-id="{{ article.article.idArticle }}" data-inventory="{{ article.article.getInventory }}" class=" cart_btn articleUp text-decoration-none">
-													+
-												</span>
-											</div>
-										</div>
-									</td>
-									<td class="cart__price">
-										{{ (article.article.getPrice * article.nb) | number_format(2, ',', ' ') }}
-										€
-									</td>
-									<td data-id="{{ article.article.idArticle }}" class="deleteArticle cart__close">
-										<span data-id="{{ article.article.idArticle }}" class="icon_close"></span>
-									</td>
+									<th>
+										Product
+									</th>
+									<th>
+										Quantity
+									</th>
+									<th>
+										Total
+									</th>
+									<th></th>
 								</tr>
-							{% endfor %}
+							</thead>
+							<tbody>
+								{% for article in values %}
+									<tr>
+										<td class="product__cart__item">
+											<div class="product__cart__item__pic">
+												<img
+												src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ article.article.getImageName }}" {{ stimulus_controller( 'symfony/ux-lazy-image/lazy-image' ) }} data-hd-src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ article.article.getImageName }}" is loaded width="100" height="100"/>
+											{# <img src="https://alidjinou.needemand.com/realisations/nestiPhp/public/images/{{ article.article.getImageName }}" alt=""> #}
+											</div>
+											<div class="product__cart__item__text">
+												<h6>
+													{{ article.article.getDisplayName }}
+												</h6>
+												<h5>
+													{{ article.article.getPrice | number_format(2, ',', ' ') }}
+													€
+												</h5>
+											</div>
+										</td>
+										<td class="quantity__item">
+											<div class="quantity">
+												<div class="pro-qty">
+													<span data-id="{{ article.article.idArticle }}" data-inventory="{{ article.article.getInventory }}" class="cart_btn articleDown text-decoration-none">
+														-
+													</span>
+													<input type="text" value="{{ article.nb }}" readonly>
+													<span data-id="{{ article.article.idArticle }}" data-inventory="{{ article.article.getInventory }}" class=" cart_btn articleUp text-decoration-none">
+														+
+													</span>
+												</div>
+											</div>
+										</td>
+										<td class="cart__price">
+											{{ (article.article.getPrice * article.nb) | number_format(2, ',', ' ') }}
+											€
+										</td>
+										<td data-id="{{ article.article.idArticle }}" class="deleteArticle cart__close">
+											<span data-id="{{ article.article.idArticle }}" class="icon_close"></span>
+										</td>
+									</tr>
+								{% endfor %}
 
 
-						</tbody>
-					</table>
-				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<div class="continue__btn">
-							<h5 class=" w-100">
-								Délai de livraison prévu
-							</h5>
-							{% set startDate =  "now"|date_modify("+5 day")|date("y-m-d")  %}
-							<span class="w-100">
+							</tbody>
+						</table>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="continue__btn">
+								<h5 class=" w-100">
+									Délai de livraison prévu
+								</h5>
+								{% set startDate =  "now"|date_modify("+5 day")|date("y-m-d")  %}
+								<span class="w-100">
 
 
-								{{ startDate |format_date('full', locale='fr') }}
-								-
-								{{ startDate |date_modify("+5 day") |format_date('full', locale='fr') }}
-							</span>
+									{{ startDate |format_date('full', locale='fr') }}
+									-
+									{{ startDate |date_modify("+5 day") |format_date('full', locale='fr') }}
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="cart__total">
-					<h6>
-						Total du panier
-					</h6>
-					<ul>
-						<li>
-							Sous total
-							<span>
-								{{ subTotal | number_format(2, ',', ' ') }}
-								€
-							</span>
-						</li>
-						<li>
-							Total
-							<span>
-								$ 169.50
-							</span>
-						</li>
-					</ul>
-					<a href="{{ path('payment') }}" class="primary-btn text-decoration-none">
-						aller au paiement
-					</a>
+				<div class="col-lg-4">
+					<div class="cart__total">
+						<h6>
+							Total du panier
+						</h6>
+						<ul>
+							<li>
+								Sous total
+								<span>
+									{{ subTotal | number_format(2, ',', ' ') }}
+									€
+								</span>
+							</li>
+							<li>
+								Total
+								<span>
+									{% set var_1 = 0 + subTotal|number_format(2,'.',',') %}
+									{% set var_2 = 0 + 1.2 |number_format(2,'.',',') %}
+									{{ (var_1 * var_2) | number_format(2, ',', ' ') }}
+									€
+								</span>
+							</li>
+						</ul>
+						<a href="{{ path('payment') }}" class="primary-btn text-decoration-none">
+							aller au paiement
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
+{% else %}
+	<span>
+		Votre panier est actuellement vide
+	</span>
+	<a href="{{ path('articles') }}" class=" text-primary">
+		Allez au marché
+	</a>
+{% endif %}

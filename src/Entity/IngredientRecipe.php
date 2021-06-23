@@ -29,7 +29,7 @@ class IngredientRecipe
     private $idRecipe;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      * @var mixed
      */
     private $quantity;

@@ -113,7 +113,7 @@
 										<input type="text" data-id="{{ article.idArticle }}" data-inventory="{{ article.getInventory }}" id="qte_article" value="1" min="1" max=" {{ article.getInventory }} ">
 									</div>
 								</div>
-								<button type="button" class="add_to_cart primary-btn">
+								<button  data-id="{{ article.idArticle }}" data-inventory="{{ article.getInventory }}" type="button" class="add_to_cart primary-btn">
 									Add to cart
 								</button>
 							</div>
